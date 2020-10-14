@@ -1185,7 +1185,7 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #list_table .content_table .depo_price_l .attend .i2{border-radius:20%; background:#B3B3B3;width:60px;height:60px;color:#fff;font-size:22px;text-align:center;padding-top:3px;line-height:26px;}
 #list_table .content_table .depo_price_l .attend .g2{border-radius:20%; background:#B3B3B3;width:60px;height:60px;color:#fff;font-size:22px;text-align:center;padding-top:3px;line-height:26px;}
 
-#bottom_line{brder-top:1px solid #ccc; border-bottom:1px solid #ccc;width:97%;margin:0 auto;}
+#bottom_line{border-bottom:1px solid #ccc;width:96%;margin:0 auto;}
 
 #page_num{text-align:center;width:100%;margin-top:10px;}
 #page_num li{display:inline;margin-left:10px;}
@@ -1193,18 +1193,21 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 
 
 /* 관리자 회원관리 */
-#member_cont{display:flex;width:100%;justify-content:space-between;font-size:15px;}
+#member_cont{display:flex;width:100%;justify-content:space-between;font-size:14px;}
 #member_cont div{}
-#member_cont table{border:1px solid #E9E9EB;}
+#member_cont table{border:1px solid #E9E9EB;text-align:center;}
+#member_cont td{height:54px;}
+#member_cont .tr_line{background:#EEEEEE;color:#414141;height:60px;}
 #member_cont .partner_list {border:1px solid;display:flex; flex-direction:column;width:40%;height:500px;}
-#member_cont .partner_list .p_head{width:100%;display:flex;justify-content:space-between;height:100px;}
-#member_cont .partner_list .p_head .p_title{border:1px solid red; width:100px;}
+#member_cont .partner_list .p_head{width:100%;display:flex;justify-content:space-between;height:50px;align-items:center;}
+#member_cont .partner_list .p_head .p_title{border:1px solid red; width:150px;font-size:22px;}
 #member_cont .partner_list .p_head .p_search{border:1px solid blue;width:100px;}
 #member_cont .partner_list .p_cnt{display:flex;justify-content:space-between;}
 #member_cont .partner_list .p_cnt .p_total{border:1px solid red;}
-#member_cont .partner_list .p_cnt .p_newbi{border:1px solid blue;}
+#member_cont .partner_list .p_cnt .p_newbi{border:1px solid blue;font-size:16px;}
 #member_cont .partner_list .p_cont{}
-
+#member_cont .partner_list .b_line{height:10px;width:100%;}
+#member_cont .partner_list .p_content .detail_btn{width:80px; height:40px; background-color:#F57B6E; color:#fff;border:0;}
 
 #member_cont .member_list {border:1px solid;display:flex; width:40%;height:500px;}
 

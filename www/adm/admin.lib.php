@@ -740,7 +740,8 @@ function list_mem(){
     echo "<td class='mem_p_cont'>".$row['c_tel']."</td>";
     echo "<td class='mem_p_cont'>".$addr1[0]."</td>";
     echo "<td class='mem_p_cont'>".$date[0]."</td>";
-    echo "<tr><td class='b_line' colspan='5'><div id='bottom_line'></div></td></tr>";
+    echo "<td class='mem_p_cont'><button type='button' class='detail_btn' >상세보기</button></td>";
+    echo "<tr><td class='b_line' colspan='6'><div id='bottom_line'></div></td></tr>";
     echo "</tr>";
   }
 }
