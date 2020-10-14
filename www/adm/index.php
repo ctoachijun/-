@@ -2,7 +2,12 @@
 $sub_menu = '100000';
 include_once('./_common.php');
 
-// 시작이다 ㄱㄱ
+// 입금현황 화면으로 바로 이동
+
+goto_url("http://softer036.cafe24.com/adm/shop_admin/sale1.php");
+
+exit;
+
 
 @include_once('./safe_check.php');
 if(function_exists('social_log_file_delete')){
