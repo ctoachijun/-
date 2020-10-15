@@ -9,8 +9,9 @@ if(!$s_key){
 }
 
 // $g5['title'] = '매출현황';
-// $g5['title'] = $menu['menu100'][$s_key][1];
-$g5['title'] = "구매자 입금 현황 및 판매자 이체 관리";
+$g5['title'] = $menu['menu100'][$s_key][1];
+$curr_title = "구매자 입금 현황 및 판매자 이체 관리";
+
 
 include_once (G5_ADMIN_PATH.'/admin.head.php');
 include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');

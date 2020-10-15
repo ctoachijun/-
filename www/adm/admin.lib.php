@@ -724,27 +724,154 @@ function list_depo($page,$list,$l_cnt){
   }
 }
 
-function list_mem(){
+function list_mem($s_key,$type){
+  // $start_num = ($page-1) * $list;
 
-  $p_sql = "SELECT * FROM f_partner ORDER BY idx DESC";
+  if($type=="com"){
+    $table_name = "f_partner";
+    $search_col = "c_";
+    $v_type = 1;
+  }else if($type=="mem"){
+    $table_name = "f_member";
+    $search_col = "m_";
+    $v_type = 2;
+  }
+  if($s_key){
+    $where = "{$search_col}name like '%{$s_key}%' ";
+  }else{
+    $where = 1;
+  }
+  $p_sql = "SELECT * FROM {$table_name} WHERE {$where} AND live='Y' ORDER BY idx DESC ";
   $p_rs = sql_query($p_sql);
 
 
-  while($row=sql_fetch_array($p_rs)){
-    $addr1 = explode(" ",$row['addr1']);
-    $date = explode(" ",$row['join_date']);
+  // 상세페이지로 넘길 데이터 설정
+  echo "<input type='hidden' name='page_type' value='{$v_type}'/>";
 
+
+  if(!$p_rs){
     echo "<tr>";
-    echo "<td class='mem_p_cont'>".$row['idx']."</td>";
-    echo "<td class='mem_p_cont'>".$row['com_name']."</td>";
-    echo "<td class='mem_p_cont'>".$row['c_tel']."</td>";
-    echo "<td class='mem_p_cont'>".$addr1[0]."</td>";
-    echo "<td class='mem_p_cont'>".$date[0]."</td>";
-    echo "<td class='mem_p_cont'><button type='button' class='detail_btn' >상세보기</button></td>";
-    echo "<tr><td class='b_line' colspan='6'><div id='bottom_line'></div></td></tr>";
+    echo "<td class='no_search' colspan='6'>찾으시는 결과가 없습니다</td>";
     echo "</tr>";
+  }else{
+
+    while($row=sql_fetch_array($p_rs)){
+      $addr1 = explode(" ",$row['addr1']);
+      $date = explode(" ",$row['join_date']);
+
+      echo "<input type='hidden' name='idx' />";
+      echo "<tr>";
+      echo "<td class='mem_p_cont'>".$row['idx']."</td>";
+      echo "<td class='mem_p_cont'>".$row[$search_col.'name']."</td>";
+      echo "<td class='mem_p_cont'>".$row[$search_col.'tel']."</td>";
+      echo "<td class='mem_p_cont'>".$addr1[0]."</td>";
+      echo "<td class='mem_p_cont'>".$date[0]."</td>";
+      echo "<td class='mem_p_cont'><button type='button' class='detail_btn' onclick='view_detail(".$row['idx'].",{$v_type})'>상세보기</button></td>";
+      echo "<tr><td class='b_line' colspan='6'><div id='bottom_line'></div></td></tr>";
+      echo "</tr>";
+    }
+
   }
 }
+
+function partner_detail($idx){
+  $sql = "SELECT * FROM f_partner WHERE idx={$idx}";
+  $rs = sql_fetch_array(sql_query($sql));
+
+  echo "<tr>";
+  echo "<td class='column'>이름</td>";
+  echo "<td class='cont'>".$rs['name']."</td>";
+  echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+  echo "</tr>";
+  echo "<td class='column'>직급</td>";
+  echo "<td class='cont'>".$rs['position']."</td>";
+  echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+  echo "</tr>";
+  echo "<td class='column'>업체명</td>";
+  echo "<td class='cont'>".$rs['c_name']."</td>";
+  echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+  echo "</tr>";
+  echo "<td class='column'>주소</td>";
+  echo "<td class='cont'>".$rs['addr1'].$rs['addr2']."</td>";
+  echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+  echo "</tr>";
+  echo "<td class='column'>휴대전화번호</td>";
+  echo "<td class='cont'>".$rs['h_tel']."</td>";
+  echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+  echo "</tr>";
+  echo "<td class='column'>사업장전화번호</td>";
+  echo "<td class='cont'>".$rs['c_tel']."</td>";
+  echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+  echo "</tr>";
+  echo "<td class='column'>계좌은행</td>";
+  echo "<td class='cont'>".$rs['bank_name']."</td>";
+  echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+  echo "</tr>";
+  echo "<td class='column'>계좌번호</td>";
+  echo "<td class='cont'>".$rs['bank_num']."</td>";
+  echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+  echo "</tr>";
+}
+
+function view_depo($idx,$c_name){
+  $sql = "SELECT d.p_price, d.p_deposit,e.name,e.d_date FROM f_deposit as d JOIN f_estimate as e ON d.p_idx=e.p_idx WHERE d.p_idx = {$idx}";
+  $rs = sql_query($sql);
+  $cnt = sql_num_rows($rs);
+
+  if($cnt==0){
+    echo "<tr>";
+    echo "<td colspan='6' class='no_data'>거래 내역이 없습니다.</td>";
+    echo "</tr>";
+  }else{
+    while($row = sql_fetch_array($rs)){
+      $box = explode(" ",$row['d_date']);
+      $d_date = $box[0];
+      $jud = $row['p_deposit'];
+
+      if($jud==1){
+        $class_name = "ok";
+        $depo_txt = "입금완료";
+      }else{
+        $class_name = "no";
+        $depo_txt = "입금대기";
+      }
+
+      echo "<tr>";
+      echo "<td>{$cnt}</td>";
+      echo "<td>".$row['name']."</td>";
+      echo "<td>{$c_name}</td>";
+      echo "<td>".number_format($row['p_price'])."</td>";
+      echo "<td>".$d_date."</td>";
+      echo "<td class='chk_depo'><button type='button' class='detail_btn{$class_name}'>{$depo_txt}</button></td>";
+      echo "<tr><td class='b_line' colspan='6'><div id='bottom_line'></div></td></tr>";
+      echo "</tr>";
+      $cnt--;
+    }
+  }
+}
+
+
+
+function star_score($idx){
+  $st_sql = "SELECT sum(point) as t FROM f_partner_ship WHERE p_idx = {$idx}";
+  $box = sql_fetch_array(sql_query($st_sql));
+
+  $t_sql = "SELECT * FROM f_partner_ship WHERE p_idx = {$idx}";
+  $cnt = sql_num_rows(sql_query($t_sql));
+
+  $score = $box['t'] / $cnt;
+  if(!$cnt) $score=0;
+
+  return $score;
+}
+
+function get_Partnername($idx){
+  $n_sql = "SELECT * FROM f_partner WHERE idx = {$idx}";
+  $box = sql_fetch_array(sql_query($n_sql));
+
+  return $box['c_name'];
+}
+
 
 
 function newbi($opt){

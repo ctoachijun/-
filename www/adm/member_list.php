@@ -3,17 +3,38 @@ $sub_menu = "200100";
 include_once('./_common.php');
 
 auth_check($auth[$sub_menu], 'r');
-$g5['title'] = '회원관리';
+$g5['title'] = $menu['menu200'][$s_key][1];
+$curr_title = "전체 회원 리스트";
+
 include_once('./admin.head.php');
 
+$cur_url = "./member_list.php";
+
+if($p_stx){
+  $where = "c_name like '%{$p_stx}%' ";
+}else{
+  $where = 1;
+}
 // 파트너 총 수
-$p_sql = "SELECT * FROM f_partner WHERE 1";
+$p_sql = "SELECT * FROM f_partner WHERE {$where}";
 $p_total_cnt = sql_num_rows(sql_query($p_sql));
+if(!$p_total_cnt){
+  $p_total_cnt=0;
+}
 
+
+if($m_stx){
+  $where = "m_name like '%{$m_stx}%' ";
+}else{
+  $where = 1;
+}
 // 회원 총 수
-$p_sql = "SELECT * FROM f_member WHERE 1";
-$m_total_cnt = sql_num_rows(sql_query($p_sql));
-
+$m_sql = "SELECT * FROM f_member WHERE {$where}";
+$m_total_cnt = sql_num_rows(sql_query($m_sql));
+if(!$m_total_cnt){
+  $m_total_cnt=0;
+}
+$list=1;
 
 
 ?>
@@ -23,7 +44,14 @@ $m_total_cnt = sql_num_rows(sql_query($p_sql));
   <div class="partner_list">
     <div class="p_head">
       <div class="p_title">농원 리스트</div>
-      <div class="p_search"></div>
+      <div class="p_search">
+        <form name="fsearch" id="fsearch" action="./member_list.php" class="local_sch01 local_sch" method="post">
+          <label for="p_stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+          <input type="text" name="p_stx" id="p_stx" placeholder="업체명으로 검색 해 주세요" required class="required frm_input" />
+          <input type="hidden" name="m_stx" value="<?=$m_stx?>" />
+          <input type="submit" value="검색" class="btn_submit" />
+        </form>
+      </div>
     </div>
 
     <div class="p_cnt">
@@ -32,6 +60,7 @@ $m_total_cnt = sql_num_rows(sql_query($p_sql));
     </div>
 
     <div class="p_content">
+      <form id="view_data_1" method="post" action="./member_list_detail.php"/>
       <table>
         <tr class="tr_line">
           <th class="">NO.</th>
@@ -41,32 +70,47 @@ $m_total_cnt = sql_num_rows(sql_query($p_sql));
           <th class="">가입일</th>
           <th class=""></th>
         </tr>
-        <?=list_mem()?>
+        <?=list_mem($p_stx,"com")?>
       </table>
+    </form>
     </div>
   </div>
 
   <div class="member_list">
     <div class="m_head">
-
+      <div class="m_title">고객 리스트</div>
+      <div class="m_search">
+        <form name="fsearch" id="fsearch2" action="./member_list.php" class="local_sch01 local_sch" method="post">
+          <label for="m_stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+          <input type="text" name="m_stx" id="m_stx" placeholder="업체명으로 검색 해 주세요" required class="required frm_input" />
+          <input type="hidden" name="p_stx" value="<?=$p_stx?>" />
+          <input type="submit" value="검색" class="btn_submit" />
+        </form>
+      </div>
     </div>
 
     <div class="m_cnt">
-
+      <div class="m_total">총 : <?=$m_total_cnt?>명</div>
+      <div class="m_newbi">이번달 신규 가입자 : <?=newbi(2)?>명</div>
     </div>
 
     <div class="m_content">
-      <table>
-        <tr class="tr_line">
-          <th class=""></th>
-          <th class=""></th>
-          <th class=""></th>
-          <th class=""></th>
-          <th class=""></th>
-          <th class=""></th>
-        </tr>
-      </table>
+      <form id="view_data_2" method="post" action="./member_list_detail.php"/>
+        <table>
+          <tr class="tr_line">
+            <th class="">NO.</th>
+            <th class="">업체명</th>
+            <th class="">연락처</th>
+            <th class="">지역</th>
+            <th class="">가입일</th>
+            <th class=""></th>
+          </tr>
+          <?=list_mem($m_stx,"mem")?>
+        </table>
+    </form>
     </div>
+
+
   </div>
 
 </div>

@@ -4,7 +4,7 @@ include_once('./_common.php');
 
 // 입금현황 화면으로 바로 이동
 
-goto_url("http://softer036.cafe24.com/adm/shop_admin/sale1.php");
+goto_url("./shop_admin/sale1.php");
 
 exit;
 
