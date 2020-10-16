@@ -47,7 +47,7 @@ $list=1;
       <div class="p_search">
         <form name="fsearch" id="fsearch" action="./member_list.php" class="local_sch01 local_sch" method="post">
           <label for="p_stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-          <input type="text" name="p_stx" id="p_stx" placeholder="업체명으로 검색 해 주세요" required class="required frm_input" />
+          <input type="text" name="p_stx" id="p_stx" value="<?=$p_stx?>" placeholder="업체명으로 검색 해 주세요" required class="required frm_input" />
           <input type="hidden" name="m_stx" value="<?=$m_stx?>" />
           <input type="submit" value="검색" class="btn_submit" />
         </form>
@@ -82,8 +82,8 @@ $list=1;
       <div class="m_search">
         <form name="fsearch" id="fsearch2" action="./member_list.php" class="local_sch01 local_sch" method="post">
           <label for="m_stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
-          <input type="text" name="m_stx" id="m_stx" placeholder="업체명으로 검색 해 주세요" required class="required frm_input" />
-          <input type="hidden" name="p_stx" value="<?=$p_stx?>" />
+          <input type="text" name="m_stx" id="m_stx" value="<?=$m_stx?>" placeholder="업체명으로 검색 해 주세요" required class="required frm_input" />
+          <input type="hidden" name="p_stx" value="<?=$m_stx?>" />
           <input type="submit" value="검색" class="btn_submit" />
         </form>
       </div>

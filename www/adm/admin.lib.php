@@ -658,15 +658,15 @@ function list_depo($page,$list,$l_cnt){
 
     // 고객, 파트너의 주문상태
     if($row['m_deposit']==1){
-      $m_depo_txt = "결제완료";
+      $m_depo_txt = "결제 완료";
     }else{
-      $m_depo_txt = "결제대기";
+      $m_depo_txt = "결제 대기";
     }
 
     if($row['p_deposit']==1){
-      $p_depo_txt = "입금완료";
+      $p_depo_txt = "입금 완료";
     }else{
-      $p_depo_txt = "입금대기";
+      $p_depo_txt = "입금 대기";
     }
 
     // 주문일자 추출
@@ -744,6 +744,8 @@ function list_mem($s_key,$type){
   $p_sql = "SELECT * FROM {$table_name} WHERE {$where} AND live='Y' ORDER BY idx DESC ";
   $p_rs = sql_query($p_sql);
 
+  $col_name_txt = $search_col."name";
+
 
   // 상세페이지로 넘길 데이터 설정
   echo "<input type='hidden' name='page_type' value='{$v_type}'/>";
@@ -758,11 +760,20 @@ function list_mem($s_key,$type){
     while($row=sql_fetch_array($p_rs)){
       $addr1 = explode(" ",$row['addr1']);
       $date = explode(" ",$row['join_date']);
+      $col_name = $row[$col_name_txt];
+      // 베스트농원 글자색 변화
+      if($type=="com"){
+        $ps = $row['partner_ship'];
+        if($ps==3){
+          $col_name = "<span class='yt'>".$col_name."</span>";
+        }
+      }
+
 
       echo "<input type='hidden' name='idx' />";
       echo "<tr>";
       echo "<td class='mem_p_cont'>".$row['idx']."</td>";
-      echo "<td class='mem_p_cont'>".$row[$search_col.'name']."</td>";
+      echo "<td class='mem_p_cont'>".$col_name."</td>";
       echo "<td class='mem_p_cont'>".$row[$search_col.'tel']."</td>";
       echo "<td class='mem_p_cont'>".$addr1[0]."</td>";
       echo "<td class='mem_p_cont'>".$date[0]."</td>";
@@ -774,9 +785,36 @@ function list_mem($s_key,$type){
   }
 }
 
-function partner_detail($idx){
-  $sql = "SELECT * FROM f_partner WHERE idx={$idx}";
+function partner_detail($idx,$type){
+
+  if($type==1){
+    $idx_name = "p_idx";
+    $t_name = "f_partner";
+    $c_name = "c_";
+    $tel_name = "h_";
+  }else{
+    $idx_name = "m_idx";
+    $t_name = "f_member";
+    $c_name = "m_";
+    $tel_name = "m_";
+  }
+
+  $sql = "SELECT * FROM {$t_name} WHERE idx={$idx}";
   $rs = sql_fetch_array(sql_query($sql));
+
+  if($type==1){
+    $ps_jud = $rs['partner_ship'];
+    if($ps_jud==1){
+      $partner_ship_txt = "일반 농원";
+    }else if($ps_jud==2){
+      $partner_ship_txt = "베스트 농원";
+    }else if($ps_jud==3){
+      $partner_ship_txt = "공식파트너 농원";
+    }
+  }
+
+
+
 
   echo "<tr>";
   echo "<td class='column'>이름</td>";
@@ -788,7 +826,7 @@ function partner_detail($idx){
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>업체명</td>";
-  echo "<td class='cont'>".$rs['c_name']."</td>";
+  echo "<td class='cont'>".$rs[$c_name.'name']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>주소</td>";
@@ -796,7 +834,7 @@ function partner_detail($idx){
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>휴대전화번호</td>";
-  echo "<td class='cont'>".$rs['h_tel']."</td>";
+  echo "<td class='cont'>".$rs[$tel_name.'tel']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>사업장전화번호</td>";
@@ -811,12 +849,31 @@ function partner_detail($idx){
   echo "<td class='cont'>".$rs['bank_num']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
+
+  if($type==1){
+    echo "<td class='column'>농원등급</td>";
+    echo "<td class='cont'>{$partner_ship_txt}</td>";
+    echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
+    echo "</tr>";
+  }
 }
 
-function view_depo($idx,$c_name){
-  $sql = "SELECT d.p_price, d.p_deposit,e.name,e.d_date FROM f_deposit as d JOIN f_estimate as e ON d.p_idx=e.p_idx WHERE d.p_idx = {$idx}";
+function view_depo($idx,$type,$c_name){
+  if($type==1){
+    $idx_name = "p_idx";
+    $col_name = "p_";
+    $tel_name = "h_";
+  }else{
+    $idx_name = "m_idx";
+    $tel_name = "m_";
+    $col_name = "m_";
+  }
+
+
+  $sql = "SELECT d.{$col_name}price, d.{$col_name}deposit,e.name,e.d_date FROM f_deposit as d JOIN f_estimate as e ON d.e_idx=e.idx WHERE d.{$idx_name} = {$idx}";
   $rs = sql_query($sql);
   $cnt = sql_num_rows($rs);
+  // echo $sql."<br>";
 
   if($cnt==0){
     echo "<tr>";
@@ -826,21 +883,28 @@ function view_depo($idx,$c_name){
     while($row = sql_fetch_array($rs)){
       $box = explode(" ",$row['d_date']);
       $d_date = $box[0];
-      $jud = $row['p_deposit'];
+      $jud = $row[$col_name.'deposit'];
 
       if($jud==1){
         $class_name = "ok";
-        $depo_txt = "입금완료";
+        if($type==1){
+          $depo_txt = "입금완료";
+        }else{
+          $depo_txt = "결제완료";
+        }
       }else{
         $class_name = "no";
-        $depo_txt = "입금대기";
+        if($type==1){
+          $depo_txt = "입금대기";
+        }else{
+          $depo_txt = "결제대기";
+        }
       }
-
       echo "<tr>";
       echo "<td>{$cnt}</td>";
+      echo "<td>".$c_name."</td>";
       echo "<td>".$row['name']."</td>";
-      echo "<td>{$c_name}</td>";
-      echo "<td>".number_format($row['p_price'])."</td>";
+      echo "<td>".number_format($row[$col_name.'price'])."</td>";
       echo "<td>".$d_date."</td>";
       echo "<td class='chk_depo'><button type='button' class='detail_btn{$class_name}'>{$depo_txt}</button></td>";
       echo "<tr><td class='b_line' colspan='6'><div id='bottom_line'></div></td></tr>";
@@ -865,11 +929,20 @@ function star_score($idx){
   return $score;
 }
 
-function get_Partnername($idx){
-  $n_sql = "SELECT * FROM f_partner WHERE idx = {$idx}";
+function get_Partnername($idx,$type){
+
+  if($type==1){
+      $t_name = "f_partner";
+      $col_name = "c_";
+  }else{
+      $t_name = "f_member";
+      $col_name = "m_";
+  }
+
+  $n_sql = "SELECT * FROM {$t_name} WHERE idx = {$idx}";
   $box = sql_fetch_array(sql_query($n_sql));
 
-  return $box['c_name'];
+  return $box[$col_name.'name'];
 }
 
 
