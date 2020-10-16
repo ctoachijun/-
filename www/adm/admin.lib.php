@@ -812,10 +812,6 @@ function partner_detail($idx,$type){
       $partner_ship_txt = "공식파트너 농원";
     }
   }
-
-
-
-
   echo "<tr>";
   echo "<td class='column'>이름</td>";
   echo "<td class='cont'>".$rs['name']."</td>";
@@ -913,8 +909,6 @@ function view_depo($idx,$type,$c_name){
     }
   }
 }
-
-
 
 function star_score($idx){
   $st_sql = "SELECT sum(point) as t FROM f_partner_ship WHERE p_idx = {$idx}";
@@ -1015,6 +1009,32 @@ function paging($page,$list,$l_cnt){
   }
 
 }
+
+function view_sn_history(){
+  $sql = "SELECT * FROM f_sms_push ORDER BY idx DESC LIMIT 0,3";
+  $re = sql_query($sql);
+
+  while($row = sql_fetch_array($re)){
+      if($row['target']=="P"){
+        $target = "농원";
+      }else if($row['target']=="M"){
+        $target = "고객";
+      }
+      $cont_txt = $row['content'];
+      $d_box = explode(" ",$row['send_date']);
+
+      echo "<div class='view_history'>";
+      echo "<table>";
+      echo "<tr><td colspan='2' class='his_date'>".$d_box[0]."</td></tr>";
+      echo "<tr><td class='head_td'>회원 구분</td><td class='cont_td'>{$target}</td></tr>";
+      echo "<tr><td class='head_td'>받는 사람</td><td class='cont_td'>".$row['t_idx']."</td></tr>";
+      echo "<tr><td class='head_td'>알림 내용</td><td class='cont_td'>{$cont_txt}</td></tr>";
+      echo "</table>";
+      echo "</div>";
+  }
+
+}
+
 
 
 //

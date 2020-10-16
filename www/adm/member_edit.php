@@ -21,9 +21,6 @@ if($type==2){
 $sql = "SELECT * FROM {$t_name} WHERE idx = {$idx}";
 $box = sql_fetch_array(sql_query($sql));
 
-
-
-
 ?>
 
 <div id="member_edit">
