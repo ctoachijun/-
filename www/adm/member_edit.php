@@ -10,11 +10,9 @@ include_once('./admin.head.php');
 if($type==2){
   $t_name = "f_member";
   $col_name = "m_";
-  $tel_name = "m_";
 }else{
   $t_name = "f_partner";
   $col_name = "c_";
-  $tel_name = "h_";
 }
 
 
@@ -54,7 +52,7 @@ $box = sql_fetch_array(sql_query($sql));
           </tr>
           <tr class="test">
             <td class="column">이름</td>
-            <td><input type="text" name="name" value='<?=$box['name']?>' /></td>
+            <td><input type="text" name="m_name" value='<?=$box['m_name']?>' /></td>
           </tr>
           <tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>
           <tr>
@@ -64,7 +62,7 @@ $box = sql_fetch_array(sql_query($sql));
           <tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>
           <tr>
             <td class="column">업체명</td>
-            <td><input type="text" name="c_name" value='<?=$box[$col_name.'name']?>' /></td>
+            <td><input type="text" name="c_name" value='<?=$box['c_name']?>' /></td>
           </tr>
           <tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>
           <tr>
@@ -76,7 +74,7 @@ $box = sql_fetch_array(sql_query($sql));
           <tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>
           <tr>
             <td class="column">휴대전화번호</td>
-            <td><input type="text" name="h_tel" value='<?=$box[$tel_name.'tel']?>' /></td>
+            <td><input type="text" name="m_tel" value='<?=$box['m_tel']?>' /></td>
           </tr>
           <tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>
           <tr>

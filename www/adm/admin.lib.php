@@ -649,8 +649,8 @@ function list_depo($page,$list,$l_cnt){
     $p_price = $row['p_price'];
 
     //고객 정보
-    $m_name = $row['name'];
-    $p_name = $row['com_name'];
+    $m_name = $row['m_name'];
+    $p_name = $row['c_name'];
     $m_tel = $row['m_tel'];
     $p_tel = $row['c_tel'];
 
@@ -790,13 +790,9 @@ function partner_detail($idx,$type){
   if($type==1){
     $idx_name = "p_idx";
     $t_name = "f_partner";
-    $c_name = "c_";
-    $tel_name = "h_";
   }else{
     $idx_name = "m_idx";
     $t_name = "f_member";
-    $c_name = "m_";
-    $tel_name = "m_";
   }
 
   $sql = "SELECT * FROM {$t_name} WHERE idx={$idx}";
@@ -814,7 +810,7 @@ function partner_detail($idx,$type){
   }
   echo "<tr>";
   echo "<td class='column'>이름</td>";
-  echo "<td class='cont'>".$rs['name']."</td>";
+  echo "<td class='cont'>".$rs['m_name']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>직급</td>";
@@ -822,7 +818,7 @@ function partner_detail($idx,$type){
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>업체명</td>";
-  echo "<td class='cont'>".$rs[$c_name.'name']."</td>";
+  echo "<td class='cont'>".$rs['c_name']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>주소</td>";
@@ -830,7 +826,7 @@ function partner_detail($idx,$type){
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>휴대전화번호</td>";
-  echo "<td class='cont'>".$rs[$tel_name.'tel']."</td>";
+  echo "<td class='cont'>".$rs['m_tel']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
   echo "<td class='column'>사업장전화번호</td>";
@@ -858,10 +854,8 @@ function view_depo($idx,$type,$c_name){
   if($type==1){
     $idx_name = "p_idx";
     $col_name = "p_";
-    $tel_name = "h_";
   }else{
     $idx_name = "m_idx";
-    $tel_name = "m_";
     $col_name = "m_";
   }
 
@@ -1020,8 +1014,46 @@ function view_sn_history(){
       }else if($row['target']=="M"){
         $target = "고객";
       }
+
       $cont_txt = $row['content'];
+
+      if($row['size'] > 0){
+        $cont_txt .= "<br><br>";
+        $cont_txt .= "<a href='./img/forest_adm/".$row['img']."'><img class='his_img' src='./img/forest_adm/".$row['img']."' /></a>";
+      }
       $d_box = explode(" ",$row['send_date']);
+
+      echo "<div class='view_history'>";
+      echo "<table>";
+      echo "<tr><td colspan='2' class='his_date'>".$d_box[0]."</td></tr>";
+      echo "<tr><td class='head_td'>회원 구분</td><td class='cont_td'>{$target}</td></tr>";
+      echo "<tr><td class='head_td'>받는 사람</td><td class='cont_td'>".$row['t_idx']."</td></tr>";
+      echo "<tr><td class='head_td'>알림 내용</td><td class='cont_td'>{$cont_txt}</td></tr>";
+      echo "</table>";
+      echo "</div>";
+  }
+
+}
+
+function view_no_history(){
+  $sql = "SELECT * FROM f_notice ORDER BY idx DESC LIMIT 0,3";
+  $re = sql_query($sql);
+
+  while($row = sql_fetch_array($re)){
+      if($row['target']=="P"){
+        $target = "농원";
+      }else if($row['target']=="M"){
+        $target = "고객";
+      }
+
+      $cont_txt = $row['content'];
+
+      if($row['size'] > 0){
+        $cont_txt .= "<br><br>";
+        $cont_txt .= "<a href='./img/forest_adm/".$row['img']."'><img class='his_img' src='./img/forest_adm/".$row['img']."' /></a>";
+      }
+
+      $d_box = explode(" ",$row['w_date']);
 
       echo "<div class='view_history'>";
       echo "<table>";
