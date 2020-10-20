@@ -258,6 +258,56 @@ function con_submit(){
 
 }
 
+// 막대그래프
+function btn_click(col4,col3,col2,col1){
+
+  $("#chart1").append("<div id=col1Area><div id=col1 class='col1' style='margin-top:301px;'></div></div>");
+  $("#chart1").append("<div id=col2Area><div id=col2 class='col2' style='margin-top:301px;'></div></div>");
+  $("#chart1").append("<div id=col3Area><div id=col3 class='col3' style='margin-top:301px;'></div></div>");
+  $("#chart1").append("<div id=col4Area><div id=col4 class='col4' style='margin-top:301px;'></div></div>");
+
+  let plan = null;
+  let out = null;
+  let maxValue = (Number(col1) > Number(col2)) ? Number(col1) : Number(col2);
+  let maxValue1 = (Number(col3) > Number(col4)) ? Number(col3) : Number(col4);
+
+  // 그래프 총 길이는 maxHeight. 그래프 막대 길이는 height. 그래프 막대 시작위치는 marginTop
+  // maxHeight - height = marginTop
+  // 여기서 0.5당 60px의 height를 주면 된다.
+  // 단, maxHeight가 300일때의 계산법.
+
+  // 막대그래프 높이를 계산
+  col4 *= 60;
+  col3 *= 60;
+  col2 *= 60;
+  col1 *= 60;
+
+  let maxHeight = 300;
+  let marginTop = $("#col1").get(0).style.marginTop.replace('px','');
+
+  plan = Math.floor(Number((maxHeight * col1) / maxValue));
+  out = Math.floor(Number((maxHeight * col2) / maxValue));
+  plan1 = Math.floor(Number((maxHeight * col3) / maxValue1));
+  out1 = Math.floor(Number((maxHeight * col4) / maxValue1));
+
+
+  // 막대그래프 윗쪽 여백을 계산
+  col1_mt = maxHeight - col1;
+  col2_mt = maxHeight - col2;
+  col3_mt = maxHeight - col3;
+  col4_mt = maxHeight - col4;
+
+  $("#col1").animate({ height: col1 + "px", marginTop: col1_mt + "px"}, 1800);
+  $("#col2").animate({ height: col2 + "px", marginTop: col2_mt + "px"}, 1800);
+  $("#col3").animate({ height: col3 + "px", marginTop: col3_mt + "px"}, 1800);
+  $("#col4").animate({ height: col4 + "px", marginTop: col4_mt + "px"}, 1800);
+
+  // $("#col2").animate({ height: out + "px", marginTop: (Number(marginTop) - out) -1 + "px"}, 1800);
+  // $("#col3").animate({ height: plan1 + "px", marginTop: (Number(marginTop) - plan1) -1 + "px"}, 1800);
+  // $("#col4").animate({ height: out1 + "px", marginTop: (Number(marginTop) - out1) -1 + "px"}, 1800);
+
+}
+
 
 $(function() {
     $(document).on("click", "form input:submit, form button:submit", function() {

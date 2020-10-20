@@ -1345,9 +1345,34 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #stati{color:#262728;font-size:18px;display:flex; width:100%;height:100%;justify-content:flex-start;flex-direction:column;}
 #stati .st_head{display:flex;justify-content:flex-end;align-items:center;width:70%;height:80px;border:1px solid red;}
 
-#stati .st_cont{width:70%;height:600px;display:flex;justify-content:space-between;border:1px solid blue;}
-#stati .st_cont .l_cont{width:48%;height:450px;border:1px solid;}
+#stati .st_cont{width:70%;height:600px;display:flex;justify-content:space-between;}
+#stati .st_cont .l_cont{width:48%;display:flex;flex-direction:column;height:450px;border:1px solid;padding:5px;}
+#stati .st_cont .l_cont .sub_title{font-size:22px;}
+#stati .st_cont .l_cont .dan{font-size:16px;color:#C4C4C4;text-align:right;margin-bottom:10px;}
+#stati .st_cont .l_cont .back_stick{display:flex;height:330px;}
+#stati .st_cont .l_cont .left{width:10%;height:100%;text-align:right;}
+#stati .st_cont .l_cont .left_d{height:30px;}
+#stati .st_cont .l_cont .line{width:90%;padding-left:20px;padding-top:16px;}
+#stati .st_cont .l_cont .line_td{border-top:1px solid;height:30px;}
+
+#chart1{position:absolute;margin-top:83px; margin-left:100px;width:24.5%;height:32.2%;}
+#stati #col1_Text,#col2_Text,#col3_Text,#col4_Text{font-weight:bold;color:black;text-align:center;margin-top:80px;}
+
+#stati .st_cont .col1{background:#34B8E9;height:0px; width:50px;margin-top:185px;margin-left:50px;float:left;}
+#stati .st_cont .col2{background:#34B8E9;height:0px; width:50px;margin-top:185px;margin-left:50px;float:left;}
+#stati .st_cont .col3{background:#34B8E9;height:0px; width:50px;margin-top:185px;margin-left:50px;float:left;}
+#stati .st_cont .col4{background:#34B8E9;height:0px; width:50px;margin-top:185px;margin-left:50px;float:left;}
+#stati .st_cont .g_name{text-align:left;padding-left:100px;height:50px;}
+#stati .st_cont .g_name .gn{margin-left:52px;margin-right:4px;}
+
+
+
 #stati .st_cont .r_cont{width:48%;height:450px;border:1px solid;}
+
+
+
+
+
 
 
 @media only screen and (max-device-width : 768px) and (orientation : landscape){
