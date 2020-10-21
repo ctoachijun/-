@@ -440,7 +440,7 @@ function show_ns_stick(){
       renderer:$.jqplot.BarRenderer,
       rendererOptions: {
         barWidth: 50,
-        color: '#34B8E9'
+        color: '#F57B6E'
       }
 
     } ],
