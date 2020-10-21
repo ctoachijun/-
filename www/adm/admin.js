@@ -259,7 +259,7 @@ function con_submit(){
 }
 
 // 막대그래프
-function btn_click(col4,col3,col2,col1){
+function show_stick(col4,col3,col2,col1){
 
   $("#chart1").append("<div id=col1Area><div id=col1 class='col1' style='margin-top:301px;'></div></div>");
   $("#chart1").append("<div id=col2Area><div id=col2 class='col2' style='margin-top:301px;'></div></div>");
@@ -307,6 +307,77 @@ function btn_click(col4,col3,col2,col1){
   // $("#col4").animate({ height: out1 + "px", marginTop: (Number(marginTop) - out1) -1 + "px"}, 1800);
 
 }
+
+function show_line(a1,a2,a3,a4){
+  a1 = Number(a1);
+  // $.jqplot('graph',[[,a1,a2,a3,a4,]],{
+  $.jqplot('graph',[[,a1,a2,a3,a4,]],{
+    axesDefaults: {
+      tickOptions: {
+        fontSize: '12pt',
+        markSize: 0
+      }
+    },
+    animate : true,
+    seriesDefaults: {
+      color: '#F57B6F'
+    },
+    grid :{
+      background: '#fff'
+    },
+
+    axes:{
+      xaxis:{
+        tickOptions:{
+          showGridline:false,
+          formatString:"%s"
+        },
+        ticks:[[1,''],[2,'3주전'],[3,'2주전'],[4,'1주전'],[5,'이번주'],[6,'']]
+      },
+      yaxis:{
+        tickOptions:{
+        },
+      }
+    }
+  });
+}
+
+function show_stick(w1,w2,w3,w4){
+  let line1 = [ ['3주전', w1], ['2주전', w2], ['1주전', w3], ['이번주', w4] ];
+  $.jqplot('stick', [line1], {
+    animate : true,
+    series:[ {
+      renderer:$.jqplot.BarRenderer,
+      rendererOptions: {
+        barWidth: 50,
+        color: '#34B8E9'
+      }
+
+    } ],
+    seriresDefaults: {
+    },
+    grid :{
+      background: '#fff'
+    },
+    axesDefaults: {
+      tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+      tickOptions: {
+        /*옵션들은 document페이지를 참고*/
+        fontSize: '12pt',
+        markSize: 0
+      }
+    },
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.CategoryAxisRenderer,
+        tickOptions: {
+          showGridline:false
+        }
+      }
+    }
+  });
+}
+
 
 
 $(function() {

@@ -14,18 +14,30 @@ $cur_url = "./statistics.php";
 
 
 // 검색된 품목을 오늘기준으로 3주전까지 주문수 추출
+$arr_data = getWeekData($i_stx);
 
-
-$week_data = getWeekData($i_stx);
-
-// 각주별로 변수에 대입
-for($i=0; $i<count($week_data); $i++){
+// 각주별로 변수에 대입 - 거래량
+for($i=0; $i<count($arr_data[0]); $i++){
     $txt = "week".($i+1);
-    $$txt = round(($week_data[$i] / 1000),3);
-    echo $$txt."<br>";
+    $$txt = round(($arr_data[0][$i] / 1000),3);
 }
 
+// 각주별로 변수에 대입 - 평균단가
+for($i=0; $i<count($arr_data[1]); $i++){
+    $txt = "avg".($i+1);
+    $$txt = round(($arr_data[1][$i] / 1000),3);
+}
+
+
 ?>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="./jquery.jqplot.js"></script>
+<script type="text/javascript" src="./plugins/jqplot.barRenderer.js"></script>
+<script type="text/javascript" src="./plugins/jqplot.pieRenderer.js"></script>
+<script type="text/javascript" src="./plugins/jqplot.categoryAxisRenderer.js"></script>
+<script type="text/javascript" src="./plugins/jqplot.pointLabels.js"></script>
+
 
 <div id="stati">
 
@@ -38,6 +50,11 @@ for($i=0; $i<count($week_data); $i++){
         <input type="hidden" class="w2" value="<?=$week2?>" />
         <input type="hidden" class="w3" value="<?=$week3?>" />
         <input type="hidden" class="w4" value="<?=$week4?>" />
+        <input type="hidden" class="a1" value="<?=$avg1?>" />
+        <input type="hidden" class="a2" value="<?=$avg2?>" />
+        <input type="hidden" class="a3" value="<?=$avg3?>" />
+        <input type="hidden" class="a4" value="<?=$avg4?>" />
+
         <input type="submit" value="검색" class="btn_submit"/>
       </form>
     </div>
@@ -47,113 +64,41 @@ for($i=0; $i<count($week_data); $i++){
     <div class="l_cont" >
       <div class="sub_title">품목별 거래량</div>
       <div class="dan">단위(천주)</div>
-      <div class="back_stick">
-        <div class="left">
-          <table>
-            <tr>
-              <td class="left_d">5</td>
-            </tr>
-            <tr>
-              <td class="left_d">4.5</td>
-            </tr>
-            <tr>
-              <td class="left_d">4</td>
-            </tr>
-            <tr>
-              <td class="left_d">3.5</td>
-            </tr>
-            <tr>
-              <td class="left_d">3</td>
-            </tr>
-            <tr>
-              <td class="left_d">2.5</td>
-            </tr>
-            <tr>
-              <td class="left_d">2</td>
-            </tr>
-            <tr>
-              <td class="left_d">1.5</td>
-            </tr>
-            <tr>
-              <td class="left_d">1</td>
-            </tr>
-            <tr>
-              <td class="left_d">0.5</td>
-            </tr>
-            <tr>
-              <td class="left_d">0</td>
-            </tr>
-          </table>
-        </div>
-        <div class="line">
-          <table>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-            <tr>
-              <td class="line_td"></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <div id="chart1"></div>
-      <div class="g_name">
-        <span class="gn g1">3주전</span><span class="gn g2">2주전</span><span class="gn g3">1주전</span><span class="gn g4">이번주</span>
-      </div>
-
+        <div id="stick" style=""></div>
     </div>
 
-
-    </div>
     <div class="r_cont">
-    <?
-
-    ?>
+      <div class="sub_title">품목별 평균 단가</div>
+      <div class="dan">단위(천원)</div>
+      <div id="graph"></div>
 
     </div>
-
 
   </div>
 
-</div>
+
+
 
 <script>
 $(document).ready(function(){
+
   let stx = $("#i_stx").val();
-  let w1 = $(".w1").val();
-  let w2 = $(".w2").val();
-  let w3 = $(".w3").val();
-  let w4 = $(".w4").val();
+  let w1 = Number($(".w1").val());
+  let w2 = Number($(".w2").val());
+  let w3 = Number($(".w3").val());
+  let w4 = Number($(".w4").val());
+
+  let a1 = Number($(".a1").val());
+  let a2 = Number($(".a2").val());
+  let a3 = Number($(".a3").val());
+  let a4 = Number($(".a4").val());
 
   if(stx){
-      btn_click(w1,w2,w3,w4);
+    show_stick(w4,w3,w2,w1);
+    show_line(a4,a3,a2,a1);
+  }else{
+    show_stick(0,0,0,0);
+    show_line(0,0,0,00);
   }
 
 });
