@@ -44,6 +44,12 @@ if($star > 0){
   $score_txt = "아직 평점이 없습니다.";
 }
 
+if($page_type==2){
+  $head_title = "고객 정보";
+}else{
+  $head_title = $c_name;
+}
+
 
 
 ?>
@@ -70,7 +76,7 @@ if($star > 0){
         <tr class="tr_line">
           <th colspan="2">
             <div class="s_score">
-              <span class="c_name"><?=$c_name?></span>
+              <span class="c_name"><?=$head_title?></span>
 
               <?if($page_type==1){?>
               <img src="<?php echo G5_SHOP_URL; ?>/img/s_star<?php echo $star?>.png" alt="" class="star_img">
