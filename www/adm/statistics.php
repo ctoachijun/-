@@ -1,6 +1,6 @@
 <?php
 
-$sub_menu = "400000";
+$sub_menu = "400010";
 include_once('./_common.php');
 
 auth_check($auth[$sub_menu], 'r');
@@ -28,6 +28,7 @@ for($i=0; $i<count($arr_data[1]); $i++){
     $$txt = round(($arr_data[1][$i] / 1000),3);
 }
 
+$tree_name = $arr_data[2];
 
 ?>
 
@@ -46,6 +47,7 @@ for($i=0; $i<count($arr_data[1]); $i++){
       <form name="isearch" id="isearch" action="./statistics.php" class="local_sch01 local_sch" method="post">
         <label for="i_stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
         <input type="text" name="i_stx" id="i_stx" value="<?=$i_stx?>" placeholder="품목명으로 검색 해 주세요" required class="required frm_input" />
+        <input type="hidden" id="t_name" value="<?=$tree_name?>" />
         <input type="hidden" class="w1" value="<?=$week1?>" />
         <input type="hidden" class="w2" value="<?=$week2?>" />
         <input type="hidden" class="w3" value="<?=$week3?>" />
@@ -83,6 +85,7 @@ for($i=0; $i<count($arr_data[1]); $i++){
 $(document).ready(function(){
 
   let stx = $("#i_stx").val();
+  let t_name = $("#t_name").val();
   let w1 = Number($(".w1").val());
   let w2 = Number($(".w2").val());
   let w3 = Number($(".w3").val());
@@ -94,8 +97,8 @@ $(document).ready(function(){
   let a4 = Number($(".a4").val());
 
   if(stx){
-    show_stick(w4,w3,w2,w1);
-    show_line(a4,a3,a2,a1);
+    show_stick(w4,w3,w2,w1,t_name);
+    show_line(a4,a3,a2,a1,t_name);
   }else{
     show_stick(0,0,0,0);
     show_line(0,0,0,00);

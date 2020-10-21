@@ -308,8 +308,8 @@ function show_stick(col4,col3,col2,col1){
 
 }
 
-function show_line(a1,a2,a3,a4){
-  a1 = Number(a1);
+function show_line(a1,a2,a3,a4,stx){
+
   // $.jqplot('graph',[[,a1,a2,a3,a4,]],{
   $.jqplot('graph',[[,a1,a2,a3,a4,]],{
     axesDefaults: {
@@ -328,6 +328,7 @@ function show_line(a1,a2,a3,a4){
 
     axes:{
       xaxis:{
+        label: stx,
         tickOptions:{
           showGridline:false,
           formatString:"%s"
@@ -342,7 +343,7 @@ function show_line(a1,a2,a3,a4){
   });
 }
 
-function show_stick(w1,w2,w3,w4){
+function show_stick(w1,w2,w3,w4,stx){
   let line1 = [ ['3주전', w1], ['2주전', w2], ['1주전', w3], ['이번주', w4] ];
   $.jqplot('stick', [line1], {
     animate : true,
@@ -355,6 +356,7 @@ function show_stick(w1,w2,w3,w4){
 
     } ],
     seriresDefaults: {
+
     },
     grid :{
       background: '#fff'
@@ -370,8 +372,9 @@ function show_stick(w1,w2,w3,w4){
     axes: {
       xaxis: {
         renderer: $.jqplot.CategoryAxisRenderer,
+        label: stx,
         tickOptions: {
-          showGridline:false
+          showGridline:false,
         }
       }
     }

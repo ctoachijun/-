@@ -1372,9 +1372,11 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #stati #stick{width:555px; height:330px; margin-left:30px;}
 #stati #stick .jqplot-yaxis-tick{margin-right:10px;color:#C4C4C4;}
 #stati #stick .jqplot-xaxis-tick{margin-top:10px;color:#C4C4C4;}
+#stati #stick .jqplot-xaxis-label{margin-top:30px;color:#A2A2A2;}
 #stati #graph{width:555px; height:330px; margin-left:30px;}
 #stati #graph .jqplot-yaxis-tick{margin-right:10px;color:#C4C4C4;}
 #stati #graph .jqplot-xaxis-tick{margin-top:10px;color:#C4C4C4;}
+#stati #graph .jqplot-xaxis-label{margin-top:30px;color:#A2A2A2;}
 
 
 
