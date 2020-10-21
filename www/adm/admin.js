@@ -381,6 +381,101 @@ function show_stick(w1,w2,w3,w4,stx){
   });
 }
 
+function show_ns_stick(){
+  let p1 = Number($(".p1").val());
+  let p2 = Number($(".p2").val());
+  let p3 = Number($(".p3").val());
+  let p4 = Number($(".p4").val());
+
+  let m1 = Number($(".m1").val());
+  let m2 = Number($(".m2").val());
+  let m3 = Number($(".m3").val());
+  let m4 = Number($(".m4").val());
+
+  let line1 = [ ['3주전', p4], ['2주전', p3], ['1주전', p2], ['이번주', p1] ];
+  // let line1 = [ ['3주전', 5], ['2주전', 3], ['1주전', 6], ['이번주', 2] ];
+  $.jqplot('p_newbi', [line1], {
+    animate : true,
+    series:[ {
+      renderer:$.jqplot.BarRenderer,
+      rendererOptions: {
+        barWidth: 50,
+        color: '#34B8E9'
+      }
+
+    } ],
+    seriresDefaults: {
+
+    },
+    grid :{
+      background: '#fff'
+    },
+    axesDefaults: {
+      tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+      tickOptions: {
+        /*옵션들은 document페이지를 참고*/
+        fontSize: '12pt',
+        markSize: 0
+      }
+    },
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.CategoryAxisRenderer,
+        label: '가입자수',
+        tickOptions: {
+          showGridline:false,
+        }
+      },
+      yaxis:{
+        ticks: [0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5],
+      }
+    }
+  });
+
+
+  let line2 = [ ['3주전', m4], ['2주전', m3], ['1주전', m2], ['이번주', m1] ];
+  $.jqplot('m_newbi', [line2], {
+    animate : true,
+    series:[ {
+      renderer:$.jqplot.BarRenderer,
+      rendererOptions: {
+        barWidth: 50,
+        color: '#34B8E9'
+      }
+
+    } ],
+    seriresDefaults: {
+
+    },
+    grid :{
+      background: '#fff'
+    },
+    axesDefaults: {
+      tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+      tickOptions: {
+        /*옵션들은 document페이지를 참고*/
+        fontSize: '12pt',
+        markSize: 0
+      }
+    },
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.CategoryAxisRenderer,
+        label: '가입자수',
+        tickOptions: {
+          showGridline:false,
+        }
+      },
+      yaxis:{
+        ticks: [0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5],
+      }
+
+    }
+  });
+
+}
+
+
 
 
 $(function() {

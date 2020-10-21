@@ -21,7 +21,7 @@ $menu['menu400'] = array (
 
     array('400000', '통계', G5_ADMIN_URL.'/statistics.php', 'shop_config'),
     array('400010', '품목 별 거래량 및 평균단가', G5_ADMIN_URL.'/statistics.php', 'shop_index'),
-    array('400100', '가입자현황', G5_ADMIN_URL.'/shop_admin/configform.php', 'scf_config'),
+    array('400100', '가입자현황', G5_ADMIN_URL.'/new_member_stat.php', 'scf_config'),
 
 );
 ?>

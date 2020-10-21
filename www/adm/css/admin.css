@@ -1354,10 +1354,6 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #stati .st_cont .l_cont .left_d{height:30px;}
 #stati .st_cont .l_cont .line{width:90%;padding-left:20px;padding-top:16px;}
 #stati .st_cont .l_cont .line_td{border-top:1px solid #C4C4C4;height:30px;}
-
-#chart1{position:absolute;margin-top:83px; margin-left:100px;width:24.5%;height:32.2%;}
-#stati #col1_Text,#col2_Text,#col3_Text,#col4_Text{font-weight:bold;color:black;text-align:center;margin-top:80px;}
-
 #stati .st_cont .col1{background:#34B8E9;height:0px; width:50px;margin-top:185px;margin-left:50px;float:left;}
 #stati .st_cont .col2{background:#34B8E9;height:0px; width:50px;margin-top:185px;margin-left:50px;float:left;}
 #stati .st_cont .col3{background:#34B8E9;height:0px; width:50px;margin-top:185px;margin-left:50px;float:left;}
@@ -1377,17 +1373,33 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #stati #graph .jqplot-yaxis-tick{margin-right:10px;color:#C4C4C4;}
 #stati #graph .jqplot-xaxis-tick{margin-top:10px;color:#C4C4C4;}
 #stati #graph .jqplot-xaxis-label{margin-top:30px;color:#A2A2A2;}
-
-
-
-
-
 #stati .st_cont .r_cont .left{width:10%;height:100%;text-align:right;}
 #stati .st_cont .r_cont .left_d{height:30px;}
 #stati .st_cont .r_cont .line{width:90%;padding-left:20px;padding-top:16px;}
 #stati .st_cont .r_cont .line_td{border-top:1px solid;height:30px;}
 
 
+#newbi_stat{color:#262728;font-size:18px;display:flex; width:100%;height:100%;justify-content:flex-start;flex-direction:column;}
+#newbi_stat .ns_head{width:70%;height:80px;}
+#newbi_stat .ns_cont{width:70%;height:600px;display:flex;justify-content:space-between;}
+#newbi_stat .ns_cont .l_cont{width:48%;display:flex;flex-direction:column;height:450px;border:1px solid #C4C4C4;padding:5px;padding-bottom:20px;}
+#newbi_stat .ns_cont .l_cont .sub_title{font-size:22px;}
+#newbi_stat .ns_cont .l_cont .dan{font-size:16px;color:#C4C4C4;text-align:right;margin-bottom:10px;margin-right:10px;}
+
+
+#newbi_stat .ns_cont .r_cont{width:48%;display:flex;flex-direction:column;height:450px;border:1px solid #C4C4C4;padding:5px;padding-bottom:20px;}
+#newbi_stat .ns_cont .r_cont .sub_title{font-size:22px;}
+#newbi_stat .ns_cont .r_cont .dan{font-size:16px;color:#C4C4C4;text-align:right;margin-bottom:10px;margin-right:10px;}
+
+#newbi_stat #p_newbi{width:555px; height:600px; margin-left:30px;}
+#newbi_stat #p_newbi .jqplot-yaxis-tick{margin-right:10px;color:#C4C4C4;}
+#newbi_stat #p_newbi .jqplot-xaxis-tick{margin-top:10px;color:#C4C4C4;}
+#newbi_stat #p_newbi .jqplot-xaxis-label{margin-top:20px;color:#A2A2A2;}
+
+#newbi_stat #m_newbi{width:555px; height:600px; margin-left:30px;}
+#newbi_stat #m_newbi .jqplot-yaxis-tick{margin-right:10px;color:#C4C4C4;}
+#newbi_stat #m_newbi .jqplot-xaxis-tick{margin-top:10px;color:#C4C4C4;}
+#newbi_stat #m_newbi .jqplot-xaxis-label{margin-top:20px;color:#A2A2A2;}
 
 
 
