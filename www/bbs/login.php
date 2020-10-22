@@ -13,6 +13,7 @@ $url = strip_tags($_GET['url']);
 // url 체크
 check_url_host($url);
 
+
 // 이미 로그인 중이라면
 if ($is_member) {
     if ($url)
@@ -34,4 +35,8 @@ include_once($member_skin_path.'/login.skin.php');
 run_event('member_login_tail', $login_url, $login_action_url, $member_skin_path, $url);
 
 include_once('./_tail.sub.php');
+
+
+echo $member_skin_path;
+
 ?>

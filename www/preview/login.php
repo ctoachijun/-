@@ -1,12 +1,6 @@
 <?php
 include "./head_sub.php";
 
-$restAPIKey = "e19acc187b7ae280bd3372b78695d3af"; //본인의 REST API KEY를 입력해주세요
-$callbacURI = urlencode("https://softer036.cafe24.com/preview/kakao_callback.php"); //본인의 Call Back URL을 입력해주세요
-$kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?client_id=".$restAPIKey."&redirect_uri=".$callbacURI."&response_type=code";
-
-// $kakao_apiURL = "../plugin/social/popup.php?provider=kakao";
-
 ?>
 <style>
 .content{height:100vh;}
@@ -32,7 +26,6 @@ $kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?client_id=".$restAPIKey
 
   <form method="post" name="social_test" action="../skin/social/social_login.skin.php" />
   <input type="hidden" name="cf_social_login_use" value="yes" />
-  <input type="submit" value="gogo" />
   <a href="./"><div class="sns_login">
     <div class="naver">
       <div class="img"><img src="/img/naver.png" alt="네이버 계정으로 로그인"></div>

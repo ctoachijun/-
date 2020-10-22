@@ -1,8 +1,12 @@
-<?include "./head2.php"?>
+<?include "./head.php"?>
 <style>
 .content{background-color:#F8F8F8}
 </style>
+<div class="header2">
+  <img src="/img/top_logo.png" alt="포레스트 로고">
+</div>
 <div class="header_back"></div>
+
 <div class="main_top">
   <div>
     <div class="main_top_p">
@@ -11,7 +15,7 @@
     </div>
 
     <div class="main_top_btn">
-      <a href="./">견적 의뢰서 신청하기 &nbsp; &gt;</a>
+      <a href="./sub06.php">견적 의뢰서 신청하기 &nbsp; &gt;</a>
     </div>
   </div>
 
@@ -23,7 +27,7 @@
     </div>
 
     <div class="main_top_btn main_top_btn2" >
-      <a href="./">받은 견적서 확인하기 &nbsp; &gt;</a>
+      <a href="./sub08.php">받은 견적서 확인하기 &nbsp; &gt;</a>
     </div>
   </div>
 </div> <!--main_top 끝-->
@@ -46,7 +50,7 @@
         </td>
       </tr>
       <tr>
-        <td><h4 class="farm_name">삼례농원</h4></td>
+        <td><a href="./"><a href="./"><a href="./sub12.php"><h4 class="farm_name">삼례농원</h4></a></a></a></td>
         <td><p class="com_date">입찰 : 2020-03-23</p></td>
       </tr>
       <tr>
@@ -73,14 +77,11 @@
     <div>
       <img src="/img/location.png" alt="납품 장소">
       <p>납품 장소 : 전주시 완산구 완산동 곤지산4길 12</p>
-      <p class="bnt_box">
-      <a href="./" class="change">납품 날짜 및 장소 변경</a>
-
-      </p>
+      <p class="btn_date"><a href="./" class="change">납품 날짜 및 장소 변경</a></p>
     </div>
 
     <hr style="width:100%;margin:0 auto;margin-top:12px;margin-bottom:12px;">
-    <a href="./" class="estimate"><img src="/img/location.png" alt="견적서 확인">견적서 확인</a>
+    <a href="./" class="estimate"><img src="/img/memo.png" alt="견적서 확인">견적서 확인</a>
     <a href="./" class="cancel">거래 취소</a>
   </div>
 
@@ -98,7 +99,7 @@
         </td>
       </tr>
       <tr>
-        <td><h4 class="farm_name">삼례농원</h4></td>
+        <td><a href="./"><a href="./sub12.php"><h4 class="farm_name">삼례농원</h4></a></a></td>
         <td><p class="com_date">입찰 : 2020-03-23</p></td>
       </tr>
       <tr>
@@ -125,15 +126,14 @@
     <div>
       <img src="/img/location.png" alt="납품 장소">
       <p>납품 장소 : 전주시 완산구 완산동 곤지산4길 12</p>
-      <p class="bnt_box">
-      <a href="./" class="change">납품 날짜 및 장소 변경</a>
-
-      </p>
+      <p class="btn_date"><a href="./" class="change">납품 날짜 및 장소 변경</a></p>
     </div>
 
     <hr style="width:100%;margin:0 auto;margin-top:12px;margin-bottom:12px;">
-    <a href="./" class="estimate"><img src="/img/location.png" alt="견적서 확인">견적서 확인</a>
+
+    <a href="./" class="estimate"><img src="/img/memo.png" alt="견적서 확인">견적서 확인</a>
     <a href="./" class="cancel">거래 취소</a>
+
   </div>
 
 

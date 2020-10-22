@@ -24,6 +24,8 @@ if (!$g5['lo_location'])
 $g5['lo_url'] = addslashes(clean_xss_tags($_SERVER['REQUEST_URI']));
 if (strstr($g5['lo_url'], '/'.G5_ADMIN_DIR.'/') || $is_admin == 'super') $g5['lo_url'] = '';
 
+$img_src = G5_THEME_DIR."/basic/img";
+
 /*
 // 만료된 페이지로 사용하시는 경우
 header("Cache-Control: no-cache"); // HTTP/1.1
@@ -31,24 +33,26 @@ header("Expires: 0"); // rfc2616 - Section 14.21
 header("Pragma: no-cache"); // HTTP/1.0
 */
 ?>
-<!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<?php
-if (G5_IS_MOBILE) {
-    echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">'.PHP_EOL;
-    echo '<meta name="HandheldFriendly" content="true">'.PHP_EOL;
-    echo '<meta name="format-detection" content="telephone=no">'.PHP_EOL;
-} else {
-    echo '<meta http-equiv="imagetoolbar" content="no">'.PHP_EOL;
-    echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">'.PHP_EOL;
-}
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <?php
+    if (G5_IS_MOBILE) {
+        // echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">'.PHP_EOL;
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />'.PHP_EOL;
+        echo '<meta name="HandheldFriendly" content="true">'.PHP_EOL;
+        echo '<meta name="format-detection" content="telephone=no">'.PHP_EOL;
+    } else {
+        echo '<meta http-equiv="imagetoolbar" content="no">'.PHP_EOL;
+        echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">'.PHP_EOL;
+    }
 
-if($config['cf_add_meta'])
-    echo $config['cf_add_meta'].PHP_EOL;
-?>
-<title><?php echo $g5_head_title; ?></title>
+    if($config['cf_add_meta'])
+        echo $config['cf_add_meta'].PHP_EOL;
+    ?>
+<title>포레스트</title>
+
 <?php
 $shop_css = '';
 if (defined('_SHOP_')) $shop_css = '_shop';
@@ -94,7 +98,15 @@ if(G5_IS_MOBILE) {
 }
 if(!defined('G5_IS_ADMIN'))
     echo $config['cf_add_script'];
+
 ?>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
+<link href="<?=G5_THEME_CSS_URL?>/style.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
 <?php
