@@ -1,5 +1,5 @@
 <?php
-$sub_menu = "100100";
+$sub_menu = "500110";
 include_once('./_common.php');
 
 auth_check($auth[$sub_menu], 'r');
@@ -273,7 +273,7 @@ if(!isset($member['mb_scrap_cnt'])) {
 
 // 아이코드 토큰키 추가
 if( ! isset($config['cf_icode_token_key']) ){
-    $sql = "ALTER TABLE `{$g5['config_table']}` 
+    $sql = "ALTER TABLE `{$g5['config_table']}`
             ADD COLUMN `cf_icode_token_key` VARCHAR(100) NOT NULL DEFAULT '' AFTER `cf_icode_server_port`; ";
     sql_query($sql, false);
 }

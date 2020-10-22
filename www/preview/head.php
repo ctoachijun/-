@@ -1,3 +1,5 @@
-<?include "./head_sub.php"?>
+<?
+include "./head_sub.php";
+?>
 <body>
 <div class="content">
