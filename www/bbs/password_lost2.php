@@ -42,7 +42,7 @@ sql_query($sql);
 // 인증 링크 생성
 $href = G5_BBS_URL.'/password_lost_certify.php?mb_no='.$mb['mb_no'].'&amp;mb_nonce='.$mb_nonce;
 
-$subject = "[".$config['cf_title']."] 요청하신 회원정보 찾기 안내 메일입니다.";
+$subject = "[포레스트] 요청하신 회원정보 찾기 안내 메일입니다.";
 
 $content = "";
 
@@ -52,10 +52,10 @@ $content .= '<h1 style="padding:30px 30px 0;background:#f7f7f7;color:#555;font-s
 $content .= '회원정보 찾기 안내';
 $content .= '</h1>';
 $content .= '<span style="display:block;padding:10px 30px 30px;background:#f7f7f7;text-align:right">';
-$content .= '<a href="'.G5_URL.'" target="_blank">'.$config['cf_title'].'</a>';
+$content .= '<a href="'.G5_URL.'" target="_blank">포레스트</a>';
 $content .= '</span>';
 $content .= '<p style="margin:20px 0 0;padding:30px 30px 30px;border-bottom:1px solid #eee;line-height:1.7em">';
-$content .= addslashes($mb['mb_name'])." (".addslashes($mb['mb_nick']).")"." 회원님은 ".G5_TIME_YMDHIS." 에 회원정보 찾기 요청을 하셨습니다.<br>";
+$content .= addslashes($mb['mb_name'])." 회원님은 ".G5_TIME_YMDHIS." 에 회원정보 찾기 요청을 하셨습니다.<br>";
 $content .= '저희 사이트는 관리자라도 회원님의 비밀번호를 알 수 없기 때문에, 비밀번호를 알려드리는 대신 새로운 비밀번호를 생성하여 안내 해드리고 있습니다.<br>';
 $content .= '아래에서 변경될 비밀번호를 확인하신 후, <span style="color:#ff3061"><strong>비밀번호 변경</strong> 링크를 클릭 하십시오.</span><br>';
 $content .= '비밀번호가 변경되었다는 인증 메세지가 출력되면, 홈페이지에서 회원아이디와 변경된 비밀번호를 입력하시고 로그인 하십시오.<br>';

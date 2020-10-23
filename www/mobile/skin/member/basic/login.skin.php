@@ -6,8 +6,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
 // echo $_SERVER['HTTP_USER_AGENT'];
 // echo $member_skin_url;
-
-
 ?>
 
 <style>
@@ -24,14 +22,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
       <!-- <div class="password">비밀번호</div> -->
       <input type="password" name="mb_password" id="login_pw" placeholder="비밀번호" required class="frm_input " maxLength="20">
       <input type="submit" class="login_btn" value="로그인">
-    </form>
   </div>
 
   <div id="login_info" class="chk_box">
       <input type="checkbox" name="auto_login" id="login_auto_login" class="selec_chk">
       <label for="login_auto_login"><span></span> 자동로그인</label>
   </div>
-
+    </form>
   <?php
   // 소셜로그인 사용시 소셜로그인 버튼
   @include_once(get_social_skin_path().'/social_login.skin.php');

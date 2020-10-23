@@ -174,11 +174,9 @@ if($jt=="m"){
 
 }
 
-
-
 ?>
 <style>
-.content{height:100vh;}
+.content{height:100%;}
 .wrap{margin-top:8vh;padding:10px 20px;}
 </style>
 

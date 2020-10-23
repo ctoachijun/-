@@ -6,6 +6,7 @@ if(G5_COMMUNITY_USE === false) {
     return;
 }
 include_once(G5_THEME_MOBILE_PATH.'/head.php');
+
 if(!$_SESSION['ss_mb_id'] && !$is_member){
   goto_url(G5_BBS_URL."/login.php");
 }
@@ -15,8 +16,16 @@ if($_SESSION['ss_mb_id']){
   $mb_id = "";
 }
 
-// get_memberOrder($mb_id);
+// 현재 파일이름 추출
+$curr_fname = end(explode("/",$_SERVER['SCRIPT_NAME']));
 
+$box = explode("|",getImgName($curr_fname));
+
+$home_img = $box[0];
+$esti_img = $box[1];
+$detail_img = $box[2];
+$acco_img = $box[3];
+$myp_img = $box[4];
 
 
 
@@ -93,9 +102,7 @@ if($_SESSION['ss_mb_id']){
       <li>화살나무</li>
     </ul>
     <?
-
-    print_r($_SESSION);
-
+print_r($_SERVER);
 
     ?>
     <div>

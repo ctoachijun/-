@@ -93,7 +93,6 @@ if($page_type==2){
       <div class="p_buttons">
         <input type="button" class="t_btn t1" value="일반농원 지정" onclick="partner_ship(1)" />
         <input type="button" class="t_btn t2" value="베스트농원 지정" onclick="partner_ship(2)"/>
-        <input type="button" class="t_btn t3" value="공식파트너 변경" />
         <input type="button" class="t_btn t4" value="공식파트너 농원 지정" onclick="partner_ship(3)"/>
       </div>
       <?}?>

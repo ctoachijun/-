@@ -3,6 +3,9 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
+
+
+
 ?>
 
 <!-- 로그인 시작 { -->
@@ -17,7 +20,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
         <input type="hidden" name="url" value="<?php echo $login_url ?>">
 
         <fieldset id="login_fs">
-            <legend>회원로그인</legend>
+
             <label for="login_id" class="sound_only">회원아이디<strong class="sound_only"> 필수</strong></label>
             <input type="text" name="mb_id" id="login_id" required class="frm_input required" size="20" maxLength="20" placeholder="아이디">
             <label for="login_pw" class="sound_only">비밀번호<strong class="sound_only"> 필수</strong></label>

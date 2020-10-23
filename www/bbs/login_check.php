@@ -80,6 +80,7 @@ if ($auto_login) {
     $key = md5($_SERVER['SERVER_ADDR'] . $_SERVER['SERVER_SOFTWARE'] . $_SERVER['HTTP_USER_AGENT'] . $mb['mb_password']);
     set_cookie('ck_mb_id', $mb['mb_id'], 86400 * 31);
     set_cookie('ck_auto', $key, 86400 * 31);
+    $_COOKIE['ck_mb_id'] = $mb['mb_id'];
     // 자동로그인 end ---------------------------
 } else {
     set_cookie('ck_mb_id', '', 0);

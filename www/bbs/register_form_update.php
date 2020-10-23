@@ -166,31 +166,31 @@ if ($w == '') {
         insert_point($mb_recommend, $config['cf_recommend_point'], $mb_id.'의 추천인', '@member', $mb_recommend, $mb_id.' 추천');
 
     // 회원님께 메일 발송
-    if ($config['cf_email_mb_member']) {
-        $subject = '['.$config['cf_title'].'] 회원가입을 축하드립니다.';
-
-        // 어떠한 회원정보도 포함되지 않은 일회용 난수를 생성하여 인증에 사용
-        if ($config['cf_use_email_certify']) {
-            $mb_md5 = md5(pack('V*', rand(), rand(), rand(), rand()));
-            sql_query(" update {$g5['member_table']} set mb_email_certify2 = '$mb_md5' where mb_id = '$mb_id' ");
-            $certify_href = G5_BBS_URL.'/email_certify.php?mb_id='.$mb_id.'&amp;mb_md5='.$mb_md5;
-        }
-
-        ob_start();
-        include_once ('./register_form_update_mail1.php');
-        $content = ob_get_contents();
-        ob_end_clean();
-
-        $content = run_replace('register_form_update_mail_mb_content', $content, $mb_id);
-
-        mailer($config['cf_admin_email_name'], $config['cf_admin_email'], $mb_email, $subject, $content, 1);
-
-        run_event('register_form_update_send_mb_mail', $config['cf_admin_email_name'], $config['cf_admin_email'], $mb_email, $subject, $content);
-
-        // 메일인증을 사용하는 경우 가입메일에 인증 url이 있으므로 인증메일을 다시 발송되지 않도록 함
-        if($config['cf_use_email_certify'])
-            $old_email = $mb_email;
-    }
+    // if ($config['cf_email_mb_member']) {
+    //     $subject = '['.$config['cf_title'].'] 회원가입을 축하드립니다.';
+    //
+    //     // 어떠한 회원정보도 포함되지 않은 일회용 난수를 생성하여 인증에 사용
+    //     if ($config['cf_use_email_certify']) {
+    //         $mb_md5 = md5(pack('V*', rand(), rand(), rand(), rand()));
+    //         sql_query(" update {$g5['member_table']} set mb_email_certify2 = '$mb_md5' where mb_id = '$mb_id' ");
+    //         $certify_href = G5_BBS_URL.'/email_certify.php?mb_id='.$mb_id.'&amp;mb_md5='.$mb_md5;
+    //     }
+    //
+    //     ob_start();
+    //     include_once ('./register_form_update_mail1.php');
+    //     $content = ob_get_contents();
+    //     ob_end_clean();
+    //
+    //     $content = run_replace('register_form_update_mail_mb_content', $content, $mb_id);
+    //
+    //     mailer($config['cf_admin_email_name'], $config['cf_admin_email'], $mb_email, $subject, $content, 1);
+    //
+    //     run_event('register_form_update_send_mb_mail', $config['cf_admin_email_name'], $config['cf_admin_email'], $mb_email, $subject, $content);
+    //
+    //     // 메일인증을 사용하는 경우 가입메일에 인증 url이 있으므로 인증메일을 다시 발송되지 않도록 함
+    //     if($config['cf_use_email_certify'])
+    //         $old_email = $mb_email;
+    // }
 
     // 최고관리자님께 메일 발송
     if ($config['cf_email_mb_super_admin']) {
