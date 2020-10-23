@@ -9,6 +9,15 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 if(!$_SESSION['ss_mb_id'] && !$is_member){
   goto_url(G5_BBS_URL."/login.php");
 }
+if($_SESSION['ss_mb_id']){
+  $mb_id = $_SESSION['ss_mb_id'];
+}else{
+  $mb_id = "";
+}
+
+// get_memberOrder($mb_id);
+
+
 
 
 ?>
@@ -83,7 +92,12 @@ if(!$_SESSION['ss_mb_id'] && !$is_member){
       <li>남천</li>
       <li>화살나무</li>
     </ul>
+    <?
 
+    print_r($_SESSION);
+
+
+    ?>
     <div>
       <img src="<?=$img_src?>/date.png" alt="납품 날짜">
       <p>납품 날짜 : 2020년 3월 27일</p>
