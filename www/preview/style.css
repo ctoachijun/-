@@ -14,22 +14,21 @@ ul{list-style:none;padding-left:0px;}
 .tap_box a{display:block;width:20%;height:100%;text-align:center;line-height:3vh;font-size: 1.1rem;color:#979797;padding-right: 12px;}
 .tap_box img{display:flex;;width:20px;margin:0 auto;margin-top:12%;}
 .tap_box2{background-color: #fff;}
-
+.p_tap .tap_box a{width:25%;}
 
 /* 헤드 */
 .header{position:fixed;background-color:#fff;width:100%;height:7vh;z-index:1;box-shadow: 2px 2px 2px #f4f4f4;}
 .header img{position:absolute;top:2vh;left:15px;width:12px;}
 .header h2{text-align:center;width:100%;font-size: 1.8rem;line-height:7vh;font-weight:700;}
-.header2{background:none;width:100%;z-index:1;position:relative;}
-.header_back{background: linear-gradient( 150deg, #113883, #52D2B1 );width:100%;height:60vh;position:absolute;top:0;z-index:0}
 .header2 img{display: block;margin:0 auto;max-width:30%;padding-top:3vh;padding-bottom:5vh}
 .header2 h2{text-align:center;width:100%;font-size: 1.8rem;line-height:7vh;font-weight:700;color:#fff;padding-top:1vh;padding-bottom:5vh}
 .header_gray{background-color:#F8F8F8;border:none;position:relative;}
+.header_back{position:absolute;top:0;left:0;background: linear-gradient( 140deg, #0D3081, #4ABFAC );width:100%;height:65vh;z-index: -9999;}
 
 
 /* 홈 */
 .main_top{display:flex;;z-index:1;position:relative;}
-.main_top > div{background-color: #fff;width:45%;height:140px;padding:10px 10px;margin-left:3.3%;border-radius:5px;}
+.main_top > div{background-color: #fff;width:45%;height:130px;padding:3px 10px;margin-left:3.3%;border-radius:5px;}
 .main_top .main_top_p {margin-top:20px;height:75px;}
 .main_top .main_top_p p{font-size: 1.5rem}
 .main_top .main_top_p span{font-weight: 700;}
@@ -39,12 +38,12 @@ ul{list-style:none;padding-left:0px;}
 .main_top .main_top_btn2{width:95%;border:1px solid #52D2B1;}
 .main_top .main_top_btn2 a{color:#52D2B1;}
 
-.main_bottom{width:100%;background-color:#F8F8F8;border-radius: 20px 20px 0px 0px;z-index:1;position:relative;margin-top:5vh}
+.main_bottom{width:100%;height:40vh;background-color:#F8F8F8;border-radius: 20px 20px 0px 0px;z-index:1;position:relative;margin-top:5vh}
 .main_bottom h2, .main_bottom_box h2{padding:20px;font-weight:700;font-size:1.8rem;}
 .main_bottom p, .main_bottom_box p{display:inline-block;}
 .main_bottom_box{width:93%;background-color:#fff;border:1px solid #ddd;border-radius: 5px;margin:0 auto;padding:10px;margin-bottom:10px}
 .main_bottom_box img{width:15px;}
-.partner{width:120px;background-color:#F6D12A;font-size:1.2rem;text-align:center;border-radius:3px;padding:3px;}
+.partner{background-color:#F6D12A;font-size:1.2rem;text-align:center;border-radius:3px;padding:3px;}
 .tree{background-color:#eee;padding:3px;width:auto;}
 .work{background-color:#405FC0;color:#fff;padding:3px}
 .farm_name{display:inline-block;font-weight:700;font-size:1.8rem;margin-top:10px;}
@@ -312,3 +311,70 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .sign_notice{width:100%;background-color:#eee;padding:10px;border-radius:5px;}
 .sign_notice p{font-size:0.9rem;line-height:2vh;}
 .sign_ok{width:100%;display:block;background-color:#1CB587;color:#fff;padding:10px;font-size:1.5rem;margin-top:10px;border-radius:5px;text-align:center;}
+
+
+/************************파트너*************************/
+/* main */
+.p_main .p_sub02 .info{display:flex;justify-content:flex-end;}
+.p_main .info div a{background-color: #eee;padding: 5px 10px;border-radius: 5px;color: #333;font-size: 1.4rem;}
+.p_main .info .brown_box{background-color:#434343;color:#fff;}
+.p_main .green_box{background-color:#1BB687}
+.w_text{color:#fff; font-size:1.3rem;margin-left:4.5%;margin-bottom:5px;font-weight:700;}
+.w_more{color:#fff; font-size:1.1rem;text-align:right;margin-right:4.5%;}
+
+
+/* p_sub01 */
+.p_sub01 .p_sub02 .info{display:flex;justify-content:flex-end;}
+.gradation_box{display:flex; background: linear-gradient( 140deg, #0D3081, #4ABF);height:40px;padding}
+.gradation_box div{width:50%;text-align:center;line-height:40px;}
+.gradation_box img{width:22px}
+.gradation_box p{display:inline-block;font-size:1.4rem;color:#fff;}
+.border{border-right:1px solid #ccc;height:50%;margin-top:10px;}
+.all_gray_box{display:flex;justify-content:flex-end;margin:10px 15px;}
+.all_gray_box p{background-color:#eee;border-radius:5px;font-size: 1.3rem;padding:3px 5px;margin-left:5px;}
+
+
+/* p_sub02 */
+.p_sub02 .partner{background-color:#458AB3;color:#fff;font-size:1.1rem;}
+.p_sub02 .tree{background-color:#eee;padding:3px;width:auto;color:#333;}
+.p_sub02 .work{background-color:#405FC0;padding:3px}
+.p_sub02 .work_name{font-size: 1.25rem;}
+.p_sub02 .ready{font-size:1.05rem;display:inline-block;background-color:#F6D12A;padding:2px;border-radius:5px;margin-left:2%;}
+.p_sub02 .info{display:flex;justify-content:space-between;}
+.p_sub02 .info div a{background-color: #eee;padding: 5px 10px;border-radius: 5px;color: #333;font-size: 1.4rem;}
+.p_sub02 .info .brown_box{background-color:#434343;color:#fff;}
+.p_sub02 .green_box{background-color:#1BB687}
+
+
+/* sub05 */
+.p_sub05 {width:93%;margin:0 auto;}
+.p_sub05 .main_bottom_box{background:none;border:none;padding:10px 0;}
+.p_sub05 .size{margin-top:0;}
+.p_sub05 .size p{padding:3px 0;}
+.p_sub05 .size .gray_box{background-color:#eee;color:#aaa;}
+.p_sub05 .photo{margin-top:10px;}
+.p_sub05 h4{font-size:1.5rem;font-weight:700;margin-bottom: 5px;}
+.p_sub05 .photo_box div{background:#fff;border:1px solid #ddd;}
+.p_sub05 .check{margin-bottom: 10px;}
+.p_sub05 .check input{background:#eee;border:none;padding:5px;margin-top:5px;}
+.p_sub05 .blue p {color: #405FC0;font-size: 1.4rem;}
+.p_sub05 .payment .gray_box{background:#eee;padding:3px 30px;color:#aaa;}
+.p_sub05 .date_dead{display:block;text-align:center;margin-top:15px;}
+
+
+/* sub06 */
+.p_sub06 .date_dead{display:flex;justify-content:space-between;}
+.p_sub06 .com_date{margin:0;}
+
+
+/* sub07 */
+.p_sub07 select{width:100%;background:#eee;border:none;margin-top:20px;}
+.p_sub07 .sub07 {margin-top:20vh;}
+.p_sub07 .sub07 h4{margin-bottom:5px;}
+.p_sub07 .sub07 p{font-size:1.3rem;}
+/* sub08 */
+.p_sub07 input[type="text"]{height:15vh;}
+
+
+.p_sign{position:relative;height:90vh;}
+.p_sign a{position:absolute;bottom:0;left:50%;width:93%;transform:translate(-50%,-50%);}

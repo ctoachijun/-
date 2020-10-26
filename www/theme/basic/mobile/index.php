@@ -7,6 +7,7 @@ if(G5_COMMUNITY_USE === false) {
 }
 include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
+
 if(!$_SESSION['ss_mb_id'] && !$is_member){
   goto_url(G5_BBS_URL."/login.php");
 }
@@ -17,11 +18,10 @@ if($_SESSION['ss_mb_id']){
 }
 
 
-
 ?>
 
 <style>
-.content{background-color:#F8F8F8}
+.content{background-color:#F8F8F8};
 </style>
 <div class="header2">
   <img src="<?=$img_src?>/top_logo.png" alt="포레스트 로고">
@@ -36,7 +36,7 @@ if($_SESSION['ss_mb_id']){
     </div>
 
     <div class="main_top_btn">
-      <a href="./sub06.php">견적 의뢰서 신청하기 &nbsp; &gt;</a>
+      <a href="<?=$file_src?>estimate_plz.php">견적 의뢰서 신청하기 &nbsp; &gt;</a>
     </div>
   </div>
 
@@ -91,7 +91,8 @@ if($_SESSION['ss_mb_id']){
       <li>화살나무</li>
     </ul>
     <?
-print_r($_SERVER);
+// print_r($_SERVER);
+echo G5_THEME_MOBILE_PATH;
 
     ?>
     <div>
@@ -161,6 +162,7 @@ print_r($_SERVER);
   </div>
 
 <?php
+
 
 include_once(G5_THEME_MOBILE_PATH.'/tail.php');
 ?>

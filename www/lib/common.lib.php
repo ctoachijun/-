@@ -3861,4 +3861,21 @@ function option_array_checked($option, $arr=array()){
 
     return $checked;
 }
+
+function getTypemp($mb_id){
+  $msql = "SELECT idx FROM f_member WHERE m_id = '{$mb_id}'";
+  $box1 = sql_num_rows(sql_query($msql));
+
+  $psql = "SELECT idx FROM f_partner WHERE p_id = '{$mb_id}'";
+  $box2 = sql_num_rows(sql_query($psql));
+
+  if($box1 > 0){
+    return "member";
+  }else if($box2 > 0){
+    return "partner";
+  }
+}
+
+
+
 ?>

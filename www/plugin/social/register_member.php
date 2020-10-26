@@ -31,7 +31,7 @@ $user_id = $user_profile->sid ? preg_replace("/[^0-9a-z_]+/i", "", $user_profile
 $user_id = exist_mb_id_recursive($user_id);
 $user_nick = exist_mb_nick_recursive($user_nick, '');
 $is_exists_email = $user_email ? exist_mb_email($user_email, '') : false;
-$user_name = isset($user_profile->username) ? $user_profile->username : ''; 
+$user_name = isset($user_profile->username) ? $user_profile->username : '';
 
 // 불법접근을 막도록 토큰생성
 $token = md5(uniqid(rand(), true));
@@ -49,5 +49,5 @@ $readonly = ($w=='u') ? 'readonly' : '';
 
 include_once(get_social_skin_path().'/social_register_member.skin.php');
 
-include_once(G5_BBS_PATH.'/_tail.php');
+// include_once(G5_BBS_PATH.'/_tail.php');
 ?>

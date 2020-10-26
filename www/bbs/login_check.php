@@ -87,6 +87,12 @@ if ($auto_login) {
     set_cookie('ck_auto', '', 0);
 }
 
+$mp_type = getTypemp($mb['mb_id']);
+if($mp_type=="partner"){
+  $url .= "/theme/basic/mobile/partner";
+}
+
+
 if ($url) {
     // url 체크
     check_url_host($url, '', G5_URL, true);
@@ -140,6 +146,7 @@ if(function_exists('set_cart_id')){
 }
 
 run_event('member_login_check', $mb, $link, $is_social_login);
+
 
 goto_url($link);
 ?>

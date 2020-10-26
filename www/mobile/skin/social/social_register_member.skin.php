@@ -62,6 +62,8 @@ $email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.�
         <tr>
             <th scope="row">당사의 서비스 특성상 소셜계정으로 회원 가입 후 고객정보를 입력 해 주셔야 원활한 서비스를 이용하실 수 있습니다.</strong></th>
         </tr>
+        <tr><td>&nbsp;</td></tr>
+
         <tr>
             <td>
                 <input type="text" name="mb_email" value="<?php echo isset($user_email)?$user_email:''; ?>" id="reg_mb_email" required class="frm_input email" size="70" maxlength="100" placeholder="이메일을 입력해주세요." >

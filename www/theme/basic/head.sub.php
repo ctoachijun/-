@@ -23,9 +23,6 @@ if (!$g5['lo_location'])
     $g5['lo_location'] = addslashes(clean_xss_tags($_SERVER['REQUEST_URI']));
 $g5['lo_url'] = addslashes(clean_xss_tags($_SERVER['REQUEST_URI']));
 if (strstr($g5['lo_url'], '/'.G5_ADMIN_DIR.'/') || $is_admin == 'super') $g5['lo_url'] = '';
-
-$img_src = G5_THEME_DIR."/basic/img";
-
 /*
 // 만료된 페이지로 사용하시는 경우
 header("Cache-Control: no-cache"); // HTTP/1.1
@@ -105,8 +102,9 @@ if(!defined('G5_IS_ADMIN'))
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 <link href="<?=G5_THEME_CSS_URL?>/style.css" rel="stylesheet">
+<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
+<!-- <script src="<?=G5_THEME_JS_URL?>/forest.js"></script> -->
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
 <?php
