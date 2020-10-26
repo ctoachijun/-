@@ -114,6 +114,21 @@ $sql = " insert into {$g5['member_table']}
 
 $result = sql_query($sql, false);
 
+
+// 포레스트 테이블에 정보 입력
+if($select_mp == "m"){
+  $tbl_name = "f_member";
+  $insert_col = "m_id,m_pass";
+}else if($select_mp == "p"){
+  $tbl_name = "f_partner";
+  $insert_col = "p_id,p_pass";
+}
+
+$sql = "INSERT INTO {$tbl_name} ({$insert_col},email,join_date)
+VALUES ('{$mb_id}','{$mb_password}','{$mb_email}',DEFAULT)";
+sql_query($sql);
+
+
 if($result) {
 
     // 회원가입 포인트 부여
@@ -141,22 +156,22 @@ if($result) {
     set_session('ss_mb_reg', $mb['mb_id']);
 
     if( !empty($user_profile->photoURL) && ($config['cf_register_level'] >= $config['cf_icon_level']) ){  //회원 프로필 사진이 있고, 회원 아이콘를 올릴수 있는 조건이면
-        
+
         // 회원아이콘
         $mb_dir = G5_DATA_PATH.'/member/'.substr($mb_id,0,2);
         @mkdir($mb_dir, G5_DIR_PERMISSION);
         @chmod($mb_dir, G5_DIR_PERMISSION);
         $dest_path = "$mb_dir/$mb_id.gif";
-        
+
         social_profile_img_resize($dest_path, $user_profile->photoURL, $config['cf_member_icon_width'], $config['cf_member_icon_height'] );
-        
+
         // 회원이미지
         if( is_dir(G5_DATA_PATH.'/member_image/') ) {
             $mb_dir = G5_DATA_PATH.'/member_image/'.substr($mb_id,0,2);
             @mkdir($mb_dir, G5_DIR_PERMISSION);
             @chmod($mb_dir, G5_DIR_PERMISSION);
             $dest_path = "$mb_dir/$mb_id.gif";
-            
+
             social_profile_img_resize($dest_path, $user_profile->photoURL, $config['cf_member_img_width'], $config['cf_member_img_height'] );
         }
     }

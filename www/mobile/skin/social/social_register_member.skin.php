@@ -13,6 +13,7 @@ add_javascript('<script src="'.G5_JS_URL.'/remodal/remodal.js"></script>', 10);
 
 $email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.다른 이메일을 입력해 주세요.' : '';
 // echo get_social_skin_url();
+// echo $register_action_url;
 ?>
 
 <!-- 회원정보 입력/수정 시작 { -->
@@ -59,27 +60,31 @@ $email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.�
         <caption>개인정보 입력</caption>
         <tbody>
         <tr>
-            <th scope="row">당사의 서비스 특성상 회원 가입 후 연동을 해주시면 보다 원활한 서비스를 이용하실 수 있습니다.</strong></th>
+            <th scope="row">당사의 서비스 특성상 소셜계정으로 회원 가입 후 고객정보를 입력 해 주셔야 원활한 서비스를 이용하실 수 있습니다.</strong></th>
         </tr>
         <tr>
-            <!-- <td>
+            <td>
                 <input type="text" name="mb_email" value="<?php echo isset($user_email)?$user_email:''; ?>" id="reg_mb_email" required class="frm_input email" size="70" maxlength="100" placeholder="이메일을 입력해주세요." >
                 <p class="email_msg"><?php echo $email_msg; ?></p>
-            </td> -->
+            </td>
         </tr>
 
         </tbody>
         </table>
     </div>
 
-    <!-- <div class="btn_top top join_array">
+    <div class="btn_top top join_array">
+      <div class="select_mp">
+        <input class="rb" type="radio" id="r_btn1" name="select_mp" value="m" checked></input><label for="r_btn1" class="r_m">고객 회원</label>
+        <input class="rb" type="radio" id="r_btn2" name="select_mp" value="p"></input><label for="r_btn2" class="r_m">농원 회원</label>
+      </div>
       <div class="join_join">
         <input type="submit" value="회원가입" id="btn_submit" class="btn_submit join_b" accesskey="s">
       </div>
       <div class="cancel_join">
         <a href="<?php echo G5_URL ?>" class="btn_cancel">취소</a>
       </div>
-    </div> -->
+    </div>
     </form>
     <!-- 새로가입 끝 -->
 

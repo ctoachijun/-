@@ -17,7 +17,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     <p>회원가입이 완료되었습니다.</p>
 
     <div class="click_box">
-      <a href="./" class="ok">확인</a>
+      <!-- <a href="./" class="ok">확인</a> -->
       <a href="<?=G5_URL ?>" class="go">홈으로</a>
     </div>
   </div>
