@@ -15,6 +15,21 @@ include_once(G5_LIB_PATH.'/visit.lib.php');
 include_once(G5_LIB_PATH.'/connect.lib.php');
 include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_THEME_PATH.'/mobile/proc.php');
+
+//$img_src = G5_PATH."/".G5_THEME_DIR."/basic/img";
+$img_src = "../img";
+
+// 현재 파일이름 추출
+$curr_fname = end(explode("/",$_SERVER['SCRIPT_NAME']));
+$box = explode("|",getImgName($curr_fname));
+
+$home_img = $box[0];
+$esti_img = $box[1];
+$detail_img = $box[2];
+$acco_img = $box[3];
+$myp_img = $box[4];
+
+
 ?>
 
 <body>
