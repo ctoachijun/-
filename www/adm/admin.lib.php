@@ -680,10 +680,10 @@ function list_depo($page,$list,$l_cnt){
     $box2 = explode(":",$box[1]);
     $date2 = $box2[0].":".$box2[1];
 
-    // 견적데이터에서 공사명 추출
-    $e_sql = "SELECT * FROM f_estimate WHERE idx={$o_idx}";
+    // 견적의뢰 테이블에서 공사명 추출
+    $e_sql = "SELECT * FROM f_estimate_plz WHERE o_idx={$o_idx}";
     $e_rs = sql_fetch($e_sql);
-    $g_name = $e_rs['name'];
+    $g_name = $e_rs['w_name'];
 
     // 요청일자부터 몇시간이 지났는지 계산
     $now = date("Y-m-d H:i:s");

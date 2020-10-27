@@ -1170,7 +1170,7 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #list_table .content_table .th_target{font-size:14px;}
 #list_table table{width:100%;text-align:center;}
 #list_table th{}
-#list_table td{height:80px;vertical-align:middle;}
+#list_table td{height:80px;vertical-align:middle; border-left:1px solid #ccc;}
 #list_table .content_table .depo_th_s{width:90px;}
 #list_table .content_table .depo_th_p{}
 #list_table .content_table .depo_th{}
@@ -1178,8 +1178,8 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #list_table .content_table .depo_price_l{padding-right:45px;padding-top:5px;text-align:right;height:30px;}
 #list_table .content_table .b_line{height:10px;width:100%;}
 #list_table .content_table .attend{display:inline-flex; align-content:center;}
-#list_table .content_table .mp{display:flex;width:120px;;margin-right:10px;align-items:center;justify-content:flex-end;}
-#list_table .content_table .pp{display:flex;width:120px;;margin-right:10px;align-items:center;justify-content:flex-end;}
+#list_table .content_table .mp{display:flex;width:60px;;margin-right:10px;align-items:center;justify-content:flex-end;}
+#list_table .content_table .pp{display:flex;width:60px;;margin-right:10px;align-items:center;justify-content:flex-end;}
 #list_table .content_table .depo_price_l .attend .i1{border-radius:20%; background:#4C42D5;width:60px;height:60px;color:#fff;font-size:16px;text-align:center;padding-top:3px;line-height:26px;word-spacing:12px;}
 #list_table .content_table .depo_price_l .attend .g1{border-radius:20%; background:#F35F5F;width:60px;height:60px;color:#fff;font-size:16px;text-align:center;padding-top:3px;line-height:26px;word-spacing:12px;}
 #list_table .content_table .depo_price_l .attend .i2{border-radius:20%; background:#B3B3B3;width:60px;height:60px;color:#fff;font-size:16px;text-align:center;padding-top:3px;line-height:26px;word-spacing:12px;}
