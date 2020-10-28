@@ -29,6 +29,9 @@ header("Cache-Control: no-cache"); // HTTP/1.1
 header("Expires: 0"); // rfc2616 - Section 14.21
 header("Pragma: no-cache"); // HTTP/1.0
 */
+
+$mb_id = $_SESSION['ss_mb_id'];
+$mb_type = $_SESSION['ss_mb_type'];
 ?>
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
@@ -104,7 +107,7 @@ if(!defined('G5_IS_ADMIN'))
 <link href="<?=G5_THEME_CSS_URL?>/style.css" rel="stylesheet">
 <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-<!-- <script src="<?=G5_THEME_JS_URL?>/forest.js"></script> -->
+<script src="<?=G5_THEME_JS_URL?>/forest.js"></script>
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
 <?php

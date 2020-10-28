@@ -18,6 +18,7 @@ include_once(G5_LIB_PATH.'/visit.lib.php');
 include_once(G5_LIB_PATH.'/connect.lib.php');
 include_once(G5_LIB_PATH.'/popular.lib.php');
 include_once(G5_THEME_PATH.'/mobile/proc.php');
+include_once(G5_THEME_PATH.'/mobile/proc.lib.php');
 include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
 
 
@@ -32,13 +33,13 @@ $box = explode("|",getImgName($curr_fname));
 
 if($curr_fname == "index.php"){
   $h_class = "class='curr'";
-}else if($curr_fname == "view_esti.php" || $curr_fname == "view_pesti.php"){
+}else if($curr_fname == "view_esti.php" || $curr_fname == "view_pesti.php" || $curr_fname == "esti_comp.php"){
   $e_class = "class='curr'";
 }else if($curr_fname == "view_deta.php" || $curr_fname == "view_pdeta.php"){
   $d_class = "class='curr'";
 }else if($curr_fname == "view_acco.php"){
   $a_class = "class='curr'";
-}else if($curr_fname == "view_mypage.php" || $curr_fname == "view_pmypage.php"){
+}else if($curr_fname == "view_mypage.php" || $curr_fname == "view_pmypage.php" || $curr_fname == "pmypage_detail.php" || $curr_fname == "mypage_detail.php"){
   $m_class = "class='curr'";
 }
 

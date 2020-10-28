@@ -1,6 +1,8 @@
 <?php
 include_once('../../../common.php');
 
+$return_url = $_SERVER['HTTP_REFERER'];
+
 switch($w_type){
   case "esti_plz" :
     //  견적의뢰 테이블에 데이터 입력
@@ -57,132 +59,124 @@ switch($w_type){
       alert("견적의뢰 등록에 성공했습니다.", G5_URL);
     }
 
+  break;
+
+  case "ins_esti" :
+
+    $return_url = "http://softer036.cafe24.com/theme/basic/mobile/partner/view_pesti.php";
+    $tbl_name = "f_".$mb_type;
+    if($mb_type=="partner"){
+        $col_name = "p_id";
+    }else{
+      $col_name = "m_id";
+    }
+
+    $s_sql = "SELECT idx,c_name FROM {$tbl_name} WHERE {$col_name} = '{$mb_id}'";
+    $box = sql_fetch_array(sql_query($s_sql));
+    $mb_idx = $box['idx'];
+    $c_name = $box['c_name'];
+
+
+
+    for($i=0; $i<$num; $i++){
+      $price_txt = "price".($i+1);
+      $pic_txt = "pic".($i+1);
+
+      // 파일 업로드 밑준비
+      $file = $_FILES[$pic_txt];
+      $f_name = $file['name'];
+      if($f_name){
+        $f_err = $file['error'];
+        $f_size = $file['size'];
+        $f_type = $file['type'];
+        $f_tmp = $file['tmp_name'];
+        $f_name = $file['name'];
+
+        $utime_txt = "utime".($i+1);
+        $$utime_txt = strtotime("+{$i} seconds");
+        $img_src = G5_THEME_PATH."/img/forest/";
+
+        $box1 = explode('.',$f_name);
+        $f_whak = end($box1);
+        $f_name = $$utime_txt.".".$f_whak;
+
+        // 파일 업로드 관련 처리 err 4 = 파일이름 없음(파일 안올릴때)
+        if($f_err != 4){
+          if($f_err == 1){
+            $return_txt = "업로드에 실패했습니다.";
+          }else{
+            if($f_name && file_exists("../img/forest/".$f_name)){
+              $return_txt = "파일 이름 중복입니다.";
+            }else{
+              $re = move_uploaded_file($f_tmp, "../img/forest/".$f_name);
+              if(!$re){
+                $return_msg = "파일 업로드 실패입니다.";
+              }
+            }
+          }
+        }
+
+      }
+
+      if($i == ($num-1)){
+        $price_col_txt .= "{$price_txt} = '{$$price_txt}'";
+        $pic_col_txt .= "{$pic_txt} = '{$f_name}'";
+      }else{
+        $price_col_txt .= "{$price_txt} = '{$$price_txt}', ";
+        $pic_col_txt .= "{$pic_txt} = '{$f_name}', ";
+      }
+
+    }
+    $sql = "INSERT INTO f_estimate SET
+    p_idx = {$mb_idx}, ep_idx = {$ep_idx}, p_name = '{$c_name}',
+    {$pic_col_txt}, {$price_col_txt},
+    d_price = {$d_price}, t_price='{$t_price}', etc='{$etc}'";
+    sql_query($sql);
+    // echo "$sql <br>";
+
+    $sql = "SELECT idx FROM f_estimate WHERE ep_idx = {$ep_idx} ORDER BY idx DESC";
+    $box = sql_fetch_array(sql_query($sql));
+    $e_idx = $box['idx'];
+
+    // $sql = "UPDATE f_estimate_plz SET e_idx = {$e_idx} WHERE idx = {$ep_idx}";
+    // sql_query($sql);
+    // echo "$sql <br>";
+
+
+    //  견적의뢰 한건당 몇명의 파트너가 견적을 냈는지를 기록
+    $sql = "SELECT p_idx FROM f_estimate_plz WHERE idx = {$ep_idx}";
+    $box = sql_fetch_array(sql_query($sql));
+    $p_idx = $box['p_idx'];
+
+    if($p_idx){
+      $p_idx .= "|";
+      $p_idx .= $mb_idx;
+    }else{
+      $p_idx = $mb_idx;
+    }
+
+
+
+    $sql = "UPDATE f_estimate_plz SET p_idx = '{$p_idx}' WHERE idx = {$ep_idx}";
+    sql_query($sql);
+    // echo "$sql <br>";
+
+
+
+    if(!$return_msg){
+      $return_msg = "정상적으로 등록이 되었습니다";
+    }
+
+    alert($return_msg,$return_url);
+
+
+
 
   break;
-}
 
-
-function getImgName($curr_fname){
-  $home_img = "home";
-  $esti_img = "g_esti";
-  $detail_img = "g_detail";
-  $acco_img = "account";
-  $myp_img = "mypage";
-
-  if($curr_fname == "index.php"){
-    $home_img .= "_h";
-  }else if($curr_fname == "view_esti.php" || $curr_fname == "view_pesti.php"){
-    $esti_img .= "_h";
-  }else if($curr_fname == "view_deta.php" || $curr_fname == "view_pdeta.php"){
-    $detail_img .= "_h";
-  }else if($curr_fname == "view_acco.php"){
-    $acco_img .= "_h";
-  }else if($curr_fname == "view_mypage.php" || $curr_fname == "view_pmypage.php"){
-    $myp_img .= "_h";
-  }
-
-  $return_string = $home_img."|".$esti_img."|".$detail_img."|".$acco_img."|".$myp_img;
-  return $return_string;
-
-}
-
-function getMbIdx($mb_id){
-  $sql = "SELECT idx FROM f_member WHERE m_id = '{$mb_id}'";
-  $box = sql_fetch_array(sql_query($sql));
-
-  return $box['idx'];
-}
-
-
-function getEstiPlzList(){
-
-  $sql = "SELECT * FROM f_estimate_plz WHERE o_idx < 1";
-  $re = sql_query($sql);
-
-  while($row = sql_fetch_array($re)){
-    // print_r($row);
-    $mypartner = $row['c_partner'];
-    $g_work = $row['g_work'];
-    $k_tree = $row['k_tree'];
-    $w_name = $row['w_name'];
-    $to_idx = $row['to_idx'];
-    $m_idx = $row['m_idx'];
-    $d_date = $row['d_date'];
-
-    $m_sql = "SELECT c_name FROM f_member WHERE idx = {$m_idx}";
-    $m_re = sql_fetch_array(sql_query($m_sql));
-    $c_name = $m_re['c_name'];
-
-    $to_sql = "SELECT * FROM f_tree_order WHERE idx = {$to_idx}";
-    $to_re = sql_fetch_array(sql_query($to_sql));
-
-    for($i=0; $i<8; $i++){
-      $col_name = "item".($i+1);
-      if($to_re[$col_name]){
-        $box[$col_name] = $to_re[$col_name];
-      }
-    }
-
-    $dbox = explode(" ",$to_re['w_date']);
-    $w_date = $dbox[0];
-    if($g_work==1){
-      $g_work_txt = "관급공사";
-    }else if($g_work==2){
-      $g_work_txt = "사급공사";
-    }
-
-    if($k_tree==1){
-      $k_tree_txt = "A급 조경수";
-      $k_tree_class = "";
-    }else if($k_tree==2){
-      $k_tree_txt = "B급 조경수";
-      $k_tree_class = "green_box";
-    }
-
-
-
-
-    echo "<table class='text_table'>";
-    echo "<tr><td>";
-    echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
-    if($mypartner){
-      echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
-    }
-    echo "</td>";
-    echo "<td class='right'>";
-    echo "<p class='partner tree'>{$g_work_txt}</p><p class='partner work {$k_tree_class}'>{$k_tree_txt}</p>";
-    echo "</td></tr>";
-    echo "<tr><td><a href=''./sub12.php'><h4 class='farm_name'>한국조경</h4></a></td>";
-    echo "<td><p class='com_date'>등록 : {$w_date}</p></td></tr>";
-    echo "<tr><td><p class='work_name'>전주시립도서관 조경보수공사</p></td>";
-    echo "<td><p class='cut_date'>마감까지 2일 남음</p></td>";
-    echo "</tr></table>";
-
-    echo "<ul>";
-    echo "<li>산철쭉</li>";
-    echo "<li>백철쭉</li>";
-    echo "<li>회양목</li>";
-    echo "<li>남천</li>";
-    echo "<li>화살나무</li>";
-    echo "</ul>";
-    echo "<hr style='width:100%;margin:0 auto;margin-top:8px;margin-bottom:12px;'>";
-    echo "<div class='info'>";
-    echo "<div><a href=''./''>그만보기</a>";
-    echo "<a href='./' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적의뢰서 확인</a></div>";
-    echo "</div>";
-
-
-  }
 
 
 }
-
-
-
-
-
-
-
 
 
 ?>

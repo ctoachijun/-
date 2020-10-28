@@ -59,6 +59,7 @@
 */
 .mbskin .tbl_frm01 a {}
 
+
 .mbskin .required, .mbskin textarea.required {} /* 필수입력 */
 
 /* 테이블 항목별 정의 */
@@ -124,11 +125,12 @@
 .adress .btn_frmline {position:absolute;top:8px;right:8px;height:40px;padding:0 10px;border-radius:3px}
 
 .chk_box {position:relative}
-.chk_box input[type="checkbox"] + label {padding-left:10px;color:#676e70}
+.chk_box input[type="checkbox"] + label {padding-left:10px;color:#676e70;}
 .chk_box input[type="checkbox"] + label:hover{color:#2172f8}
 .chk_box input[type="checkbox"] + label span {position:absolute;top:1px;left:0;width:17px;height:17px;display:block;background:#fff;border:1px solid #d0d4df;border-radius:3px}
 .chk_box input[type="checkbox"]:checked + label {color:#000}
 .chk_box input[type="checkbox"]:checked + label span {background:url('./img/chk.png') no-repeat 50% 50% #3a8afd;border-color:#1471f6;border-radius:3px}
+.chk_box label{margin-left:14px;}
 .chk_li {padding-left:10px;line-height:20px}
 
 .selec_chk {position:absolute;top:0;left:0;width:0;height:0;opacity:0;outline:0;z-index:-1;overflow:hidden}
@@ -168,11 +170,14 @@
 #mb_login #login_frm div {margin:10px 0;text-align:left}
 #mb_login .frm_input {width:100%;margin:5px 0}
 #mb_login #login_info label {padding-left:23px}
+#login_info{}
 #mb_login .btn_submit {width:100%;border-radius:3px;height:40px;margin:10px 0 0;font-size:1.083em;font-weight:bold}
 #mb_login .mb_login_join {padding:0 20px 20px}
 #mb_login .mb_login_join:after {display:block;visibility:hidden;clear:both;content:""}
 #mb_login .mb_login_join h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 #mb_login .mb_login_join a {display:block;float:left;width:50%;color:#9d9d9d}
+
+
 #login_password_lost {border-right:1px solid #cdcdcd}
 
 .login input {border-radius:3px;height:37px;border:2px solid #EBEBEB;}
