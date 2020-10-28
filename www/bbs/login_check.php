@@ -91,6 +91,7 @@ $mp_type = getTypemp($mb['mb_id']);
 if($mp_type=="partner"){
   $url .= "/theme/basic/mobile/partner";
 }
+set_session('ss_mb_type', $mp_type);
 
 
 if ($url) {
