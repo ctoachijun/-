@@ -4,6 +4,9 @@ include G5_THEME_MOBILE_PATH."/head.php";
 
 $today = date("Y-m-d");
 $mb_idx = getMbIdx($_SESSION['ss_mb_id']);
+$box = getMbInfo($mb_id);
+
+
 
 
 ?>
@@ -23,13 +26,13 @@ $mb_idx = getMbIdx($_SESSION['ss_mb_id']);
 <div class="wrap">
   <div class="sub06">
     <form method="POST" action="./proc.php" onsubmit="return chk_data()" name="esti_form">
-      <input type="hidden" name="" value="" />
+      <input type="hidden" name="only" value="<?=$p_idx?>" />
       <input type="hidden" name="w_type" value="esti_plz" />
       <input type="hidden" name="w_class" value="1" />
       <input type="hidden" name="t_class" value="1" />
       <input type="hidden" name="m_idx" value="<?=$mb_idx?>" />
       <input type="hidden" name="div_cnt" />
-      <h2>포레스트</h2>
+      <h2><?=$box['c_name']?></h2>
       <p class="date"><?=$today?></p>
 
       <div class="work_na">

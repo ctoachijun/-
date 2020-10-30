@@ -56,9 +56,9 @@ if($_SESSION['ss_mb_id']){
 <div class="main_bottom">
   <h2>내 거래 현황</h2>
 
-<?php
-  getEstiPlzList($sort_type,$t_type,$mb_id,1)
-?>
+
+<? getEstiList($mb_id)?>
+
 
 </div>
 

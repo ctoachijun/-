@@ -53,6 +53,9 @@ ul{list-style:none;padding-left:0px;}
 .work{background-color:#405FC0;color:#fff;padding:3px;width:57px;}
 .farm_name{display:inline-block;font-weight:700;font-size:1.8rem;margin-top:10px;}
 .main_bottom_box .com_date{font-size:1.2rem;float:right;margin-top:11px;}
+.main_bottom_box .text_table .w_name{text-align:center;height:40px;}
+.main_bottom_box .d_date{width:100%;text-align:center;margin-top:5px;}
+.main_bottom_box .delay_deli{border:1px solid; height:100px;margin-top:10px;}
 .work_name{font-size: 1.4rem;margin-top:0px;font-weight:700;}
 .cut_date{float:right;font-size:1.1rem;color:#F86252;margin-top:7px;margin-bottom:10px;}
 .main_bottom_box ul{margin-top:10px;width:100%;}
@@ -73,7 +76,7 @@ ul{list-style:none;padding-left:0px;}
 .main_bottom_box .edit_input input{border:0; width:200px; height:20px;margin-top:13px;text-align:left;}
 .text_table{width:100%;}
 .text_table .right{text-align:right;}
-
+.official{color:#FFC000;}
 
 /* sub01 받은견적 */
 .sub01_box{width:93%;background-color:#fff;border:1px solid #ddd;border-radius: 5px;margin:0 auto;padding:10px;margin-bottom:10px;margin-top:10px;}
@@ -95,15 +98,15 @@ ul{list-style:none;padding-left:0px;}
 .sub01_box .sub01_btn{display: flex;justify-content:flex-end;}
 
 /* sub02 거래내역 */
-.sub02_box{margin-top:10px;}
+.sub02_box{margin-top:50px;}
+.sub02_box .right{width:160px;}
 
 /* sub03 거래처 */
 .sub03_box{width:93%;background-color:#fff;border:1px solid #ddd;border-radius: 5px;margin:0 auto;padding:10px;margin-bottom:10px;margin-top:10px;}
-.sub03_box .official{color:#FFC000;}
 .sub03_box p{display:inline-block;}
 /* .sub03_box h4{display:inline-block;} */
 .sub03_box img{width:15px;}
-.sub03_box .partner{width:110px;background-color:#F6D12A;font-size:1.2rem;text-align:center;border-radius:3px;padding:3px;}
+.sub03_box .partner{background-color:#F6D12A;font-size:1.2rem;text-align:center;border-radius:3px;padding:3px;}
 .sub03_box .delete_farm{font-size:1.2rem;display: flex;justify-content:flex-end;color:#333;}
 .sub03_box .t_box{display:flex;}
 .sub03_box .farm_name{font-weight:700;font-size:2rem;margin-top:8px;}
@@ -156,10 +159,12 @@ ul{list-style:none;padding-left:0px;}
 
 /* sub06 견적의뢰서 */
 .sub06{width:93%;margin:0 auto;padding-top:10px;}
-.sub06 h2{display:inline-block;font-weight:700;font-size:2rem;margin-bottom:20px;}
+.sub06 h2{display:inline-block;font-weight:700;font-size:2rem;margin-bottom:20px;margin-left:5px;}
 .sub06 .date{float:right;font-size:1.3rem;color:#888}
-.sub06 .work_na h4{font-size:1.5rem;font-weight:700;margin-bottom:5px;}
-.sub06 .work_na div{border:2px solid #ddd;border-radius:5px;padding:10px;}
+.sub06 .work_na{border:0px;}
+.sub06 .work_na h4{font-size:1.5rem;font-weight:700;margin-bottom:5px;margin-left:5px;}
+.sub06 .work_na div{border-radius:5px;padding-top:7px;padding-left:3px;height:40px; border:1px solid #ddd;margin-top:10px;}
+.sub06 .work_na div input{border:0px;margin:0px; padding:0px;}
 .sub06 .work_na div p{color:#ddd;font-size: 1.3rem}
 .sub06 .choice{display:flex;justify-content:space-between;margin-top:10px;padding:0px 20px;}
 .sub06 .notice{font-size:1.2rem;text-align:center;color:#888;font-weight:700;margin-top:20px;}
@@ -275,7 +280,7 @@ ul{list-style:none;padding-left:0px;}
 .sub06 .delivery_date p{font-size:1.5rem;font-weight:700;margin-bottom:43%;}
 .sub06 .delivery_date .date{margin-top: 4.5%;}
 .date_dead{display:flex;background-color:#535353;color:#fff;padding:5px;border-radius:5px;font-size:1.5rem;height:40px;}
-.date_dead .dd_head{height:30px;padding-left:3px;padding-top:5px;margin-right:1%;}
+.date_dead .dd_head{height:30px;padding-left:3px;padding-top:5px;margin-right:1%;width:100px}
 .date_dead .dd_cont{display:flex;flex-direction:row;justify-content:space-between;width:76%;height:30px;padding-top:3px;}
 .date_dead .dd_cont input{height:24px;background-color:#535353;border:0;vertical-align:top;color:#fff;text-align:right;}
 .date_dead img{width:20px;margin-left:10px;margin-top:3px}
@@ -391,7 +396,7 @@ ul{list-style:none;padding-left:0px;}
 .re_tit{padding-right:10%; width:60%; margin-left:-10px;}
 .review .text{font-size:1.2rem;margin-top:2vh;}
 .review_add{display:flex;justify-content:flex-end;font-size:1.3rem;margin-right:10px;font-weight:700;margin-top:5px;}
-.delivery{background-color:#fff;float:none;width:100%;margin-top:10px;padding-bottom:10px;padding:10px;width:95%;margin:0 auto;border-radius:5px;margin-top:10px;margin-bottom:10px;border:1px solid #ddd;}
+.delivery{background-color:#fff;float:none;width:100%;margin-top:10px;padding-bottom:10px;padding:10px;width:95%;margin:0 auto;border-radius:5px;margin-top:10px;margin-bottom:10px;}
 .delivery_con{display:flex;}
 .delivery_con .de_img{width:120px;height:80px;overflow:hidden;}
 .delivery_con .de_img img{width:100%;}

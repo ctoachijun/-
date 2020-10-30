@@ -5,11 +5,17 @@ $return_url = $_SERVER['HTTP_REFERER'];
 
 switch($w_type){
   case "esti_plz" :
+
+    // 거래처 지정 견적의뢰 여부
+    if($only){
+      $only_txt = ", only = 'Y', p_idx = {$only}";
+    }
+
     //  견적의뢰 테이블에 데이터 입력
     $sql = "INSERT INTO f_estimate_plz SET
     m_idx = {$m_idx}, w_name = '{$w_name}', g_work = {$w_class}, k_tree = {$t_class},
     target = '{$w_place}', d_date = '{$wr_1}', memo = '{$memo}', e_date = '{$wr_2}'
-    ";
+    {$only_txt}";
     $re1 = sql_query($sql);
 
 

@@ -334,6 +334,7 @@ function noListExe(type,ep_idx){
         let json = JSON.parse(data);
         if(json.state=="Y"){
           alert("삭제 했습니다.");
+          history.go(0);
         }else{
           alert("삭제에 실패했습니다.");
         }
@@ -353,13 +354,14 @@ function noListExe(type,ep_idx){
         let json = JSON.parse(data);
         if(json.state=="Y"){
           alert("취소 했습니다.");
+          history.go(0);
         }else{
           alert("취소에 실패했습니다.");
         }
       });
     }
   }
-  history.go(0);
+
 }
 
 function noptEsti(e_idx){
@@ -450,13 +452,28 @@ function addPartner(p_idx,m_idx,type){
     console.log(json.sql);
     console.log(json.chk);
     alert(json.r_txt);
-
-
   });
+}
 
-
+function delPartner(p_idx,m_idx,type){
+  let data_list = {"p_idx":p_idx, "m_idx":m_idx, "exe_type":"acco","type":type};
+  if(confirm("거래처에서 삭제 하시겠습니까?")){
+    $.ajax({
+      url: "/theme/basic/mobile/ajax.proc.php",
+      type: "post",
+      contentType:"application/x-www-form-urlencoded;charset=UTF8",
+      data: data_list
+    }).done(function(data){
+      let json = JSON.parse(data);
+      console.log(json.sql);
+      console.log(json.chk);
+      alert(json.r_txt);
+    });
+    history.go(0);
+  }
 
 }
+
 
 
 

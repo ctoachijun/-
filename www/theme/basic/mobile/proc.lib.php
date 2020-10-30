@@ -25,6 +25,68 @@ function getImgName($curr_fname){
 
 }
 
+function getPayCompList($mb_id){
+  $m_idx = getMbIdx($mb_id);
+
+  $sql = "SELECT e_idx FROM f_deposit WHERE m_idx = {$m_idx} AND m_deposit = 1";
+  $re = sql_query($sql);
+
+  while($row = sql_fetch_array($re)){
+    $e_idx = $row['e_idx'];
+
+    $sql = "SELECT * FROM f_estimate WHERE idx={$e_idx}";
+    $re = sql_fetch_array(sql_query($sql));
+    $ep_idx = $re['ep_idx'];
+    $p_idx = $re['p_idx'];
+
+
+    // 공사명, 등록일, 납품일 추출
+    $sql = "SELECT * FROM f_estimate_plz WHERE idx = {$ep_idx}";
+    $box = sql_fetch_array(sql_query($sql));
+    $w_name = $box['w_name'];
+    $wbox = explode(" ",$box['w_date']);
+    $w_date = $wbox[0];
+    $d_date = $box['d_date'];
+
+    $d_box = explode("-",$d_date);
+    $d_txt = $d_box[0]."년".$d_box[1]."월".$d_box[2]."일";
+
+
+    // 농원명 추출
+    $pbox = getPartnInfo($p_idx);
+    $c_name = $pbox['c_name'];
+    $p_ship = $pbox['partner_ship'];
+
+
+    echo "<div class='main_bottom_box'>";
+    echo "<table class='text_table'>";
+    echo "<tr><td>";
+    echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+    if($p_ship == 3){
+      $fn_class = "official";
+      echo "<p class='partner'>포레스트 공식 파트너</p>";
+    }else{
+      $fn_class = "";
+    }
+    echo "</td>";
+    echo "<td class='right'>";
+    echo "</td></tr>";
+    echo "<tr><td><h4 class='farm_name'>{$c_name}</h4></td>";
+    echo "<td><p class='com_date'>등록 : {$w_date}</p></td></tr>";
+    echo "<tr><td class='w_name' colspan='2'><p class='work_name'>{$w_name}</p></td>";
+    echo "</tr></table>";
+    echo "<hr style='width:100%;margin:0 auto;margin-top:2px;margin-bottom:6px;'>";
+    echo "<div class='d_date'><p>도착일 : {$d_txt}</p></div>";
+    echo "<div class='delay_deli'></div>";
+    echo "</div>";
+
+
+
+  }
+
+
+}
+
 function getEstiPlzList($s_type,$t_type,$mb_id,$mp){
 
   // 고객, 파트너 구분
@@ -132,7 +194,7 @@ function getEstiPlzList($s_type,$t_type,$mb_id,$mp){
       echo "<hr style='width:100%;margin:0 auto;margin-top:12px;margin-bottom:12px;'>";
       echo "<div class='info'>";
       echo "<div><a class='estimate' href='/theme/basic/mobile/esti_comp.php?ep_idx={$ep_idx}' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적서 확인</a>";
-      echo "<a class='cancel' onclick='noListExe(2,{$ep_idx})'>견적의뢰 취소</a></div>";
+      echo "<a class='cancel' onclick='noListExe(2,{$ep_idx})'>거래 취소</a></div>";
       echo "</div>";
       echo "</div>";
       $cnt_pi++;
@@ -247,6 +309,178 @@ function getEstiPlzList($s_type,$t_type,$mb_id,$mp){
 
 }
 
+function getEstiList($mb_id){
+
+  // 고객 IDX추출
+  $sql = "SELECT * FROM f_member WHERE m_id = '{$mb_id}'";
+  $re = sql_fetch_array(sql_query($sql));
+  $mb_idx = $re['idx'];
+
+  $sql = "SELECT * FROM f_estimate_plz AS e
+  INNER JOIN f_tree_order AS t ON e.to_idx = t.idx
+  WHERE e.m_idx = {$mb_idx} AND cancel != 'Y'";
+  $re = sql_query($sql);
+  $re_cnt = sql_num_rows($re);
+
+  $cnt_pi=0;
+  $in_num=1;
+  while($row = sql_fetch_array($re)){
+    $ep_idx = $row['idx'];
+    $mypartner = $row['c_partner'];
+    $g_work = $row['g_work'];
+    $k_tree = $row['k_tree'];
+    $w_name = $row['w_name'];
+    $to_idx = $row['to_idx'];
+    $d_date = $row['d_date'];
+    $target = $row['target'];
+    $ep_idx = $row['ep_idx'];
+    $e_date = $row['e_date'];
+    $pbox = explode("|",$row['p_idx']);
+    $p_idx = $pbox[$cnt_pi];
+
+    // 농원명 추출
+    $partn = getPartnInfo($p_idx);
+    $c_name = $partn['c_name'];
+    $p_ship = $partn['partner_ship'];
+
+    // 수목 발주품목 추출
+    $to_sql = "SELECT * FROM f_tree_order WHERE idx = {$to_idx}";
+    $to_re = sql_fetch_array(sql_query($to_sql));
+    for($i=0; $i<8; $i++){
+      $col_name = "item".($i+1);
+      if($to_re[$col_name]){
+        $box[$i] = $to_re[$col_name];
+      }
+    }
+    $dbox = explode(" ",$to_re['w_date']);
+    $w_date = $dbox[0];
+    if($g_work==1){
+      $g_work_txt = "관급공사(A급 조경수)";
+      $g_work_class = "";
+    }else if($g_work==2){
+      $g_work_txt = "사급공사(B급 조경수)";
+      $g_work_class = "green_box";
+    }
+
+
+    if($k_tree==1){
+      $k_tree_txt = "교목";
+    }else if($k_tree==2){
+      $k_tree_txt = "관목";
+    }
+
+
+    // 마감일까지 남은일자 산출
+    $now = date("Y-m-d H:i:s");
+    $c_d = ceil( (strtotime($d_date) - strtotime($now)) / 86400 );
+    $ed_box = explode("-",$e_date);
+    $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
+
+    $t_name = "target".$ep_idx;
+    $ed_name = "ed_date".$ep_idx;
+
+    echo "<div class='main_bottom_box'>";
+    echo "<input type='hidden' name='e_date' class='e_date' value='{$e_date}' />";
+    echo "<table class='text_table'>";
+    echo "<tr><td>";
+    echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+    if($p_ship == 3){
+      $fn_class = "official";
+      echo "<p class='partner'>포레스트 공식 파트너</p>";
+    }else{
+      $fn_class = "";
+    }
+    echo "</td>";
+    echo "<td class='right'>";
+    echo "<p class='partner tree'>{$k_tree_txt}</p><p class='partner work {$g_work_class}'>{$g_work_txt}</p>";
+    echo "</td></tr>";
+    echo "<tr><td><h4 class='farm_name {$fn_class}'>{$c_name}</h4></td>";
+    echo "<td><p class='com_date'>등록 : {$w_date}</p></td></tr>";
+    echo "<tr><td><p class='work_name'>{$w_name}</p></td>";
+    echo "<td><p class='cut_date'>마감까지 {$c_d}일 남음</p></td>";
+    echo "</tr></table>";
+    echo "<hr style='width:100%;margin:0 auto;margin-top:2px;margin-bottom:6px;'>";
+    echo "<ul>";
+    for($a=0; $a<count($box); $a++){
+      echo "<li>".$box[$a]."</li>";
+    }
+    echo "</ul>";
+    echo "<div class='edit_input'>";
+    echo "<div>";
+    echo "<img src='/theme/basic/img/date.png' alt='납품 날짜'>";
+    echo "</div>";
+    echo "<div>";
+    echo "<p>납품 날짜 : <input type='text' name='ed_date' class='{$ed_name}' value='{$ed_txt}' readonly /></p>";
+    echo "</div>";
+    echo "</div>";
+    echo "<div class='edit_input'>";
+    echo "<div>";
+    echo "<img src='/theme/basic/img/location.png' alt='납품 장소'>";
+    echo "</div>";
+    echo "<div>";
+    echo "<p>납품 장소 : <input type='text' name='target' class='{$t_name}' value='{$target}' readonly /></p>";
+    echo "</div>";
+    echo "</div>";
+    echo "<p class='btn_date'><span onclick='editDPinfo({$ep_idx},{$re_cnt})' class='change'>납품 날짜 및 장소 변경</span></p>";
+    echo "<hr style='width:100%;margin:0 auto;margin-top:12px;margin-bottom:12px;'>";
+    echo "<div class='info'>";
+    echo "<div><a class='estimate' href='/theme/basic/mobile/esti_comp.php?ep_idx={$ep_idx}' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적서 확인</a>";
+    echo "<a class='cancel' onclick='noListExe(2,{$ep_idx})'>거래 취소</a></div>";
+    echo "</div>";
+    echo "</div>";
+    $cnt_pi++;
+    $in_num++;
+  }
+}
+
+
+function getAccoList($mb_id){
+  $sql = "SELECT idx,c_partner FROM f_member WHERE m_id='{$mb_id}'";
+  $re = sql_fetch_array(sql_query($sql));
+  $cbox = explode("|",$re['c_partner']);
+  $m_idx = $re['idx'];
+  sort($cbox);
+  $cnt = count($cbox);
+
+  for($i=0; $i<$cnt; $i++){
+    $partn = getPartnInfo($cbox[$i]);
+    $c_name = $partn['c_name'];
+    $p_idx = $partn['idx'];
+    $p_ship = $partn['partner_ship'];
+
+    $npbox = getPointInfo($p_idx);
+    $d_num = $npbox[0];
+    $t_point = $npbox[1];
+
+    $o_num = getOrderNum($p_idx);
+
+    echo "<div class='sub03_box'>";
+    echo "<table class='text_table'><tr><td>";
+    echo "<img src='/theme/basic/img/f_ico.png' alt='포레스트 로고'>";
+    if($p_ship == 3){
+      $fn_class = "official";
+      echo "<p class='partner'>포레스트 공식 파트너</p>";
+    }else{
+      $fn_class = "";
+    }
+    echo "</td><td><a onclick='delPartner({$p_idx},{$m_idx},2)' class='delete_farm'>거래처 삭제</a></td></tr></table>";
+    echo "<table class='text_table'><tr><td>";
+    echo "<a href='./sub12.php'><h4 class='farm_name {$fn_class}'>{$c_name}</h4></a>";
+    echo "</td><td>";
+    echo "<div class='score_box'><div><h4 class='score'>{$t_point}</h4><p>평점</p></div>";
+    echo "<div><h4>{$o_num}</h4><p>납품횟수</p></div>";
+    echo "<div><h4>{$d_num}</h4><p>후기</p></div></div>";
+    echo "</td></tr></table>";
+    echo "<hr style='width:100%;margin:0 auto;margin-top:8px;margin-bottom:8px;'>";
+    echo "<div class='ask'><a href='./estimate_plz.php?p_idx={$p_idx}'>견적 신청 &nbsp; &gt;</a></div>";
+    echo "</div>";
+
+  }
+
+
+}
+
+
 function getEpDetail($epidx,$mb_id){
 
   $sql = "SELECT *,(e.idx) FROM f_estimate_plz AS e
@@ -268,7 +502,7 @@ function getEpDetail($epidx,$mb_id){
   $re = sql_fetch_array(sql_query($sql));
   $p_idx = $re['idx'];
 
-  // 공사명 추출
+  // 업체명 추출
   $m_sql = "SELECT c_name FROM f_member WHERE idx = {$m_idx}";
   $m_re = sql_fetch_array(sql_query($m_sql));
   $c_name = $m_re['c_name'];
@@ -624,25 +858,10 @@ function getEstiPartner($pidx,$w_name,$ep_idx){
       $p_ship = $box['partner_ship'];
       $c_name = $box['c_name'];
 
-      // 농원 평가 정보 - 코멘트가 공백이 아닌것
-      $sql = "SELECT * FROM f_partner_ship WHERE p_idx = {$p_idx}";
-      $re = sql_query($sql);
-      $pscore_num = sql_num_rows($re);
-      if(!$pscore_num){
-        $pscore_num = 0;
-      }
+      $npbox = getPointInfo($p_idx);
+      $pscore_num = $npbox[0];
+      $t_point = $npbox[1];
 
-      // 평균 평점계산
-      $t_point = 0;
-      while($row = sql_fetch_array($re)){
-        $t_point += $row['point'];
-      }
-      $t_point /= $pscore_num;
-      $t_point = round($t_point, 1);
-
-      if($pscore_num == 0){
-          $t_point = "-";
-      }
 
       // 주문 횟수 산출
       $o_num = getOrderNum($p_idx);
@@ -845,6 +1064,44 @@ function getOrderNum($p_idx){
 
   return $o_num;
 }
+
+function getPointInfo($p_idx){
+  // 농원 평가 정보 - 코멘트가 공백이 아닌것
+  $sql = "SELECT * FROM f_partner_ship WHERE p_idx = {$p_idx}";
+  $re = sql_query($sql);
+
+  // 납품건수
+  $pscore_num = sql_num_rows($re);
+  if(!$pscore_num){
+    $pscore_num = 0;
+  }
+  // 평균 평점계산
+  $t_point = 0;
+  while($row = sql_fetch_array($re)){
+    $t_point += $row['point'];
+  }
+  $t_point /= $pscore_num;
+  $t_point = round($t_point, 1);
+
+  if($pscore_num == 0){
+      $t_point = "-";
+  }
+
+  $return_box[0] = $pscore_num;
+  $return_box[1] = $t_point;
+
+
+  return $return_box;
+}
+
+function getMbInfo($mb_id){
+  $sql = "SELECT * FROM f_member WHERE m_id='{$mb_id}'";
+  $re = sql_fetch_array(sql_query($sql));
+
+  return $re;
+
+}
+
 function getMbIdx($mb_id){
   $sql = "SELECT idx FROM f_member WHERE m_id = '{$mb_id}'";
   $box = sql_fetch_array(sql_query($sql));
