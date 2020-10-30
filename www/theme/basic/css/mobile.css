@@ -374,7 +374,7 @@ box-shadow:2px 2px 3px 0px rgba(0,0,0,0.2)}
 .photo{display:flex;justify-content:space-between;}
 .photo .photo_box{width:47%;}
 .photo .photo_box {position:relative;height:130px;background-color:#f4f4f4;border-radius:5px;}
-.photo .photo_box .photo_label {background-color:#fff;height:20px;}
+.photo .photo_box .photo_label {background-color:#fff;height:20px;border-radius:0;}
 .photo .photo_box .photo_label label{font-size:1.3rem;}
 .photo .photo_box .photo_label label:before {content:"*";color:#F86252;margin-right:2px;}
 .photo .photo_box .file_custom1 {height:110px;}

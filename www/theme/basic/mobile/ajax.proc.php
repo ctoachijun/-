@@ -90,6 +90,17 @@ switch($exe_type){
     echo json_encode($output,JSON_UNESCAPED_UNICODE);
   break;
 
+  case "editInfoDP" :
+
+    $box = explode(" ",$e_date);
+    $e_date = $box[0]."-".$box[1]."-".$box[2];
+
+    $sql = "UPDATE f_estimate_plz SET e_date='{$e_date}', target='{$target}' WHERE idx={$ep_idx}";
+    sql_query($sql);
+    $output['sql'] = $sql;
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
 }
 
 

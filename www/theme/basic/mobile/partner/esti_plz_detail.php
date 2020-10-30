@@ -75,7 +75,7 @@ if($jud){
         <div class="blue_p"><input type="text" name="d_price" placeholder="입력" onchange="gettotal_price()"/><p>원</p></div>
       </div>
       <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;">
-      <div class="red"><input type="text" name="total_price" class="total_price" value="0" disabled><p>원</p></div>
+      <div class="red"><p class="bold t_head">최종 결제 금액</p><input type="text" name="total_price" class="total_price" value="0" disabled><p>원</p></div>
       <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;border-color:#ccc;">
     </div>
 

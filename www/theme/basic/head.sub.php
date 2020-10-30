@@ -32,6 +32,15 @@ header("Pragma: no-cache"); // HTTP/1.0
 
 $mb_id = $_SESSION['ss_mb_id'];
 $mb_type = $_SESSION['ss_mb_type'];
+if(!$mb_type){
+  if($_SESSION['jt'] == "p"){
+    $mb_type = "partner";
+  }else{
+    $mb_type = "member";
+  }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
@@ -50,6 +59,7 @@ $mb_type = $_SESSION['ss_mb_type'];
 
     if($config['cf_add_meta'])
         echo $config['cf_add_meta'].PHP_EOL;
+
     ?>
 <title>포레스트</title>
 
@@ -57,6 +67,7 @@ $mb_type = $_SESSION['ss_mb_type'];
 $shop_css = '';
 if (defined('_SHOP_')) $shop_css = '_shop';
 echo '<link rel="stylesheet" href="'.run_replace('head_css_url', G5_THEME_CSS_URL.'/'.(G5_IS_MOBILE?'mobile':'default').$shop_css.'.css?ver='.G5_CSS_VER, G5_THEME_URL).'">'.PHP_EOL;
+
 ?>
 <!--[if lte IE 8]>
 <script src="<?php echo G5_JS_URL ?>/html5.js"></script>
@@ -111,6 +122,7 @@ if(!defined('G5_IS_ADMIN'))
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
 <?php
+
 if ($is_member) { // 회원이라면 로그인 중이라는 메세지를 출력해준다.
     $sr_admin_msg = '';
     if ($is_admin == 'super') $sr_admin_msg = "최고관리자 ";

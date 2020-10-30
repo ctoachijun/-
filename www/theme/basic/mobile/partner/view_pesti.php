@@ -28,7 +28,7 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
   </div>
 
   <div class="p_sub02">
-  <? getEstiPlzList($sort_type,$t_type,$mb_id) ?>
+  <? getEstiPlzList($sort_type,$t_type,$mb_id,2) ?>
   </div>
 </div>
 

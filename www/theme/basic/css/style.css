@@ -5,7 +5,7 @@ p{margin:0;font-size: 16px;color:#333;}
 h2{margin:0;font-size: 16px;}
 h4{margin:0;font-size: 16px}
 ul{list-style:none;padding-left:0px;}
-.content{max-width:1024px;width:100%;height:94vh;background-color:#F8F8F8;margin:0 auto;overflow-y:auto;position:relative;z-index:99;}
+.content{max-width:1024px;width:100%;height:94vh;background-color:#fff;margin:0 auto;overflow-y:auto;position:relative;z-index:99;}
 .bold{font-weight:700;}
 
 /* 하단 */
@@ -65,6 +65,12 @@ ul{list-style:none;padding-left:0px;}
 .main_bottom_box .estimate{width:110px;background-color:#434343;padding:5px 10px;border-radius:5px;color:#333;font-size:1.4rem;color:#fff}
 .main_bottom_box .estimate img{margin-right: 3px;}
 .main_bottom_box .btn_date{margin-top:10px}
+.main_bottom_box .green_box{background-color:#1BB687}
+.main_bottom_box .work{width:120px;margin-left:4px;}
+.main_bottom_box .info .cancel{margin-left:4px;}
+.main_bottom_box .edit_input{height:20px;display:flex;align-items:center;}
+.main_bottom_box .edit_input div p{margin-left:4px;padding:0px;}
+.main_bottom_box .edit_input input{border:0; width:200px; height:20px;margin-top:13px;text-align:left;}
 .text_table{width:100%;}
 .text_table .right{text-align:right;}
 
@@ -272,8 +278,10 @@ ul{list-style:none;padding-left:0px;}
 .date_dead .dd_cont{display:flex;flex-direction:row;justify-content:space-between;width:76%;height:30px;padding-top:3px;}
 .date_dead .dd_cont input{height:24px;background-color:#535353;border:0;vertical-align:top;color:#fff;text-align:right;}
 .date_dead img{width:20px;margin-left:10px;margin-top:3px}
-.click_box{width:100%;display:flex;}
-.click_box input{padding:10px 0;margin:0 auto; border-radius:5px;font-size:1.5rem;font-weight:700;border:0px;}
+.sub06 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
+.sub06 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
+.sub06 .click_box input{padding:10px 0;margin:0 auto; border-radius:5px;font-size:1.5rem;font-weight:700;border:0px;}
+
 .back{width:30%;background-color:#eee;color:#333;}
 .enter{width:68%;background-color:#1CB587;color:#fff;}
 
@@ -284,8 +292,9 @@ ul{list-style:none;padding-left:0px;}
 .sub07 img{display:block;width:50px;margin:0 auto;margin-top:3vh;}
 .sub07 h4{font-size:2rem;font-weight:700;margin:3vh;}
 .sub07 p{font-size:1.5rem;}
-.click_box{width:100%;display:flex;justify-content:space-between;text-align:center;margin-top:20px;}
-.click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
+.sub07 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
+.sub07 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
+.sub13 .click_box{width:100%;display:flex;justify-content:center;text-align:center;margin-top:20px;}
 .ok{width:30%;background-color:#eee;color:#333;}
 .go{width:68%;background-color:#1CB587;color:#fff;}
 .sub13{height:100%;background-color:#F8F8F8;}
@@ -314,11 +323,25 @@ ul{list-style:none;padding-left:0px;}
 /* sub09 견적상세 */
 .sub09{width:93%;margin:0 auto;padding:10px;}
 .sub09 img{width:15px;}
+
 .sub09 .text_table{margin-top:10px;}
 .sub09 .text_table p{display:inline-block;}
+.sub09 .work{width:123px;}
 .sub09 .com_date{font-size:1.3rem;float:right;}
 .sub09 .work_name{font-weight:normal;}
+.sub09 .green_box{background-color:#1BB687}
+.sub09 .size .size_p{width:100px;}
+.sub09 .size .item_p{width:100px;}
+.sub09 .size .osum_p{width:80px;}
+.sub09 .size .price_p{width:80px;}
 .sub09 .date_dead{display:block;background-color:#535353;color:#fff;padding:10px;border-radius:5px;font-size:1.5rem;text-align:center;margin-top:10px;}
+.sub09 .none{display:none;}
+.sub09 .view_pic{display:flex;flex-direction:column; background-color:#fff;border:1px solid #ddd;border-radius:5px;padding:8px 8px;margin-top:10px;width:100%;}
+.sub09 .view_pic .pic{display:flex;width:100%;}
+.sub09 .view_pic .pic img{width:90%;}
+.sub09 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
+.sub09 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
+
 .check, .payment{background-color:#fff;border:1px solid #ddd;border-radius:5px;padding:10px 15px;margin-top:10px;}
 .check p{font-size:1.3rem;}
 .payment div{display:flex;justify-content:space-between;}
@@ -480,7 +503,8 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 
 .p_sub05 .check{margin-bottom: 10px;}
 .p_sub05 .check input{background:#eee;border:none;padding:5px;margin-top:5px;}
-.p_sub05 .payment .pay_head{height:24px;}
+.p_sub05 .payment .pay_head{height:24px;text-align:left;}
+.p_sub05 .payment .pay_head input{margin-left:210px;width:160px;}
 .p_sub05 .blue {height:28px;}
 .p_sub05 .blue .blue_p input{width:120px;height:24px;border:0;background:#eee;text-align:right;border-radius:0;margin-right:5px; }
 .p_sub05 .blue .blue_p input::placeholder{font-size:13px;color:#aaa;}
@@ -488,11 +512,16 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub05 .payment .sum_price{width:200px;text-align:right;height:24px;margin-left:115px;border:0px;}
 .p_sub05 .payment p {margin-top:2px;}
 .p_sub05 .payment .gray_box{background:#eee;padding:3px 30px;color:#aaa;height:24px;}
-.p_sub05 .red {width:100%;height:26px;text-align:right;}
-.p_sub05 .red input{color:#F86252;font-size:1.5rem;width:200px;height:24px;border:0;background:#fff;text-align:right;border-radius:0;margin-left:170px;margin-right:4px;margin-top:3px;}
+.p_sub05 .red {width:100%;height:26px;text-align:right;display:flex;justify-content: flex-start;}
+.p_sub05 .red input{color:#F86252;font-size:1.5rem;width:170px;height:24px;border:0;background:#fff;text-align:right;border-radius:0;margin-left:140px;margin-right:3px;margin-top:1px;}
 .p_sub05 .red input::placeholder{font-size:13px;color:#aaa;}
 .p_sub05 .red p {color:#F86252;font-size:1.5rem;margin-top:3px;height:24px;}
+.p_sub05 .red .t_head{width:100px;text-align:left;}
 .p_sub05 .date_dead{display:block;text-align:center;margin-top:15px;padding-top:10px;}
+
+.p_sub05 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
+.p_sub05 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
+.p_sub05 .click_box input{padding:10px 0;margin:0 auto; border-radius:5px;font-size:1.5rem;font-weight:700;border:0px;}
 
 
 

@@ -11,6 +11,7 @@ if($alarm=="Y"){
   $img_name = "off.jpg";
 }
 
+
 ?>
 <style>
 .content{background-color:#F8F8F8}

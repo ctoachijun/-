@@ -279,15 +279,6 @@ function inputHview(mb_type,p_idx){
       type: "post",
       contentType:"application/x-www-form-urlencoded;charset=UTF8",
       data: data_list
-    }).done(function(data){
-      let json = JSON.parse(data);
-      console.log(json.sql);
-      console.log(json.state);
-      if(json.state=="Y"){
-        alert("수정했습니다.");
-      }else{
-        alert("수정에 실패했습니다.");
-      }
     });
 
     $("input[name=m_name]").attr("disabled",true);
@@ -391,6 +382,48 @@ function noptEsti(e_idx){
   history.go(0);
 }
 
+function editDPinfo(ep_idx,cnt){
+  let t_name = "target"+ep_idx;
+  let ed_name = "ed_date"+ep_idx;
+  let target = $('.'+t_name).val();
+  let ed_date = $('.'+ed_name).val();
+  let ro = $('.'+ed_name).prop("readonly");
+  ed_date = ed_date.replace(/[^0-9]/g," ");
+
+  let data_list = {"exe_type":"editInfoDP", "e_date":ed_date, "target":target, "ep_idx":ep_idx};
+
+  if(ro){
+    $('.'+ed_name).prop("readonly",false);
+    $("."+t_name).prop("readonly",false);
+    $('.'+ed_name).css("border","1px solid #858585");
+    $("."+t_name).css("border","1px solid #858585");
+  }else{
+    $('.'+ed_name).prop("readonly",true);
+    $("."+t_name).prop("readonly",true);
+    $('.'+ed_name).css("border","0");
+    $("."+t_name).css("border","0");
+  }
+  $.ajax({
+    url: "/theme/basic/mobile/ajax.proc.php",
+    type: "post",
+    contentType:"application/x-www-form-urlencoded;charset=UTF8",
+    data: data_list
+  }).done(function(data){
+    let json = JSON.parse(data);
+    console.log(json.sql);
+  });
+
+}
+
+function none_view(){
+  let nov = $(".none").css("display");
+  if(nov=="none"){
+    $(".none").show();
+  }else{
+    $(".none").hide();
+  }
+
+}
 
 
 

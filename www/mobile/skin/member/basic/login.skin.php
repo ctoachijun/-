@@ -25,7 +25,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
   </div>
 
   <div id="login_info" class="chk_box">
-      <input type="checkbox" name="auto_login" id="login_auto_login" class="selec_chk">
+      <input type="checkbox" name="auto_login" id="login_auto_login" class="selec_chk" checked>
       <label for="login_auto_login"><span></span> 자동로그인</label>
   </div>
     </form>

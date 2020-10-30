@@ -511,15 +511,18 @@ if($f2_tmp){
 
 // 그누보드가 아닌 회원 또는 파트너 테이블에 입력처리
 if($jt=="m"){
-  $sql = "INSERT INTO f_member value(null,'{$mb_id}','{$mb_password}','{$c_name}','{$c_boss}','{$c_num}','','{$addr1}','{$addr2}','{$mb_name}','{$position}','{$mb_hp}','{$bank_name}','{$bank_num}','{$f1_name}','{$f2_name}',DEFAULT,'{$mb_email}','Y','')";
+  $sql = "INSERT INTO f_member SET
+  m_id = '{$mb_id}',m_pass = '{$mb_password}', c_name = '{$c_name}', c_boss = '{$c_boss}',
+  c_num = '{$c_num}', addr1 = '{$addr1}', addr2 = '{$addr2}', m_name = '{$mb_name}', position = '{$position}', m_tel = '{$mb_hp}',
+  bank_name = '{$bank_name}', bank_num = '{$bank_num}', pic1 = '{$f1_name}', pic2 = '{$f2_name}', email = '{$mb_email}'";
 }else if($jt=="p"){
-  $sql = "INSERT INTO f_partner value(null,'{$mb_id}','{$mb_password}','{$c_num}','{$c_name}','{$c_boss}','','{$mb_name}','{$mb_hp}','{$position}','{$addr1}','{$addr2}','{$mb_email}','{$bank_name}','{$bank_num}','{$f1_name}','{$f2_name}',DEFAULT,1,'Y')";
+  $sql = "INSERT INTO f_partner SET
+  p_id = '{$mb_id}', p_pass = '{$mb_password}', c_num = '{$c_num}', c_name = '{$c_name}', c_boss = '{$c_boss}',
+  m_tel = '{$mb_hp}', addr1 = '{$addr1}', addr2 = '{$addr2}', email = '{$mb_email}',
+  bank_name = '{$bank_name}', bank_num = '{$bank_num}', pic1 = '{$f1_name}', pic2 = '{$f2_name}'";
 }
 sql_query($sql);
 $_SESSION['jt'] = $jt;
-
-
-
 
 
 // 사용자 코드 실행

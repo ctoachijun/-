@@ -4,6 +4,13 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 
+$jt = $_SESSION['jt'];
+if($jt=="m"){
+  $go_url = "http://softer036.cafe24.com";
+}else{
+  $go_url = "http://softer036.cafe24.com/theme/basic/mobile/partner";
+}
+
 ?>
 
 <div class="header">
@@ -18,7 +25,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
     <div class="click_box">
       <!-- <a href="./" class="ok">확인</a> -->
-      <a href="<?=G5_URL ?>" class="go">홈으로</a>
+      <a href="<?=$go_url ?>" class="go">홈으로</a>
     </div>
   </div>
 </div>
