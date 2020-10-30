@@ -425,6 +425,39 @@ function none_view(){
 
 }
 
+function submit_pay(num){
+  let txt;
+  if(num==1){
+    txt = "결제 하시겠습니까?";
+  }else{
+    txt = "입금확인 요청하시겠습니까?";
+  }
+  if(confirm(txt)){
+    $("form").submit();
+  }
+
+}
+
+function addPartner(p_idx,m_idx,type){
+  let data_list = {"p_idx":p_idx, "m_idx":m_idx, "exe_type":"acco","type":type};
+  $.ajax({
+    url: "/theme/basic/mobile/ajax.proc.php",
+    type: "post",
+    contentType:"application/x-www-form-urlencoded;charset=UTF8",
+    data: data_list
+  }).done(function(data){
+    let json = JSON.parse(data);
+    console.log(json.sql);
+    console.log(json.chk);
+    alert(json.r_txt);
+
+
+  });
+
+
+
+}
+
 
 
 $(function(){

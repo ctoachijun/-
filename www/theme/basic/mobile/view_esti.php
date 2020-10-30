@@ -19,5 +19,5 @@ include G5_THEME_MOBILE_PATH."/head.php";
 
 
 <?
- include G5_THEME_MOBILE_PATH."/tail.php";
+ include G5_THEME_MOBILE_PATH."/tail2.php";
 ?>

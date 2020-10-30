@@ -48,7 +48,7 @@ ul{list-style:none;padding-left:0px;}
 .main_bottom p, .main_bottom_box p{display:inline-block;}
 .main_bottom_box{width:93%;background-color:#fff;border:1px solid #ddd;border-radius: 5px;margin:0 auto;padding:10px;margin-bottom:10px}
 .main_bottom_box img{width:15px;}
-.partner{width:148px;background-color:#F6D12A;font-size:1.2rem;text-align:center;border-radius:3px;padding:3px;}
+.partner{width:130px;background-color:#F6D12A;font-size:1.2rem;text-align:center;border-radius:3px;padding:3px;}
 .tree{background-color:#eee;padding:3px;width:auto;}
 .work{background-color:#405FC0;color:#fff;padding:3px;width:57px;}
 .farm_name{display:inline-block;font-weight:700;font-size:1.8rem;margin-top:10px;}
@@ -99,10 +99,11 @@ ul{list-style:none;padding-left:0px;}
 
 /* sub03 거래처 */
 .sub03_box{width:93%;background-color:#fff;border:1px solid #ddd;border-radius: 5px;margin:0 auto;padding:10px;margin-bottom:10px;margin-top:10px;}
+.sub03_box .official{color:#FFC000;}
 .sub03_box p{display:inline-block;}
 /* .sub03_box h4{display:inline-block;} */
 .sub03_box img{width:15px;}
-.sub03_box .partner{width:120px;background-color:#F6D12A;font-size:1.2rem;text-align:center;border-radius:3px;padding:3px;}
+.sub03_box .partner{width:110px;background-color:#F6D12A;font-size:1.2rem;text-align:center;border-radius:3px;padding:3px;}
 .sub03_box .delete_farm{font-size:1.2rem;display: flex;justify-content:flex-end;color:#333;}
 .sub03_box .t_box{display:flex;}
 .sub03_box .farm_name{font-weight:700;font-size:2rem;margin-top:8px;}
@@ -341,6 +342,7 @@ ul{list-style:none;padding-left:0px;}
 .sub09 .view_pic .pic img{width:90%;}
 .sub09 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
 .sub09 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
+.sub09 .click_box .enter{padding-top:9px;border-radius:5px;}
 
 .check, .payment{background-color:#fff;border:1px solid #ddd;border-radius:5px;padding:10px 15px;margin-top:10px;}
 .check p{font-size:1.3rem;}
@@ -357,6 +359,8 @@ ul{list-style:none;padding-left:0px;}
 .sub10 h4{font-size:2rem;font-weight:700;margin:3vh;margin-top:5vh;}
 .sub10 p{font-size:1.3rem;}
 .sub10 .click_box{padding-top:3vh;}
+.sub10 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
+.sub10 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
 .sub10 .click_box .left_click{width:35%;background-color:#eee;color:#333;}
 .sub10 .click_box .right_click{width:63%;background-color:#1CB587;color:#fff;}
 .sub_check div{display:flex;justify-content:space-between;margin-bottom:3vh;}
@@ -384,7 +388,7 @@ ul{list-style:none;padding-left:0px;}
 .re_big_tit{display:flex;justify-content:space-between;}
 .review .re_big_ti .bold{font-size:1.35rem;}
 .review .re_big_tit p{font-size:1.2rem;}
-.re_tit{padding-right:10%;}
+.re_tit{padding-right:10%; width:60%; margin-left:-10px;}
 .review .text{font-size:1.2rem;margin-top:2vh;}
 .review_add{display:flex;justify-content:flex-end;font-size:1.3rem;margin-right:10px;font-weight:700;margin-top:5px;}
 .delivery{background-color:#fff;float:none;width:100%;margin-top:10px;padding-bottom:10px;padding:10px;width:95%;margin:0 auto;border-radius:5px;margin-top:10px;margin-bottom:10px;border:1px solid #ddd;}

@@ -8,8 +8,9 @@ $m_idx = $m_info['idx'];
 $ep_box = getEpData($ep_idx);
 $now = date("Y-m-d H:i:s");
 $c_d = ceil( (strtotime($ep_box['e_date']) - strtotime($now)) / 86400 );
-$e_date = $re['e_date'];
-$ed_box = explode("-",$e_date);
+$d_date = $ep_box['d_date'];
+$d_box = explode("-",$d_date);
+$d_txt = $d_box[0]."년".$d_box[1]."월".$d_box[2]."일";
 
 $cnt = getNum($ep_idx);
 // 발주 수목 품명 추출
@@ -47,11 +48,11 @@ $ep_pidx = $ep_box['p_idx'];
     </ul>
 
     <div>
-      <img src="/img/date.png" alt="납품 날짜">
-      <p>납품 날짜 : 2020년 3월 27일</p>
+      <img src="<?=$img_src?>/date.png" alt="납품 날짜">
+      <p>납품 날짜 : <?=$d_txt?></p>
     </div>
     <div>
-      <img src="/img/location.png" alt="납품 장소">
+      <img src="<?=$img_src?>/location.png" alt="납품 장소">
       <p>납품 장소 : <?=$ep_box['target']?></p>
     </div>
   </div>
@@ -68,4 +69,4 @@ $ep_pidx = $ep_box['p_idx'];
 
 </div>
 
-<?include "./tail.php"?>
+<?include "./tail2.php"?>

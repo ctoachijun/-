@@ -33,7 +33,7 @@ $box = explode("|",getImgName($curr_fname));
 
 if($curr_fname == "index.php"){
   $h_class = "class='curr'";
-}else if($curr_fname == "view_esti.php" || $curr_fname == "view_pesti.php" || $curr_fname == "esti_comp.php"){
+}else if($curr_fname == "view_esti.php" || $curr_fname == "view_pesti.php" || $curr_fname == "esti_comp.php" || $curr_fname == "esti_detail.php"){
   $e_class = "class='curr'";
 }else if($curr_fname == "view_deta.php" || $curr_fname == "view_pdeta.php"){
   $d_class = "class='curr'";

@@ -155,27 +155,46 @@ switch($w_type){
       $p_idx = $mb_idx;
     }
 
-
-
     $sql = "UPDATE f_estimate_plz SET p_idx = '{$p_idx}' WHERE idx = {$ep_idx}";
     sql_query($sql);
     // echo "$sql <br>";
-
-
 
     if(!$return_msg){
       $return_msg = "정상적으로 등록이 되었습니다";
     }
 
     alert($return_msg,$return_url);
-
-
-
-
   break;
 
+  case "m_payment" :
+    $sql = "SELECT p_idx FROM f_estimate WHERE idx={$e_idx}";
+    $re = sql_fetch_array(sql_query($sql));
+    $p_idx = $re['p_idx'];
+
+    $sql = "SELECT * FROM f_estimate_plz WHERE idx={$ep_idx}";
+    $re = sql_fetch_array(sql_query($sql));
+
+    $to_idx = $re['to_idx'];
+    $m_idx = $re['m_idx'];
+
+    $sum_p = $t_price - $tep;
+
+    $sql = "INSERT INTO f_deposit SET
+    m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, m_price={$t_price}, p_price={$sum_p}, m_push_date=DEFAULT";
+    $re = sql_query($sql);
+
+    // 여기에 관리자 푸시 처리
 
 
+
+
+    // 관리자 푸시 처리가 끝나면 완료페이지로
+    if($re){
+      alert("정상적으로 입금 확인요청이 되었습니다.","./payment_confirm.php");
+    }else{
+      alert("시스템상에 오류가 있습니다. 관리자에게 문의주세요.",$return_url);
+    }
+  break;
 }
 
 

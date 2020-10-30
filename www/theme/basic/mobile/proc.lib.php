@@ -10,7 +10,7 @@ function getImgName($curr_fname){
 
   if($curr_fname == "index.php"){
     $home_img .= "_h";
-  }else if($curr_fname == "view_esti.php" || $curr_fname == "view_pesti.php" || $curr_fname == "esti_comp.php"){
+  }else if($curr_fname == "view_esti.php" || $curr_fname == "view_pesti.php" || $curr_fname == "esti_comp.php" || $curr_fname == "esti_detail.php"){
     $esti_img .= "_h";
   }else if($curr_fname == "view_deta.php" || $curr_fname == "view_pdeta.php"){
     $detail_img .= "_h";
@@ -24,14 +24,6 @@ function getImgName($curr_fname){
   return $return_string;
 
 }
-
-function getMbIdx($mb_id){
-  $sql = "SELECT idx FROM f_member WHERE m_id = '{$mb_id}'";
-  $box = sql_fetch_array(sql_query($sql));
-
-  return $box['idx'];
-}
-
 
 function getEstiPlzList($s_type,$t_type,$mb_id,$mp){
 
@@ -609,16 +601,6 @@ function myEstiList($mb_id){
 }
 
 
-function getEpData($ep_idx){
-  // 해당 견적의뢰 고유번호와 연결된 발주수목 데이터를 같이 추출
-  $sql = "SELECT * FROM f_estimate_plz as ep INNER JOIN f_tree_order as t ON ep.to_idx = t.idx
-  WHERE ep.idx = {$ep_idx}";
-  $re = sql_fetch_array(sql_query($sql));
-
-  return $re;
-}
-
-
 function getEstiPartner($pidx,$w_name,$ep_idx){
   $p_box = explode("|",$pidx);
   $cnt = count($p_box);
@@ -646,6 +628,9 @@ function getEstiPartner($pidx,$w_name,$ep_idx){
       $sql = "SELECT * FROM f_partner_ship WHERE p_idx = {$p_idx}";
       $re = sql_query($sql);
       $pscore_num = sql_num_rows($re);
+      if(!$pscore_num){
+        $pscore_num = 0;
+      }
 
       // 평균 평점계산
       $t_point = 0;
@@ -653,30 +638,29 @@ function getEstiPartner($pidx,$w_name,$ep_idx){
         $t_point += $row['point'];
       }
       $t_point /= $pscore_num;
+      $t_point = round($t_point, 1);
 
-      // 주문 횟수 산출
-      $sql = "SELECT idx FROM f_estimate WHERE p_idx = {$p_idx}";
-      $re = sql_query($sql);
-      $o_num = 0;
-      while($row = sql_fetch_array($re)){
-        $e_idx = $row['idx'];
-        $cnt_sql = "SELECT * FROM f_order WHERE e_idx = {$e_idx}";
-        $jud = sql_num_rows(sql_query($cnt_sql));
-        $o_num += $jud;
+      if($pscore_num == 0){
+          $t_point = "-";
       }
 
+      // 주문 횟수 산출
+      $o_num = getOrderNum($p_idx);
 
       echo "<div class='big_box'>";
       echo "<table class='text_table'>";
       echo "<tr><td>";
       echo "<img src='/theme/basic/img/f_ico.png' alt='포레스트 로고'>";
       if($p_ship == 3){
+        $fn_class = "official";
         echo "<p class='partner'>포레스트 공식 파트너</p>";
+      }else{
+        $fn_class = "";
       }
       echo "</td></tr>";
       echo "</table>";
       echo "<div class='sub08_score'>";
-      echo "<a href='./sub12.php'><h4 class='farm_name'>{$c_name}</h4></a>";
+      echo "<a href='./partner_info.php?idx={$p_idx}'><h4 class='farm_name {$fn_class}'>{$c_name}</h4></a>";
       echo "<div class='score_box'>";
       echo "<div><h4 class='score'>{$t_point}</h4><p>평점</p></div>";
       echo "<div><h4 class='score'>{$o_num}</h4><p>납품횟수</p></div>";
@@ -696,8 +680,110 @@ function getEstiPartner($pidx,$w_name,$ep_idx){
   }
 }
 
+function getReply($p_idx){
+  $sql = "SELECT * FROM f_partner_ship WHERE p_idx={$p_idx}";
+  $re = sql_query($sql);
+  $num = sql_num_rows($re);
+
+  while($row = sql_fetch_array($re)){
+    $obox .= ($row['o_idx']."|");
+    $cbox .= ($row['comment']."|");
+    $wbox .= ($row['w_date']."|");
+  }
+  $bbox = explode("|",$obox);
+  $bbox2 = explode("|",$cbox);
+  $bbox3 = explode("|",$wbox);
+
+  for($i=0; $i<$num; $i++){
+    // 견적 고유번호 추출
+    $sql = "SELECT e_idx FROM f_order WHERE idx =".$bbox[$i];
+    $ebox = sql_fetch_array(sql_query($sql));
+    $eidx = $ebox['e_idx'];
+
+    // 견적의뢰 고유번호 추출
+    $sql = "SELECT ep_idx FROM f_estimate WHERE idx = {$eidx}";
+    $epbox = sql_fetch_array(sql_query($sql));
+    $epidx = $epbox['ep_idx'];
+
+    // 공사명 추출
+    $sql = "SELECT w_name,m_idx FROM f_estimate_plz WHERE idx = {$epidx}";
+    $box = sql_fetch_array(sql_query($sql));
+    $w_name = $box['w_name'];
+    $m_idx = $box['m_idx'];
+
+    // 고객사명 추출
+    $sql = "SELECT c_name FROM f_member WHERE idx = {$m_idx}";
+    $box = sql_fetch_array(sql_query($sql));
+    $c_name = $box['c_name'];
+
+    $comment = $bbox2[$i];
+    $dbox = explode(" ",$bbox3[$i]);
+    $w_date = $dbox[0];
+
+
+    echo "<div class='re_con'>";
+    echo "<div class='re_big_tit'>";
+    echo "<div class='work_img'><img src='/theme/basic/img/work_name.png' alt=''></div>";
+    echo "<div class='re_tit'>";
+    echo "<div><p class='bold'>{$w_name}</p></div>";
+    echo "<p>{$c_name}</p>";
+    echo "</div>";
+    echo "<div><p>{$w_date}</p></div>";
+    echo "</div>";
+    echo "<div><p class='text'>{$comment}</p></div>";
+    echo "</div>";
+    echo "<hr style='width:100%;margin:0 auto;margin-top:15px;margin-bottom:15px;'>";
+  }
+}
+
+function getOrderComp($p_idx){
+  $sql = "SELECT * FROM f_partner_ship WHERE p_idx = {$p_idx}";
+  $re = sql_query($sql);
+  $cnt = sql_num_rows($re);
+
+
+  $wcnt = 1;
+  while($row = sql_fetch_array($re)){
+    $o_idx = $row['o_idx'];
+
+    $sql = "SELECT idx,w_name FROM f_estimate_plz WHERE o_idx={$o_idx}";
+    $box = sql_fetch_array(sql_query($sql));
+    $w_name = $box['w_name'];
+    $ep_idx = $box['idx'];
+
+    $sql = "SELECT t_price FROM f_estimate WHERE ep_idx={$ep_idx} AND p_idx={$p_idx}";
+    $box = sql_fetch_array(sql_query($sql));
+    $t_price = number_format($box['t_price']);
+
+    echo "<div class='delivery_con'>";
+    echo "<div class='de_img'><img src='/theme/basic/img/noimage.png' alt='{$w_name}'></div>";
+    echo "<div class='de_txt'>";
+    echo "<h4 class='bold'>{$w_name}</h4>";
+    echo "<p>&#92;{$t_price}</p>";
+    echo "</div>";
+    echo "</div>";
+    if($wcnt < $cnt){
+      echo "<hr style='width:100%;margin:0 auto;margin-top:15px;margin-bottom:15px;'>";
+    }
+
+    $wcnt++;
+  }
+
+
+
+}
+
+function getEpData($ep_idx){
+  // 해당 견적의뢰 고유번호와 연결된 발주수목 데이터를 같이 추출
+  $sql = "SELECT * FROM f_estimate_plz as ep INNER JOIN f_tree_order as t ON ep.to_idx = t.idx
+  WHERE ep.idx = {$ep_idx}";
+  $re = sql_fetch_array(sql_query($sql));
+
+  return $re;
+}
+
 function getPartnerGrade($p_idx){
-  $sql = "SELECT partner_ship FROM f_partner WHERE idx={$p_idx}";
+  $sql = "SELECT f_partner_ship FROM f_partner WHERE idx={$p_idx}";
   $box = sql_fetch_array(sql_query($sql));
 
   return $box['partner_ship'];
@@ -745,8 +831,25 @@ function getTreeNum($to_idx){
   return $cnt;
 }
 
+function getOrderNum($p_idx){
+  // 주문 횟수(납품 횟수)
+  $sql = "SELECT idx FROM f_estimate WHERE p_idx = {$p_idx}";
+  $re = sql_query($sql);
+  $o_num = 0;
+  while($row = sql_fetch_array($re)){
+    $e_idx = $row['idx'];
+    $cnt_sql = "SELECT * FROM f_order WHERE e_idx = {$e_idx}";
+    $jud = sql_num_rows(sql_query($cnt_sql));
+    $o_num += $jud;
+  }
 
+  return $o_num;
+}
+function getMbIdx($mb_id){
+  $sql = "SELECT idx FROM f_member WHERE m_id = '{$mb_id}'";
+  $box = sql_fetch_array(sql_query($sql));
 
-
+  return $box['idx'];
+}
 
 ?>
