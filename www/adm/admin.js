@@ -204,7 +204,7 @@ function partner_ship(type){
       url: "ajax.adm_proc.php",
       type: "post",
       contentType:'application/x-www-form-urlencoded;charset=UTF8',
-      async: false,
+      // async: false,
       data: box
     }).done(function(data){
       let json = JSON.parse(data);
@@ -224,7 +224,6 @@ function total_sum(stype){
   $.ajax({
     url: "ajax.adm_proc.php",
     type : "post",
-    // async: false,
     data: box
   }).done(function(data){
     let json = JSON.parse(data);
@@ -239,6 +238,97 @@ function total_sum(stype){
 
   });
 }
+
+function pay_confirm(num,d_idx){
+  let conf_txt = "";
+  let m_depo = $("input[name=m_depo"+d_idx+"]").val();
+  let p_depo = $("input[name=p_depo"+d_idx+"]").val();
+  console.log(p_depo);
+  if(num==1){
+    if(m_depo==2){
+      conf_txt = "결제 완료 처리를 하시겠습니까?"
+      if(confirm(conf_txt)){
+        let box = {"idx":d_idx, "w_type":"pay_conf_m", "jud":"Y"};
+        $.ajax({
+          url: "../ajax.adm_proc.php",
+          type: "post",
+          contentType:'application/x-www-form-urlencoded;charset=UTF8',
+          data: box
+        }).done(function(data){
+          let json = JSON.parse(data);
+
+          if(json.state=="Y"){
+            history.go(0);
+          }else{
+            alert("시스템 오류입니다.");
+          }
+        });
+      }
+    }else{
+      conf_txt = "완료처리를 취소 하시겠습니까?"
+      if(confirm(conf_txt)){
+        let box = {"idx":d_idx, "w_type":"pay_conf_m", "jud":"N"};
+        $.ajax({
+          url: "../ajax.adm_proc.php",
+          type: "post",
+          contentType:'application/x-www-form-urlencoded;charset=UTF8',
+          data: box
+        }).done(function(data){
+          let json = JSON.parse(data);
+
+          if(json.state=="Y"){
+            history.go(0);
+          }else{
+            alert("시스템 오류입니다.");
+          }
+        });
+      }
+    }
+
+  }else if(num==2){
+    if(p_depo==2){
+      conf_txt = "입금 완료 처리를 하시겠습니까?"
+      if(confirm(conf_txt)){
+        let box = {"idx":d_idx, "w_type":"pay_conf_p", "jud":"Y"};
+        $.ajax({
+          url: "../ajax.adm_proc.php",
+          type: "post",
+          contentType:'application/x-www-form-urlencoded;charset=UTF8',
+          data: box
+        }).done(function(data){
+          let json = JSON.parse(data);
+
+          if(json.state=="Y"){
+            history.go(0);
+          }else{
+            alert("시스템 오류입니다.");
+          }
+        });
+      }
+    }else{
+      conf_txt = "완료처리를 취소 하시겠습니까?"
+      if(confirm(conf_txt)){
+        let box = {"idx":d_idx, "w_type":"pay_conf_p", "jud":"N"};
+        $.ajax({
+          url: "../ajax.adm_proc.php",
+          type: "post",
+          contentType:'application/x-www-form-urlencoded;charset=UTF8',
+          data: box
+        }).done(function(data){
+          let json = JSON.parse(data);
+
+          if(json.state=="Y"){
+            history.go(0);
+          }else{
+            alert("시스템 오류입니다.");
+          }
+        });
+      }
+    }
+  }
+
+}
+
 
 
 function con_submit(){
@@ -474,7 +564,6 @@ function show_ns_stick(){
   });
 
 }
-
 
 
 

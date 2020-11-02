@@ -65,6 +65,43 @@ switch ($w_type){
     echo json_encode($output,JSON_UNESCAPED_UNICODE);
   break;
 
+  case "pay_conf_m":
+    if($jud=="Y"){
+      $depo = 1;
+    }else if($jud=="N"){
+      $depo = 2;
+    }
+
+    $sql = "UPDATE f_deposit SET m_deposit={$depo}, m_pay_date=DEFAULT WHERE idx={$idx}";
+    $re = sql_query($sql);
+
+    if($re){
+      $output['state'] = "Y";
+    }else{
+      $output['state'] = "N";
+    }
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
+  case "pay_conf_p":
+    if($jud=="Y"){
+      $depo = 1;
+    }else if($jud=="N"){
+      $depo = 2;
+    }
+
+    $sql = "UPDATE f_deposit SET p_deposit={$depo}, p_pay_date=DEFAULT WHERE idx={$idx}";
+    $re = sql_query($sql);
+
+    if($re){
+      $output['state'] = "Y";
+    }else{
+      $output['state'] = "N";
+    }
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
+
 
 }
 
