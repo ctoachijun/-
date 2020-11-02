@@ -136,7 +136,7 @@ switch($w_type){
     $sql = "INSERT INTO f_estimate SET
     p_idx = {$mb_idx}, ep_idx = {$ep_idx}, p_name = '{$c_name}',
     {$pic_col_txt}, {$price_col_txt},
-    d_price = {$d_price}, t_price='{$t_price}', etc='{$etc}'";
+    d_price = {$d_price}, t_price='{$t_price}',w_date=DEFAULT, etc='{$etc}'";
     sql_query($sql);
     // echo "$sql <br>";
 

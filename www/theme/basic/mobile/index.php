@@ -11,11 +11,17 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 if(!$_SESSION['ss_mb_id'] && !$is_member){
   goto_url(G5_BBS_URL."/login.php");
 }
-if($_SESSION['ss_mb_id']){
-  $mb_id = $_SESSION['ss_mb_id'];
+
+$jud = getNewEsti($mb_id);
+
+echo "jud : $jud <br>";
+
+if($jud > 0){
+  $bell_img = "bell_n.png";
 }else{
-  $mb_id = "";
+  $bell_img = "bell.png";
 }
+
 
 ?>
 
@@ -43,7 +49,7 @@ if($_SESSION['ss_mb_id']){
     <div class="main_top_p">
       <p>도착한 <span>견적서</span>를</p>
       <p>확인해보세요.</p>
-      <img src="<?=$img_src?>/bell.png" alt="견적서 메세지함">
+      <img src="<?=$img_src?>/<?=$bell_img?>" alt="견적서 메세지함">
     </div>
 
     <div class="main_top_btn main_top_btn2" >

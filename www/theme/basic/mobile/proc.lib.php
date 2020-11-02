@@ -1109,4 +1109,23 @@ function getMbIdx($mb_id){
   return $box['idx'];
 }
 
+function getNewEsti($mb_id){
+  $mb_idx = getMbIdx($mb_id);
+  $today = date("Y-m-d");
+  $newday = date("Y-m-d", strtotime($today." -1 day"));
+
+  $sql = "SELECT idx FROM f_estimate_plz WHERE m_idx={$mb_idx}";
+  $re = sql_query($sql);
+
+  while($row = sql_fetch_array($re)){
+    $ep_idx = $row['idx'];
+    $sql = "SELECT * FROM f_estimate WHERE ep_idx = {$ep_idx} AND w_date > '$newday'";
+    $jud += sql_num_rows(sql_query($sql));
+  }
+
+  return $jud;
+
+}
+
+
 ?>
