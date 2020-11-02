@@ -474,6 +474,48 @@ function delPartner(p_idx,m_idx,type){
 
 }
 
+function select_input(){
+  let r_val = $("SELECT").val();
+
+  if(r_val=="0"){
+    $(".input_reason").show();
+  }else{
+    $(".input_reason").hide();
+  }
+}
+
+function cancel_late(type,e_idx){
+  let reason = $(".reason_input").val();
+  let selector = $("SELECT").val();
+  let ru = $("input[name=return]").val();
+  let con_txt = "";
+
+  if(type==1){
+    con_txt = "입찰을 취소하시겠습니까?";
+  }else{
+    con_txt = "배송지연 등록을 하시겠습니까?";
+  }
+
+  let box = {"reason":reason, "selector":selector, "exe_type":"cancel_late", "type":type, "e_idx":e_idx};
+  if(confirm(con_txt)){
+    $.ajax({
+      url: "../ajax.proc.php",
+      type: "post",
+      contentType:'application/x-www-form-urlencoded;charset=UTF8',
+      data: box
+    }).done(function(data){
+      let json = JSON.parse(data);
+
+      if(json.state=="Y"){
+        alert("등록했습니다");
+        window.location.href=ru;
+      }else{
+        alert("시스템 오류입니다.");
+      }
+    });
+  }
+}
+
 
 
 

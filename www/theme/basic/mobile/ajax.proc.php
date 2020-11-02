@@ -160,6 +160,41 @@ switch($exe_type){
 
   break;
 
+  case "cancel_late" :
+    if($type==1){
+      $tbl_name = "f_cancel_bidding";
+    }else{
+      $tbl_name = "f_late_delivery";
+    }
+
+    // 취소사유를 추출
+    if($selector){
+      $col_name = "menu".$selector;
+      $sql = "SELECT {$col_name} FROM {$tbl_name}";
+      $re = sql_fetch_array(sql_query($sql));
+
+      $reason = $re[$col_name];
+    }
+
+    // 직접입력의 경우는 reason 그대로.
+    if($type==1){
+      $sql = "UPDATE f_estimate SET cancel_esti='Y', cancel_esti_txt='{$reason}' WHERE idx={$e_idx}";
+    }else{
+      $sql = "UPDATE f_estimate SET late_deli='Y', late_deli_txt='{$reason}' WHERE idx={$e_idx}";
+    }
+    $re = sql_query($sql);
+
+    if($re){
+      $output['state'] = "Y";
+      $output['sql'] = $sql;
+    }else{
+      $output['state'] = "N";
+    }
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+
+  break;
+
+
 
 }
 
