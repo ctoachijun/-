@@ -1396,6 +1396,23 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #newbi_stat #m_newbi .jqplot-xaxis-label{margin-top:20px;color:#A2A2A2;}
 
 
+#menu_agree{color:#262728;font-size:16px;display:flex; width:100%;height:100%;justify-content:flex-start;}
+#menu_agree .menu1{width:30%;text-align:center;border:1px solid #ccc; border-radius:10px;padding:10px;}
+#menu_agree table {}
+#menu_agree td{height:60px; border-top:1px solid #ccc;padding:5px;}
+#menu_agree input{height:33px;padding-left:5px;border:1px solid #E7E7E7;border-radius:5px;color:#858585;}
+#menu_agree .td_cont{border-left:1px solid #ccc}
+#menu_agree .menu1 td:first-child{width:23%}
+#menu_agree .title{border-top:0px;font-size:18px;padding-bottom:5px;}
+#menu_agree .menu1 td{}
+#menu_agree .menu2{width:30%;text-align:center;border:1px solid #ccc; border-radius:10px;padding:10px;margin-left:30px;}
+#menu_agree .menu2 td:first-child{width:23%}
+#menu_agree .agree{width:30%;text-align:center;border:1px solid #ccc; border-radius:10px;padding:10px; margin-left:30px;}
+#menu_agree .agree .agree_txt{resize:none;width:93%;height:400px;outline:0px;margin-top:10px;color:#858585;padding:10px;}
+#menu_agree .btn{text-align:right;padding-right:22px;border:0px;}
+#menu_agree .btn button{padding:0 15px;height:30px;border:0;background:#9eacc6;color:#fff}
+
+
 
 
 

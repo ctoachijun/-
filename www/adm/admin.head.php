@@ -148,7 +148,7 @@ function imageview(id, w, h)
                     <div class="gnb_oparea">
                         <!-- <h3><?php echo $menu['menu'.$key][0][1];?></h3> -->
                         <?php echo print_menu1('menu'.$key, 1); ?>
-                        <?php // echo print_admin_menu(); ?>
+                        <!-- <?php echo print_admin_menu(); ?> -->
                     </div>
                 </div>
             </li>

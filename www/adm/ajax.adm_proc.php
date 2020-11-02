@@ -101,7 +101,68 @@ switch ($w_type){
     echo json_encode($output,JSON_UNESCAPED_UNICODE);
   break;
 
+  case "edit_menu" :
 
+    if($type=="ld"){
+      $tbl_name = "f_late_delivery";
+    }else{
+      $tbl_name = "f_cancel_bidding";
+    }
+
+
+    $box = explode("|",$data);
+    $cnt = count($box);
+
+    for($i=0; $i<8; $i++){
+        $col_txt = "menu".($i+1);
+        $$col_txt = $box[$i];
+
+        if($i==7){
+          $set_txt .= $col_txt."='".$$col_txt."' ";
+        }else{
+          $set_txt .= $col_txt."='".$$col_txt."',";
+        }
+    }
+
+    $sql = "SELECT * FROM {$tbl_name}";
+    $jud = sql_num_rows(sql_query($sql));
+
+    if($jud==0){
+      $sql = "INSERT INTO {$tbl_name} SET {$set_txt}";
+    }else{
+      $sql = "UPDATE {$tbl_name} SET {$set_txt}";
+    }
+    $re = sql_query($sql);
+    if($re){
+      $output['state'] = "Y";
+      $output['sql'] = $sql;
+    }else{
+      $output['state'] = "N";
+    }
+
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
+  case "edit_agree" :
+    $sql = "SELECT * FROM f_agree";
+    $jud = sql_num_rows(sql_query($sql));
+
+    if($jud==0){
+      $sql = "INSERT INTO f_agree SET content='{$content}', w_date=DEFAULT";
+    }else{
+      $sql = "UPDATE f_agree SET content='{$content}', w_date=DEFAULT";
+    }
+    $re = sql_query($sql);
+          $output['sql'] = $sql;
+    if($re){
+      $output['state'] = "Y";
+      $output['sql'] = $sql;
+    }else{
+      $output['state'] = "N";
+    }
+
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
 
 }
 

@@ -565,6 +565,58 @@ function show_ns_stick(){
 
 }
 
+function exe_reason(type){
+  let lb_box = $("input[name='ld']");
+  let cb_box = $("input[name='cb']");
+  let data_box = "";
+
+  for(let i=0; i<8; i++){
+    if(type=="ld"){
+      data_box += (lb_box[i].value+"|");
+    }else{
+      data_box += (cb_box[i].value+"|");
+    }
+  }
+
+  let box = {"data":data_box, "w_type":"edit_menu", "type":type};
+  $.ajax({
+    url: "ajax.adm_proc.php",
+    type: "post",
+    contentType:'application/x-www-form-urlencoded;charset=UTF8',
+    data: box
+  }).done(function(data){
+    let json = JSON.parse(data);
+    console.log(json.sql);
+    if(json.state=="Y"){
+
+      alert("변경했습니다");
+      history.go(0);
+    }else{
+      alert("시스템 오류입니다.");
+    }
+  });
+}
+
+function exe_agree(){
+  let cont = $(".agree_txt").val();
+  let box = {"content":cont, "w_type":"edit_agree"};
+  $.ajax({
+    url: "ajax.adm_proc.php",
+    type: "post",
+    contentType:'application/x-www-form-urlencoded;charset=UTF8',
+    data: box
+  }).done(function(data){
+    let json = JSON.parse(data);
+    if(json.state=="Y"){
+      alert("변경했습니다");
+      history.go(0);
+    }else{
+      alert("시스템 오류입니다.");
+    }
+  });
+
+}
+
 
 
 $(function() {

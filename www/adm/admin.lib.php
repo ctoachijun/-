@@ -601,36 +601,36 @@ if ( isset($_REQUEST) && $_REQUEST ){
 
 
 // 여기서부터가 추가 코드
-// function print_admin_menu(){
-//   $menu_name = array("매출현황","입금현황","회원관리","알림전송","통계","홈페이지관리","문자");
-//
-//   for($i=1; $i<=count($menu_name); $i++){
-//     if($i==1){
-//       $menu_name[$i][0]="입금현황";
-//     }else if($i==2){
-//       $menu_name[$i][0]="전체 회원 리스트";
-//     }else if($i==3){
-//       $menu_name[$i][0]="알림전송";
-//       $menu_name[$i][1]="공지업데이트";
-//     }else if($i==4){
-//       $menu_name[$i][0]="품목별 거래량 및 평균단가 ";
-//       $menu_name[$i][1]="가입자 현황";
-//     }else if($i==5){
-//       $menu_name[$i][0]="";
-//     }
-//     // print_r($menu_name);
-//     // echo "<button type='button' class='btn_op_menu' onclick='admin_menu_oc({$i})'>".$menu_name[$i]."</button>";
-//     echo "<ul><li>".$menu_name[$i]."</li></ul>";
-//     echo "<ul class='menu{$i}'>";
-//     if(count($menu_name[$i])>1){
-//       echo "<li>".$menu_name[$i][0]."</li>";
-//       echo "<li>".$menu_name[$i][1]."</li>";
-//     }else{
-//       echo "<li>".$menu_name[$i]."</li>";
-//     }
-//     echo "</ul>";
-//   }
-// }
+function print_admin_menu(){
+  $menu_name = array("매출현황","입금현황","회원관리","알림전송","통계","홈페이지관리","문자");
+
+  for($i=1; $i<=count($menu_name); $i++){
+    if($i==1){
+      $menu_name[$i][0]="입금현황";
+    }else if($i==2){
+      $menu_name[$i][0]="전체 회원 리스트";
+    }else if($i==3){
+      $menu_name[$i][0]="알림전송";
+      $menu_name[$i][1]="공지업데이트";
+    }else if($i==4){
+      $menu_name[$i][0]="품목별 거래량 및 평균단가 ";
+      $menu_name[$i][1]="가입자 현황";
+    }else if($i==5){
+      $menu_name[$i][0]="";
+    }
+    // print_r($menu_name);
+    // echo "<button type='button' class='btn_op_menu' onclick='admin_menu_oc({$i})'>".$menu_name[$i]."</button>";
+    echo "<ul><li>".$menu_name[$i]."</li></ul>";
+    echo "<ul class='menu{$i}'>";
+    if(count($menu_name[$i])>1){
+      echo "<li>".$menu_name[$i][0]."</li>";
+      echo "<li>".$menu_name[$i][1]."</li>";
+    }else{
+      echo "<li>".$menu_name[$i]."</li>";
+    }
+    echo "</ul>";
+  }
+}
 
 //  입금현황 리스트
 function list_depo($page,$list,$l_cnt){
@@ -1352,6 +1352,64 @@ function getNewbiData(){
   return $return_box;
 
 }
+
+
+function print_menu($type){
+  if($type=="ld"){
+    $tbl_name = "f_late_delivery";
+    $head_txt = "배송지연 사유";
+  }else if($type=="cb"){
+    $tbl_name = "f_cancel_bidding";
+    $head_txt = "입찰취소 사유";
+  }
+
+  $sql = "SELECT * FROM {$tbl_name}";
+  $re = sql_fetch_array(sql_query($sql));
+
+  echo "<table class='{$type}'>";
+  echo "<tr>";
+  echo "<td colspan='2' class='title'>{$head_txt}</td>";
+  echo "</tr>";
+
+  for($i=1; $i<9; $i++){
+    $col_name = "menu".$i;
+    $value = $re[$col_name];
+    if(!$value){
+      $no_value = "없음";
+    }
+    echo "<tr>";
+    echo "<td>사유 {$i}</td>";
+    echo "<td class='td_cont'><input type='text' name='{$type}' value='{$value}' placeholder='{$no_value}' /></td>";
+    echo "</tr>";
+  }
+  echo "<tr>";
+  echo "<td colspan='2' class='btn'><button onclick='exe_reason(\"{$type}\")' class='exe_btn'>변경</button></td>";
+  echo "</tr>";
+  echo "</table>";
+}
+
+function print_agree(){
+  $sql = "SELECT * FROM f_agree";
+  $re = sql_fetch_array(sql_query($sql));
+
+  $title = "이용약관";
+  $content = $re['content'];
+
+  echo "<table class='t_agree'>";
+  echo "<tr>";
+  echo "<td class='title'>{$title}</td>";
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td class='agree_cont'>";
+  echo "<textarea class='agree_txt'>{$content}</textarea>";
+  echo "</td>";
+  echo "<tr>";
+  echo "<td class='btn'><button onclick='exe_agree()' class='exe_btn'>변경</button></td>";
+  echo "</tr>";
+  echo "</table>";
+
+}
+
 
 
 

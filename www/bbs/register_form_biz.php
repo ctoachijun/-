@@ -174,6 +174,11 @@ if($jt=="m"){
 
 }
 
+$sql = "SELECT * FROM f_agree";
+$re = sql_fetch_array(sql_query($sql));
+$content = $re['content'];
+
+
 ?>
 <style>
 .content{height:100%;}
@@ -268,9 +273,7 @@ if($jt=="m"){
       <p>이용약관 동의</p>
     </div>
     <div class="sign_notice">
-      <p>(주) 제이엘조경유통은 통신판매중개자이며 통신판매의 당사자가 아닙니다.<br>
-      따라서 개별판매자가 등록하여 판매한 모든 상품에 대한 거래 정보 및 거래에 대한
-      책임은 각 판매자가 부담하고, 이에 대하여 (주)제이엘조경유통은 일체 책임지지 않습니다.</p>
+      <p><?=$content?></p>
     </div>
 
     <input type="submit" class="sign_ok" value="가입완료"/>
