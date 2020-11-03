@@ -872,6 +872,11 @@ function myEstiList($mb_id){
       echo "<div><img src='/theme/basic/img/location.png' alt='납품 장소'><p>납품 장소 : {$target}</p></div>\n";
       echo "<hr style='width:100%;margin:0 auto;margin-top:12px;margin-bottom:12px;'>\n";
       echo "<div class='sub01_btn'>\n";
+
+      if($oc_name=="end"){
+        echo "<p class='cancel'><a href='./eval_partner.php?e_idx={$e_idx}'>후기쓰기</a></p>\n";
+      }
+
       echo "<p class='cancel' onclick='noListExe({$list_type},{$ep_idx})'>{$cancel_btn}</p>\n";
       echo "<a href='{$link_url}'><p class='estimate'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적서 확인</p></a>\n";
       echo "</div>\n";
