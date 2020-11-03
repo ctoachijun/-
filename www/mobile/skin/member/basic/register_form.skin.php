@@ -34,6 +34,8 @@ if($jt=="m"){
   <input type="hidden" name="mb_nick_default" value="<?php echo get_text($member['mb_nick']) ?>">
   <input type="hidden" name="mb_nick" value="닉<?=date("Ymd_his")?>">
   <?php } ?>
+  <input type="hidden" name="cert_dt" />
+  <input type="hidden" name="cert_cnt" />
 
   <div class="header">
     <h2>회원가입</h2>
@@ -47,15 +49,17 @@ if($jt=="m"){
     <input type="password" name="mb_password" class="text_border" id="reg_mb_password" class="frm_input full_input" minlength="3" maxlength="20" <?php echo $required ?> placeholder="비밀번호">
     <label>비밀번호 확인</label>
     <input type="password" name="mb_password_re" class="text_border" id="reg_mb_password_re" class="frm_input full_input" minlength="3" maxlength="20" <?php echo $required ?>  placeholder="비밀번호확인">
-
+    <div class="tel_cert">
     <label>휴대폰 번호</label>
-    <input type="text" name="mb_hp" class="text_border" value="<?php echo get_text($member['mb_hp']) ?>" id="reg_mb_hp" <?php echo ($config['cf_req_hp'])?"required":""; ?> class="frm_input full_input <?php echo ($config['cf_req_hp'])?"required":""; ?>" maxlength="20" placeholder="휴대폰번호">
+    <input type="text" name="mb_hp" class="text_border telcert" value="<?php echo get_text($member['mb_hp'])?>" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="reg_mb_hp" <?php echo ($config['cf_req_hp'])?"required":""; ?> class="frm_input full_input <?php echo ($config['cf_req_hp'])?" required":""; ?>" maxlength="11" placeholder="휴대폰번호">
+    <div class="cert_txt" onclick="sendCert()">인증발송</div>
+    </div>
     <?php if ($config['cf_cert_use'] && $config['cf_cert_hp']) { ?>
     <input type="hidden" name="old_mb_hp" value="<?php echo get_text($member['mb_hp']) ?>">
     <?php } ?>
 
     <label>인증번호</label>
-    <input type="text" name="con_hp" class="text_border" placeholder="인증번호 입력">
+    <input type="text" name="con_hp" class="text_border" maxlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="인증번호 입력">
 <?  if($jt=="m"){     ?>
     <label>담당자 성명</label>
     <input type="text" id="reg_mb_name" class="text_border" name="mb_name" value="<?php echo get_text($member['mb_name']) ?>" <?php echo $required ?> <?php echo $readonly; ?> class="frm_input full_input <?php echo $readonly ?>" placeholder="이름">
@@ -71,6 +75,53 @@ if($jt=="m"){
   </form>
 
 <script>
+  function sendCert(){
+    let tel = $("input[name=mb_hp]").val().trim();
+    let cert_cnt = parseInt($("input[name=cert_cnt]").val());
+    if(!cert_cnt){
+      cert_cnt = 0;
+    }
+
+    if(!tel){
+      alert("휴대폰 번호를 입력 해 주세요");
+      $("input[name=mb_hp]").val("");
+      $("input[name=mb_hp]").focus();
+    }else{
+
+      if(cert_cnt==3){
+        alert("인증발송 횟수 초과입니다.");
+      }else{
+        if(cert_cnt==0){
+          alert("인증발송 횟수는 3회까지입니다.");
+        }
+        $("input[name=cert_cnt]").val((cert_cnt+1));
+        let box = {"tel":tel, "w_type":"sms_cert"};
+        $.ajax({
+          url: "ajax_cert.php",
+          type: "post",
+          contentType:'application/x-www-form-urlencoded;charset=UTF8',
+          data: box
+        }).done(function(data){
+          let json = JSON.parse(data);
+
+          if(json.re.result_code > 0){
+            alert("발송되었습니다.");
+            $("input[name=cert_dt]").val(json.dt);
+          }else{
+            alert("발송에 실패했습니다.");
+          }
+        });
+
+        if(cert_cnt==2){
+          $(".cert_txt").css('color','#ccc');
+        }
+
+      }
+
+    }
+  }
+
+
     $(function() {
         $("#reg_zip_find").css("display", "inline-block");
 

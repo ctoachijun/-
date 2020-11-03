@@ -1,4 +1,4 @@
-.texts{font-size:60px;color:#999}
+/* .texts{font-size:60px;color:#999} */
 body{font-family: 'NanumSquare', sans-serif;margin:0px;background-color:#F8F8F8;width:auto;overflow:hidden;}
 a{color:#333;}
 a:hover{text-decoration:none;color:#fff}
@@ -99,6 +99,7 @@ ul{list-style:none;padding-left:0px;}
 .sub01_box .estimate{width:110px;background-color:#434343;padding:5px 10px;border-radius:5px;color:#333;font-size:1.4rem;color:#fff;text-align:center;}
 .sub01_box .estimate img{margin-right:3px;}
 .sub01_box .sub01_btn{display: flex;justify-content:flex-end;}
+
 
 /* sub02 거래내역 */
 .sub02_box{margin-top:50px;}
@@ -371,7 +372,7 @@ ul{list-style:none;padding-left:0px;}
 .sub_check span{font-weight:normal;margin-left:5px;}
 
 
-/* sub12 농원상세 */
+/* sub12 농원상세  & 후기 */
 .address{width:100%;background-color:#fff;padding:15px;}
 .address img{width:15px;}
 .address p{display:inline-block;font-size:1.5rem;margin-bottom:1.5vh;}
@@ -403,7 +404,23 @@ ul{list-style:none;padding-left:0px;}
 .de_txt{padding:10px;}
 .delivery_con .de_txt h4{font-size:1.4rem;margin-top:1.5vh;}
 .delivery_con .de_txt p{font-style: 1.2rem;margin-top:1vh;}
-
+.sub13 .address{padding:15px;}
+.sub13 .address table{width:100%; border:1px solid #ccc; border-collapse:inherit;border-radius:10px;}
+.sub13 .address td{height:35px;padding:5px;}
+.sub13 .address td:first-child{text-align:right;width:80px;}
+.sub13 .address .bold{font-size:1.6rem}
+.sub13 .address td:last-child{text-align:left;padding-left:10px;}
+.sub13 .address .line{width:60%; border:1px solid #ccc;height:1px;}
+.sub13 .address .line td{height:1px;}
+.sub13 .review table{width:100%;border-collapse:inherit;}
+.sub13 .review td:first-child{width:60px;height:50px;}
+.sub13 .review td:last-child{padding-left:10px;padding-top:10px;}
+.sub13 .review select{width:100px;text-align-last:center;}
+.sub13 .review textarea{width:90%;height:100px;resize:none;border:1px solid #ccc;border-radius:5px;padding:10px;outline:none;}
+.sub13 .review .liner{border-top:1px solid #ccc;border-bottom:1px solid #ccc;height:150px;}
+.sub13 .review .point_btn{text-align:right; height:50px;padding-top:10px;padding-right:14px;margin:0px;}
+.sub13 .review .point_btn button{width:100px;background-color:#eee;padding:5px 10px;border-radius:5px;color:#333;font-size:1.4rem;margin-right:4%;border:1px solid #ccc;outline:none;}
+.sub13 .td_head{font-weight:700;padding-left:0px;text-align:center;font-size:1.6rem;}
 
 /* login */
 .header{}

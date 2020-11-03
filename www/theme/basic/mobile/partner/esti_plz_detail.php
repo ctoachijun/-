@@ -96,6 +96,11 @@ if($jud){
 
 <? setPic($idx) ?>
 
+$(function(){
+    $("#date_wr_1").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+3d;", maxDate: "+365d;" });
+    $("#date_wr_2").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+3d;", maxDate: "+365d;" });
+});
+
 </script>
 
 

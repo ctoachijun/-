@@ -194,6 +194,36 @@ switch($exe_type){
 
   break;
 
+  case "add_eval" :
+    $sql = "SELECT * FROM f_estimate WHERE idx={$e_idx}";
+    $re = sql_fetch_array(sql_query($sql));
+    $ep_idx = $re['ep_idx'];
+
+    $sql = "SELECT * FROM f_estimate_plz WHERE idx={$ep_idx}";
+    $re = sql_fetch_array(sql_query($sql));
+    $o_idx = $re['o_idx'];
+
+    $p_colname = "point";
+
+    if($eval==1){
+      $sql = "UPDATE f_partner_ship SET
+      {$p_colname}='{$point}', comment='{$comment}'
+      WHERE o_idx={$o_idx}";
+    }else{
+      $sql = "INSERT INTO f_partner_ship SET
+      m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, o_idx={$o_idx},
+      {$p_colname}='{$point}', comment='{$comment}', w_date=DEFAULT";
+    }
+    $re = sql_query($sql);
+    if($re){
+      $output['state'] = "Y";
+      $output['sql'] = $sql;
+    }else{
+      $output['state'] = "N";
+    }
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
 
 
 }

@@ -3876,6 +3876,41 @@ function getTypemp($mb_id){
   }
 }
 
+function send_certNum($msg,$receiver){
+
+  $sms_url = "https://apis.aligo.in/send/"; // 전송요청 URL
+  $sms['user_id'] = "jl010302"; // SMS 아이디
+  $sms['key'] = "xugzsb9xhge82qgglc87fdzbqubt98gt";//인증키
+  /****************** 인증정보 끝 ********************/
+
+  /****************** 전송정보 설정시작 ****************/
+
+  $sms['msg'] = stripslashes($msg);
+  $sms['receiver'] = $receiver;
+  $sms['sender'] = "010-6675-7290";
+  $sms['testmode_yn'] = "Y";
+
+  $host_info = explode("/", $sms_url);
+  $port = $host_info[0] == 'https:' ? 443 : 80;
+
+  $oCurl = curl_init();
+  curl_setopt($oCurl, CURLOPT_PORT, $port);
+  curl_setopt($oCurl, CURLOPT_URL, $sms_url);
+  curl_setopt($oCurl, CURLOPT_POST, 1);
+  curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($oCurl, CURLOPT_POSTFIELDS, $sms);
+  curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, FALSE);
+  $ret = curl_exec($oCurl);
+  curl_close($oCurl);
+
+  // echo $ret;
+  $retArr = json_decode($ret);
+  return $retArr;
+}
+
+
+
+
 
 
 ?>

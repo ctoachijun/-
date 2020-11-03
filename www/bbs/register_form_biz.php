@@ -25,6 +25,18 @@ else if($w == '')
 else
     alert('잘못된 접근입니다', G5_URL);
 
+  // 인증번호 체크
+  $sql = "SELECT cert_num FROM f_sms_cert WHERE cert_time = '{$cert_dt}' && cert_tel='{$mb_hp}'";
+  $cbox = sql_fetch_array(sql_query($sql));
+  $cert_num = $cbox['cert_num'];
+
+  if(!$cert_num){
+    alert("인증번호 인증시간이 지났습니다. 새로 받아주세요.");
+  }
+  if($cert_num != $con_hp){
+    alert("인증번호가 일치하지 않습니다");
+  }
+
 
 
 if(!$mb_id)
@@ -147,6 +159,7 @@ if ($w == '' || $w == 'u') {
 
     // if ($msg = exist_mb_nick($mb_nick, $mb_id))     alert($msg, "", true, true);
     if ($msg = exist_mb_email($mb_email, $mb_id))   alert($msg, "", true, true);
+
 }
 
 // echo $w."<br>";
@@ -171,8 +184,9 @@ if($jt=="m"){
 }else{
   $t_name1 = "농원명";
   $t_name2 = "농원주";
-
 }
+
+
 
 $sql = "SELECT * FROM f_agree";
 $re = sql_fetch_array(sql_query($sql));

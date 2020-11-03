@@ -530,9 +530,48 @@ function setWpic(f_name){
   $('.pic_div').css({'background-position': 'center'});
 }
 
+function add_eval(e_idx,m_idx,p_idx){
+  let point = $("#star_point").val();
+  let comment = $("#comment").val().trim();
+  let eval = $("input[name=eval]").val();
+  let con_txt = "";
+
+  if(point==0){
+    alert("평점을 선택 해 주세요");
+  }else if(!comment){
+    alert("후기를 입력 해 주세요.");
+    $("#comment").focus();
+  }else{
+    if(eval==1){
+      con_txt = "후기를 수정 하시겠습니까?";
+    }else{
+      con_txt = "후기를 등록 하시겠습니까?";
+    }
+
+    if(confirm(con_txt)){
+      let box = {"exe_type":"add_eval", "e_idx":e_idx, "comment":comment, "point":point, "m_idx":m_idx, "p_idx":p_idx, "eval":eval};
+      $.ajax({
+        url: "ajax.proc.php",
+        type: "post",
+        contentType:'application/x-www-form-urlencoded;charset=UTF8',
+        data: box
+      }).done(function(data){
+        let json = JSON.parse(data);
+        console.log(json.sql);
+        if(json.state=="Y"){
+          alert("등록했습니다");
+          window.location.href=ru;
+        }else{
+          alert("시스템 오류입니다.");
+        }
+      });
+    }
 
 
-$(function(){
-    $("#date_wr_1").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+3d;", maxDate: "+365d;" });
-    $("#date_wr_2").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+3d;", maxDate: "+365d;" });
-});
+
+
+
+
+  }
+
+}

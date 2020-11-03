@@ -817,6 +817,7 @@ function myEstiList($mb_id){
   WHERE ep.m_idx = {$m_idx} and ep.no_list != 'Y' and ep.cancel != 'Y' ORDER BY ep.w_date DESC";
   $re = sql_query($sql);
 
+  $psbox = getPartShipInfo($o_comp);
 
   while($row = sql_fetch_array($re)){
       $o_comp = $row['o_idx'];
@@ -836,7 +837,17 @@ function myEstiList($mb_id){
         $cancel_btn = "내역 삭제";
         $list_type=1;
         $link_url = "./esti_detail.php?e_idx={$e_idx}";
+
+        $psbox = getPartShipInfo($o_comp);
+        if($psbox){
+          $eval_txt = "후기수정";
+        }else{
+          $eval_txt = "후기작성";
+        }
+
       }
+
+
 
       // 마감일까지 남은일자 산출
       $now = date("Y-m-d H:i:s");
@@ -872,6 +883,11 @@ function myEstiList($mb_id){
       echo "<div><img src='/theme/basic/img/location.png' alt='납품 장소'><p>납품 장소 : {$target}</p></div>\n";
       echo "<hr style='width:100%;margin:0 auto;margin-top:12px;margin-bottom:12px;'>\n";
       echo "<div class='sub01_btn'>\n";
+
+      if($oc_name=="end"){
+        echo "<p class='cancel'><a href='./eval_partner.php?e_idx={$e_idx}'>{$eval_txt}</a></p>\n";
+      }
+
       echo "<p class='cancel' onclick='noListExe({$list_type},{$ep_idx})'>{$cancel_btn}</p>\n";
       echo "<a href='{$link_url}'><p class='estimate'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적서 확인</p></a>\n";
       echo "</div>\n";
@@ -1058,6 +1074,13 @@ function getPartnerGrade($p_idx){
   $box = sql_fetch_array(sql_query($sql));
 
   return $box['partner_ship'];
+}
+
+function getPartShipInfo($o_idx){
+  $sql = "SELECT * FROM f_partner_ship WHERE o_idx={$o_idx}";
+  $box = sql_fetch_array(sql_query($sql));
+
+  return $box;
 }
 
 function getEstiInfo($e_idx){
