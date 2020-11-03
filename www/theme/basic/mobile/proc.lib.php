@@ -226,14 +226,12 @@ function getEstiPlzList($s_type,$t_type,$mb_id,$mp){
     $cnt_pi=0;
     while($row = sql_fetch_array($re)){
       $ep_idx = $row['idx'];
-      $mypartner = $row['c_partner'];
       $g_work = $row['g_work'];
       $k_tree = $row['k_tree'];
       $w_name = $row['w_name'];
       $to_idx = $row['to_idx'];
       $m_idx = $row['m_idx'];
       $d_date = $row['d_date'];
-
 
       // 그만보기 선택한 의뢰 및 견적을 낸 건은 제외처리
       $nv_box = explode("|",$row['no_view']);
@@ -242,9 +240,13 @@ function getEstiPlzList($s_type,$t_type,$mb_id,$mp){
       if(!$nv_re){
 
         // 업체명 추출
-        $m_sql = "SELECT c_name FROM f_member WHERE idx = {$m_idx}";
+        $m_sql = "SELECT c_name,c_partner FROM f_member WHERE idx = {$m_idx}";
         $m_re = sql_fetch_array(sql_query($m_sql));
         $c_name = $m_re['c_name'];
+
+        // 내 농원을 거래처로 등록했는지 여부
+        $cpbox = explode("|",$m_re['c_partner']);
+        $mypartner = in_array($mb_idx,$cpbox);
 
         // 수목 발주품목 추출
         $to_sql = "SELECT * FROM f_tree_order WHERE idx = {$to_idx}";
@@ -1294,6 +1296,7 @@ function getEstiConfirm($e_idx){
   $ep_idx = $esti['ep_idx'];
   $esti_p = getEpInfo($ep_idx);
   $w_name = $esti_p['w_name'];
+  $e_date = $esti_p['e_date'];
 
   // 발주수목 정보 추출
   $to_idx = $esti_p['to_idx'];
@@ -1326,15 +1329,9 @@ function getEstiConfirm($e_idx){
   $dbox = explode(" ",$esti_p['w_date']);
   $w_date = $dbox[0];
 
-  // 마감일까지 남은일자 산출
+  // 입찰 마감일까지 남은일자 산출
   $now = date("Y-m-d H:i:s");
-  $c_d = ceil( (strtotime($esti_p['d_date']) - strtotime($now)) / 86400 );
-  $ed_box = explode("-",$esti_p['e_date']);
-  $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
-
-
-
-
+  $c_d = ceil( (strtotime($esti_p['e_date']) - strtotime($now)) / 86400 );
 
   echo "<table class='text_table'>";
   echo "<tr><td colspan='2'>";
@@ -1342,14 +1339,12 @@ function getEstiConfirm($e_idx){
   if($acco_jud){
     echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
   }
-  echo "</td><td></td>";
+  echo "</td><td class='right'><p class='partner tree'>{$g_work_txt}</p><p class='partner work {$k_tree_class}'>{$k_tree_txt}</p></td>";
   echo "</tr>";
-  echo "<tr><td><h4 class='farm_name'>{$c_name}</h4></td>";
-  echo "<td class='right'>";
-  echo "<p class='partner tree'>{$g_work_txt}</p><p class='partner work {$k_tree_class}'>{$k_tree_txt}</p>";
-  echo "</td></tr>";
+  echo "<tr><td colspan='2'><h4 class='farm_name'>{$c_name}</h4></td>";
+  echo "</tr>";
   echo "<tr><td class='wn'><p class='work_name'>{$w_name}</p></td>";
-  echo "<td><p class='com_date'>{$w_date}</p></td></tr>";
+  echo "<td colspan='2'><p class='com_date'>{$w_date}</p></td></tr>";
   echo "</table>";
   echo "<div class='size'>";
   echo "<div class='size_title'><p class='item_p'>품목</p> <p class='size_p'>규격</p> <p class='osum_p'>수량</p> <p class='price_p'>단가</p></div>";
@@ -1412,10 +1407,14 @@ function getEstiConfirm($e_idx){
         </div>
       </form>';
 
-  echo '<div class="date_dead">
-          <div class="view_hide" onclick="none_view()'.$wpic_func.'">사진 추가</div>
+  echo '<div class="pic_btn">
+          <div class="add_pic" onclick="none_view()'.$wpic_func.'">사진 추가</div>
         </div>';
 
+  echo '<div class="date_dead">
+          <div>입찰 마감일</div>
+          <div>'.$e_date.'<img src="../../img/date_w.png" alt="입찰 마감일"></div>
+        </div>';
 
 }
 
