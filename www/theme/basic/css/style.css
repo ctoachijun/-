@@ -475,15 +475,16 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 
 /* p_sub01 */
 .p_sub01 .p_sub02 .info{display:flex;justify-content:flex-end;}
-.gradation_box{display:flex; background: linear-gradient( 140deg, #0D3081, #4ABF);height:50px;padding}
-.gradation_box div{width:50%;text-align:center;line-height:50px;}
-.gradation_box img{width:22px}
+.gradation_box{display:flex; background: linear-gradient( 140deg, #0D3081, #4ABF);height:50px;position:relative;}
+.gradation_box div{width:50%;text-align:center;line-height:50px;display:flex;justify-content:center;align-items:center;}
+.gradation_box img{width:13%;height:50%;}
+.gradation_box img:first-child{margin-right:2px;}
 .gradation_box p{display:inline-block;font-size:1.4rem;color:#fff;}
 .border{border-right:1px solid #ccc;height:50%;margin-top:10px;}
 .all_gray_box{display:flex;justify-content:flex-end;margin:10px 15px;}
 .all_gray_box p{background-color:#eee;border-radius:5px;font-size: 1.3rem;padding:3px 5px;margin-left:5px;}
-.p_sub01 .gradation_box .under_line1{border:0px;border-bottom:2px solid #fff;position:absolute;top:18.2%;left:15.5%;width:70px;}
-.p_sub01 .gradation_box .under_line2{border:0px;border-bottom:2px solid #fff;position:absolute;top:18.2%;left:66.5%;width:70px;}
+.p_sub01 .gradation_box .under_line1{border:0px;border-bottom:2px solid #fff;position:absolute;bottom:-25%;width:26%;}
+.p_sub01 .gradation_box .under_line2{display:none;}
 
 /* p_sub02 */
 .p_sub02 .partner{background-color:#458AB3;color:#fff;font-size:1.1rem;width:83%;}
