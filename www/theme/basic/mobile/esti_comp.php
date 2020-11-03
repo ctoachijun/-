@@ -9,6 +9,7 @@ $ep_box = getEpData($ep_idx);
 $now = date("Y-m-d H:i:s");
 $c_d = ceil( (strtotime($ep_box['e_date']) - strtotime($now)) / 86400 );
 $d_date = $ep_box['d_date'];
+
 $d_box = explode("-",$d_date);
 $d_txt = $d_box[0]."년".$d_box[1]."월".$d_box[2]."일";
 

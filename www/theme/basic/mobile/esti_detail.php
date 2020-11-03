@@ -3,6 +3,11 @@ include_once('../../../common.php');
 include G5_THEME_MOBILE_PATH."/head.php";
 
 
+// 주문이 들어간 견적인지를 조회
+$sql = "SELECT * FROM f_order WHERE e_idx = {$e_idx}";
+$order = sql_num_rows(sql_query($sql));
+
+
 // 견적 정보 추출
 $esti = getEstiInfo($e_idx);
 
@@ -41,7 +46,7 @@ $w_date = $dbox[0];
 
 // 마감일까지 남은일자 산출
 $now = date("Y-m-d H:i:s");
-$c_d = ceil( (strtotime($esti_p['d_date']) - strtotime($now)) / 86400 );
+$c_d = ceil( (strtotime($esti_p['e_date']) - strtotime($now)) / 86400 );
 $ed_box = explode("-",$esti_p['e_date']);
 $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
 
@@ -76,7 +81,9 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
     </tr>
     <tr>
       <td><p class="work_name"><?=$esti_p['w_name']?></p></td>
+<?  if($c_d > 0){  ?>
       <td><p class="cut_date">마감까지 <?=$c_d?>일 남음</p></td>
+<?  }  ?>
     </tr>
   </table>
 
@@ -178,8 +185,13 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
   </form>
 
   <div class="click_box">
-    <a onclick="call_back()" class="back">확인</a>
-    <p onclick="submit_pay(1)" class="enter">결제하기</p>
+<?  if($c_d > 0 && $order == 0){  ?>
+      <a onclick="call_back()" class="back">확인</a>
+      <p onclick="submit_pay(1)" class="enter">결제하기</p>
+<?  }else{  ?>
+      <a onclick="call_back()" class="back_all">확인</a>
+<?  }     ?>
+
   </div>
 
 </div>

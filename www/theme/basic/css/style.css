@@ -76,7 +76,7 @@ ul{list-style:none;padding-left:0px;}
 .main_bottom_box .info .cancel{margin-left:4px;}
 .main_bottom_box .edit_input{height:20px;display:flex;align-items:center;}
 .main_bottom_box .edit_input div p{margin-left:4px;padding:0px;}
-.main_bottom_box .edit_input input{border:0; width:200px; height:20px;margin-top:13px;text-align:left;}
+.main_bottom_box .edit_input input{border:0; width:234px; height:20px;margin-top:13px;text-align:left;}
 .text_table{width:100%;}
 .text_table .right{text-align:right;}
 .official{color:#FFC000;}
@@ -136,15 +136,10 @@ ul{list-style:none;padding-left:0px;}
 .sub04 .main_top .main_top_btn{width:100%;display: flex;justify-content:flex-end;border:none;}
 .sub04 .main_top .main_top_btn a{font-size:1.3rem;font-weight:700;color:#F86252;border:1px solid #F86252;padding:5px;border-radius:50px;width:80px;}
 .sub04 .main_bottom{width:100%; height:25vh;}
-.sub04 .main_bottom .bottom_box{width:90%;height:7vh;background-color:#fff;border:2px solid #eee;margin:0 auto;margin-bottom:10px;padding:18px 10px;position:relative;}
-.sub04 .main_bottom .bottom_box p{font-size:1.5rem;font-weight:700;}
-.sub04 .main_bottom .bottom_box .right{float:right;margin-right:10px;}
-/* .sub04 .main_bottom .bottom_box .notice_btn01{display:inline-block;width:35px;height:18px;background-color:#FFCD00;border-radius:50px;position:absolute;top:12px;right:15px;box-shadow:0px 0px 4px 2px #F3C300 inset;}
-.sub04 .main_bottom .bottom_box .notice_btn01 p{font-size:0.9rem;font-weight:700;}
-.sub04 .main_bottom .bottom_box .notice_btn02{display:inline-block;width:22px;height:22px;background-color:#fff;border-radius:50px;position:absolute;top:10px;right:10px;box-shadow: 0px 0px 4px -1px #888;text-align:center;}
-.sub04 .main_bottom .bottom_box .notice_btn02 p{font-size:0.9rem;font-weight:700;} */
-.sub04 .main_bottom .bottom_box .notice_btn{width:30px;height:30px;background-color:#fff;margin-right:10px;margin-top:-7px;padding:0px;}
-
+.sub04 .main_bottom .bottom_box{width:90%;height:7vh;background-color:#fff;border:2px solid #eee;margin:0 auto;margin-bottom:10px;padding:10px 10px;position:relative;}
+.sub04 .main_bottom .bottom_box p{font-size:1.5rem;font-weight:700;margin-top:2px;}
+.sub04 .main_bottom .bottom_box .right{float:right;}
+.sub04 .main_bottom .bottom_box .notice_btn{width:30px;height:30px;background-color:#fff;margin-right:10px;margin-top:-1px;padding:0px;}
 
 /* sub05 마이페이지 더보기 */
 .sub05_box{width:93%;background-color:#fff;border:1px solid #ddd;border-radius: 5px;margin:0 auto;padding:15px;margin-bottom:10px;margin-top:10px;}
@@ -351,6 +346,7 @@ ul{list-style:none;padding-left:0px;}
 .sub09 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
 .sub09 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
 .sub09 .click_box .enter{padding-top:9px;border-radius:5px;}
+.sub09 .click_box .back_all{width:100%;background-color:#eee;color:#333;}
 
 .check, .payment{background-color:#fff;border:1px solid #ddd;border-radius:5px;padding:10px 15px;margin-top:10px;}
 .check p{font-size:1.3rem;}
@@ -487,14 +483,14 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub01 .gradation_box .under_line2{display:none;}
 
 /* p_sub02 */
-.p_sub02 .partner{background-color:#458AB3;color:#fff;font-size:1.1rem;width:83%;}
-.p_sub02 .tree{background-color:#eee;padding:3px;width:auto;color:#333;margin-right:4px;}
+.p_sub02 .partner{background-color:#458AB3;color:#fff;font-size:1.1rem;width:80%;margin-left:2px;}
+.p_sub02 .tree{background-color:#eee;padding:3px;width:auto;color:#333;margin-right:2px;}
 .p_sub02 .work{background-color:#405FC0;padding:3px;width:auto;}
 .p_sub02 .work_name{font-size: 1.25rem;}
 .p_sub02 .cut_date{margin-top:10px;margin-bottom:5px;}
 .p_sub02 .ready{font-size:1.05rem;background-color:#F6D12A;padding:2px;border-radius:5px;margin-left:2%;}
 .p_sub02 .info{display:flex;justify-content:space-between;}
-.p_sub02 .info div a{background-color: #eee;padding:5px 10px;border-radius:5px;color: #333;font-size: 1.4rem;margin-right:4px;}
+.p_sub02 .info div a{background-color: #eee;padding:5px 10px;border-radius:5px;color: #333;font-size: 1.4rem;margin-right:0px;}
 .p_sub02 .info .brown_box{background-color:#434343;color:#fff;margin-left:4px;}
 .p_sub02 .green_box{background-color:#1BB687}
 

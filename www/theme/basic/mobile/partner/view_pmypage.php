@@ -40,7 +40,6 @@ if($alarm=="Y"){
 
   <div class="main_bottom">
     <h2>설정</h2>
-
     <div class="bottom_box">
       <p>알림</p>
       <div class="notice_btn right" onclick="alarmOnoff('<?=$mb_type?>',<?=$p_idx?>)">
@@ -53,8 +52,5 @@ if($alarm=="Y"){
     </div> -->
 
   </div><!--main_bottom 끝-->
-
-
-
 </div>
 <?include "./p_tail.php"?>

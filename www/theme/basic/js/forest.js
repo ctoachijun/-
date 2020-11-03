@@ -376,6 +376,7 @@ function noptEsti(e_idx){
       let json = JSON.parse(data);
       if(json.state=="Y"){
         alert("견적을 거절 했습니다.");
+        history.go(0);
       }else{
         alert("견적 거절에 실패했습니다.");
       }
@@ -384,12 +385,14 @@ function noptEsti(e_idx){
   history.go(0);
 }
 
-function editDPinfo(ep_idx,cnt){
-  let t_name = "target"+ep_idx;
-  let ed_name = "ed_date"+ep_idx;
+function editDPinfo(ep_idx,e_idx,opt){
+  let t_name = "target"+e_idx;
+  let ed_name = "ed_date"+e_idx;
+  console.log(t_name);
+  console.log(ed_name);
   let target = $('.'+t_name).val();
   let ed_date = $('.'+ed_name).val();
-  let ro = $('.'+ed_name).prop("readonly");
+  let ro = $('.'+ed_name).prop(opt);
   ed_date = ed_date.replace(/[^0-9]/g," ");
 
   let data_list = {"exe_type":"editInfoDP", "e_date":ed_date, "target":target, "ep_idx":ep_idx};
