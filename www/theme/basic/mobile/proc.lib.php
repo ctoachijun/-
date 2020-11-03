@@ -655,11 +655,6 @@ function setPic($epidx){
   $(document).ready(function(){
   ";
 
-
-
-
-
-
   for($i=0; $i<$cnt; $i++){
     $funcName = "view_pic".($i+1);
     $className = "back_img".($i+1);
@@ -684,6 +679,7 @@ function setPic($epidx){
           $('.{$className}').css({'background': 'url('+e.target.result+')'});
           $('.{$className}').css({'background-repeat': 'no-repeat'});
           $('.{$className}').css({'background-size': 'contain'});
+          $('.{$className}').css({'background-position': 'center'});
         }
         reader.readAsDataURL(f);
 
@@ -942,7 +938,7 @@ function getReply($p_idx){
 
     echo "<div class='re_con'>";
     echo "<div class='re_big_tit'>";
-    echo "<div class='work_img'><img src='/theme/basic/img/work_name.png' alt=''></div>";
+    // echo "<div class='work_img'><img src='/theme/basic/img/work_name.png' alt=''></div>";
     echo "<div class='re_tit'>";
     echo "<div><p class='bold'>{$w_name}</p></div>";
     echo "<p>{$c_name}</p>";
@@ -970,12 +966,16 @@ function getOrderComp($p_idx){
     $w_name = $box['w_name'];
     $ep_idx = $box['idx'];
 
-    $sql = "SELECT t_price FROM f_estimate WHERE ep_idx={$ep_idx} AND p_idx={$p_idx}";
+    $sql = "SELECT t_price,w_pic FROM f_estimate WHERE ep_idx={$ep_idx} AND p_idx={$p_idx}";
     $box = sql_fetch_array(sql_query($sql));
     $t_price = number_format($box['t_price']);
+    $w_pic = $box['w_pic'];
+    if(!$w_pic){
+      $w_pic = "noimage.png";
+    }
 
     echo "<div class='delivery_con'>";
-    echo "<div class='de_img'><img src='/theme/basic/img/noimage.png' alt='{$w_name}'></div>";
+    echo "<div class='de_img'><img src='/theme/basic/img/forest/{$w_pic}' alt='{$w_name}'></div>";
     echo "<div class='de_txt'>";
     echo "<h4 class='bold'>{$w_name}</h4>";
     echo "<p>&#92;{$t_price}</p>";
@@ -1248,7 +1248,7 @@ function getDealList($mb_id){
       echo "<div class='info'>";
       echo "<div><a href='./cancel_deal.php?e_idx={$e_idx}'>거래취소</a>";
       echo "<a href='./late_delivery.php?e_idx={$e_idx}'>배송지연</a></div>";
-      echo "<div><a href='./esti_plz_detail.php?idx={$ep_idx}' class='brown_box'>제출한 견적서</a></div>";
+      echo "<div><a href='./conf_pesti.php?idx={$e_idx}' class='brown_box'>제출한 견적서</a></div>";
       echo "</div>";
       echo "</div>";
     }
@@ -1282,10 +1282,173 @@ function getSelMenu($type){
   echo "<div class='input_reason'>";
   echo "<textarea name='reason' class='reason_input' placeholder='사유를 입력해주세요' /></textarea>";
   echo "</div>";
+}
+
+function getEstiConfirm($e_idx){
+  // 견적 정보 추출
+  $esti = getEstiInfo($e_idx);
+  $p_idx = $esti['p_idx'];
+  $w_pic = $esti['w_pic'];
+
+  // 견적의뢰 정보 추출
+  $ep_idx = $esti['ep_idx'];
+  $esti_p = getEpInfo($ep_idx);
+  $w_name = $esti_p['w_name'];
+
+  // 발주수목 정보 추출
+  $to_idx = $esti_p['to_idx'];
+  $treeo = getTreeInfo($to_idx);
+
+  // 발주수목 개수 추출
+  $tree_num = getTreeNum($to_idx);
+
+  // 고객사 정보 추출
+  $m_idx = $esti_p['m_idx'];
+  $m_id = getMbId($m_idx);
+  $m_info = getMbInfo($m_id);
+  $c_name = $m_info['c_name'];
+  $cpbox = explode("|",$m_info['c_partner']);
+
+  // 내 농원을 거래처로 등록했는지 여부
+  $acco_jud = in_array($p_idx,$cpbox);
+
+
+  if($esti_p['g_work']==1){
+    $g_work_txt = "관급공사";
+    $k_tree_txt = "A급 조경수";
+    $k_tree_class = "";
+  }else if($esti_p['g_work']==2){
+    $g_work_txt = "사급공사";
+    $k_tree_txt = "B급 조경수";
+    $k_tree_class = "green_box";
+  }
+
+  $dbox = explode(" ",$esti_p['w_date']);
+  $w_date = $dbox[0];
+
+  // 마감일까지 남은일자 산출
+  $now = date("Y-m-d H:i:s");
+  $c_d = ceil( (strtotime($esti_p['d_date']) - strtotime($now)) / 86400 );
+  $ed_box = explode("-",$esti_p['e_date']);
+  $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
+
+
+
+
+
+  echo "<table class='text_table'>";
+  echo "<tr><td colspan='2'>";
+  echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+  if($acco_jud){
+    echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
+  }
+  echo "</td><td></td>";
+  echo "</tr>";
+  echo "<tr><td><h4 class='farm_name'>{$c_name}</h4></td>";
+  echo "<td class='right'>";
+  echo "<p class='partner tree'>{$g_work_txt}</p><p class='partner work {$k_tree_class}'>{$k_tree_txt}</p>";
+  echo "</td></tr>";
+  echo "<tr><td class='wn'><p class='work_name'>{$w_name}</p></td>";
+  echo "<td><p class='com_date'>{$w_date}</p></td></tr>";
+  echo "</table>";
+  echo "<div class='size'>";
+  echo "<div class='size_title'><p class='item_p'>품목</p> <p class='size_p'>규격</p> <p class='osum_p'>수량</p> <p class='price_p'>단가</p></div>";
+  echo "<hr style='width:100%;margin:0 auto;border:1px solid #bbb;margin-top:5px;margin-bottom:10px;'>";
+  $sum_price = 0;
+  for($i=0; $i<$tree_num; $i++){
+    // 사이즈 추출
+    $sbox = explode("|",$treeo['size'.($i+1)]);
+    // 조경수 금액 산출
+    $sum = $treeo['osum'.($i+1)] * $esti['price'.($i+1)];
+    $sum_price += $sum;
+    echo "<div><p class='item_p'>".$treeo['item'.($i+1)]."</p> <p class='size_p'>H".$sbox[0]." x W".$sbox[1]."</p> <p class='osum_p'>".$treeo['osum'.($i+1)]."</p> <p class='bold price_p'>".$esti['price'.($i+1)]."원</p></div>";
+    if($i<($tree_num-1)){
+      echo "<hr style='width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;'>";
+    }
+  }
+  $total_price = $esti['d_price'] + $sum_price;
+  echo "</div>";
+  echo "<div class='check'>";
+  echo "<div>";
+  echo "<p class='bold'>납품 현장</p>";
+  echo "<p>{$esti_p['target']}</p>";
+  echo "</div>";
+  echo "<hr style='width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;'>";
+  echo "<div>";
+  echo "<p class='bold'>납품 날짜</p>";
+  echo "<p>{$ed_txt}</p>";
+  echo "</div>";
+  echo "<hr style='width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;'>";
+  echo "<div>";
+  echo "<p class='bold'>요청 사항</p>";
+  echo "<p>{$esti_p['memo']}</p>";
+  echo "</div>";
+  echo "<hr style='width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;'>";
+  echo "<div>";
+  echo "<p class='bold'>기타 사항</p>";
+  echo "<p>{$esti['etc']}</p>";
+  echo "</div>";
+  echo "</div>";
+  echo "<div class='payment'>
+          <div><p>조경수</p> <p class='bold'>".number_format($sum_price)."<span>원</span></p></div>
+          <hr style='width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;'>
+          <div  class='blue'><p>예상 운임비</p> <p>".number_format($esti['d_price'])."<span>원</span></p></div>
+          <hr style='width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;border:1px dotted #ccc;'>
+          <div class='red'><p class='bold'>최종 결제 금액</p> <p class='bold'>".number_format($total_price)."<span>원</span></p></div>
+
+        </div>";
+  if($w_pic){
+    $wpic_func = ", setWpic('{$w_pic}')";
+  }else{
+    $wpic_func = "";
+  }
+
+  echo '<form name="wpic_form" action="../proc.php" method="post" enctype="multipart/form-data"/>
+        <input type="hidden" name="e_idx" value="'.$e_idx.'" />
+        <input type="hidden" name="w_type" value="add_wpic" />
+        <div class="pic_div none">
+          <label for="w_pic">+사진 추가하기</label>
+          <input type="file" id="w_pic" name="w_pic" />
+        </div>
+      </form>';
+
+  echo '<div class="date_dead">
+          <div class="view_hide" onclick="none_view()'.$wpic_func.'">사진 추가</div>
+        </div>';
 
 
 }
 
+function setWpic(){
+
+  echo "let sel_file;
+        $(document).ready(function(){
+          $('#w_pic').on('change', view_w_pic);
+
+          function view_w_pic(e){
+            let files = e.target.files;
+            let filesArr = Array.prototype.slice.call(files);
+
+            filesArr.forEach(function(f){
+              if(!f.type.match('image.*')){
+                alert('이미지파일을 선택 해 주세요.');
+                return;
+              }
+
+              sel_file = f;
+              let reader = new FileReader();
+              reader.onload = function(e){
+                $('.pic_div').css({'background': 'url('+e.target.result+')'});
+                $('.pic_div').css({'background-repeat': 'no-repeat'});
+                $('.pic_div').css({'background-size': 'contain'});
+                $('.pic_div').css({'background-position': 'center'});
+              }
+              reader.readAsDataURL(f);
+
+            });
+          }
+        }); ";
+}
 
 
 

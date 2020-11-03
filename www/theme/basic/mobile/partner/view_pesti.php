@@ -32,4 +32,4 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
   </div>
 </div>
 
-<?include "./p_tail.php"?>
+<?include "./p_tail2.php"?>

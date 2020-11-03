@@ -89,6 +89,6 @@ $o_num = getOrderNum($idx);
 
     </div>
 
-</div>
+  </div>
 
 <?include "./tail2.php"?>

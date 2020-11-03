@@ -201,6 +201,55 @@ switch($w_type){
       alert("시스템상에 오류가 있습니다. 관리자에게 문의주세요.",$return_url);
     }
   break;
+
+  case "add_wpic" :
+    // 파일 업로드 밑준비
+    $file = $_FILES['w_pic'];
+    $f_name = $file['name'];
+    if($f_name){
+      $f_err = $file['error'];
+      $f_size = $file['size'];
+      $f_type = $file['type'];
+      $f_tmp = $file['tmp_name'];
+      $f_name = $file['name'];
+
+      $utime_txt = "utime".($i+1);
+      $$utime_txt = strtotime("+{$i} seconds");
+      $img_src = G5_THEME_PATH."/img/forest/";
+
+      $box1 = explode('.',$f_name);
+      $f_whak = end($box1);
+      $f_name = $$utime_txt.".".$f_whak;
+
+      // 파일 업로드 관련 처리 err 4 = 파일이름 없음(파일 안올릴때)
+      if($f_err != 4){
+        if($f_err == 1){
+          $return_txt = "업로드에 실패했습니다.";
+        }else{
+          if($f_name && file_exists($img_src.$f_name)){
+            $return_txt = "파일 이름 중복입니다.";
+          }else{
+            $re = move_uploaded_file($f_tmp, $img_src.$f_name);
+            if(!$re){
+              $return_msg = "파일 업로드 실패입니다.";
+            }
+          }
+        }
+      }
+
+    }
+
+    if(!$return_msg){
+      $sql = "UPDATE f_estimate SET w_pic='{$f_name}' WHERE idx={$e_idx}";
+      $re = sql_query($sql);
+      if($re){
+        $return_msg = "정상적으로 등록되었습니다.";
+      }
+    }
+    alert($return_msg,$return_url);
+
+  break;
+
 }
 
 

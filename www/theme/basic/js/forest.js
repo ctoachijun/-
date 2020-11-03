@@ -516,6 +516,16 @@ function cancel_late(type,e_idx){
   }
 }
 
+function submit_wpic(){
+  $("FORM").submit();
+}
+
+function setWpic(f_name){
+  $('.pic_div').css({'background': 'url(../../img/forest/'+f_name+')'});
+  $('.pic_div').css({'background-repeat': 'no-repeat'});
+  $('.pic_div').css({'background-size': 'contain'});
+  $('.pic_div').css({'background-position': 'center'});
+}
 
 
 

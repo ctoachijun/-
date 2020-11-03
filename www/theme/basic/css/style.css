@@ -391,17 +391,18 @@ ul{list-style:none;padding-left:0px;}
 .sub12_title{font-size:1.6rem;margin-left:10px;margin-top:30px;}
 .review{width:95%;background-color:#fff;margin:0 auto;padding:10px;border-radius:5px;border:1px solid #ddd;}
 .review{margin-top:10px;}
+/* .review {padding-left:5px;} */
 .review .work_img{width:40px;height:40px;background-color:#eee;border-radius:50%;text-align: center;line-height:40px;}
 .review .work_img img{width:35px;}
 .re_big_tit{display:flex;justify-content:space-between;}
 .review .re_big_ti .bold{font-size:1.35rem;}
 .review .re_big_tit p{font-size:1.2rem;}
-.re_tit{padding-right:10%; width:60%; margin-left:-10px;}
+.re_tit{padding-right:10%; width:60%; margin-left:0px;}
 .review .text{font-size:1.2rem;margin-top:2vh;}
 .review_add{display:flex;justify-content:flex-end;font-size:1.3rem;margin-right:10px;font-weight:700;margin-top:5px;}
-.delivery{background-color:#fff;float:none;width:100%;margin-top:10px;padding-bottom:10px;padding:10px;width:95%;margin:0 auto;border-radius:5px;margin-top:10px;margin-bottom:10px;}
-.delivery_con{display:flex;}
-.delivery_con .de_img{width:120px;height:80px;overflow:hidden;}
+.delivery{background-color:#fff;float:none;width:100%;margin-top:10px;padding-bottom:10px;padding:5px;width:100%;margin:0 auto;border-radius:5px;margin-top:10px;margin-bottom:10px;}
+.delivery_con{display:flex;width:100%;}
+.delivery_con .de_img{width:100px;height:70px;overflow:hidden;}
 .delivery_con .de_img img{width:100%;}
 .de_txt{padding:10px;}
 .delivery_con .de_txt h4{font-size:1.4rem;margin-top:1.5vh;}
@@ -552,6 +553,55 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub07 .input_reason textarea{width:100%;height:140px;resize:none;border:2px solid #EBEBEB;outline:none;border-radius:4px;font-size:1.3rem;padding:8px;}
 /* sub08 */
 .p_sub07 input[type="text"]{height:15vh;}
+
+/* p_sub12 견적확인 */
+.p_sub12{width:93%;margin:0 auto;padding:10px;}
+.p_sub12 img{width:15px;}
+
+
+.p_sub12 .text_table{margin-top:10px;}
+.p_sub12 div{border-radius:5px;}
+.p_sub12 .text_table p{display:inline-block;}
+.p_sub12 .partner{background-color:#458AB3;color:#fff;font-size:1.1rem;width:49%; height:18px;margin-top:2px;}
+.p_sub12 .text_table img{margin-top:-2px;}
+
+.p_sub12 .text_table .wn{height:40px;}
+.p_sub12 .tree{background-color:#eee;padding:3px;width:auto;color:#333;margin-right:4px;}
+.p_sub12 .work{width:60px;}
+.p_sub12 .com_date{font-size:1.3rem;float:right;}
+.p_sub12 .work_name{font-weight:normal;}
+.p_sub12 .green_box{background-color:#1BB687}
+.p_sub12 .size{margin-top:10px;}
+.p_sub12 .size .size_p{width:100px;}
+.p_sub12 .size .item_p{width:100px;}
+.p_sub12 .size .osum_p{width:80px;}
+.p_sub12 .size .price_p{width:80px;}
+.p_sub12 .date_dead{display:block;background-color:#535353;color:#fff;padding:10px;border-radius:5px;font-size:1.5rem;text-align:center;margin-top:10px;}
+.p_sub12 .none{display:none;}
+.p_sub12 .view_pic{display:flex;flex-direction:column; background-color:#fff;border:1px solid #ddd;border-radius:5px;padding:8px 8px;margin-top:10px;width:100%;}
+.p_sub12 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
+.p_sub12 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
+.p_sub12 .click_box .enter{padding-top:9px;border-radius:5px;}
+.p_sub12 .pic_div{border:1px solid #ccc;height:150px;background:#fff;position:relative;margin-top:14px;}
+.p_sub12 .pic_div label {background-color:rgba(0, 0, 0, 0.6);font-size:1rem;color:#fff;padding:5px 5px;border-radius:50px;text-align:center;position:absolute;bottom:2%;right:3%;}
+.p_sub12 .pic_div label:before{content:"";}
+.p_sub12 .pic_div input[type="file"]{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+.p_sub12 .view_wpic{width:100%;height:150px;border:1px solid #ccc;margin-top:8px; text-align:center;margin-bottom:40px;}
+.p_sub12 .view_wpic img{width:100%;height:auto;}
+.p_sub12 .none{display:none;}
+.p_sub12 .view_pic .pic{display:flex;width:100%;}
+.p_sub12 .view_pic .pic img{width:90%;}
+
+.check, .payment{background-color:#fff;border:1px solid #ddd;border-radius:5px;padding:10px 15px;margin-top:10px;}
+.check p{font-size:1.3rem;}
+.payment div{display:flex;justify-content:space-between;}
+.payment p{font-size:1.4rem;}
+.payment span{font-weight:normal;font-size: 1.2rem;margin-left:5px;}
+.blue p{color:#405FC0;font-size:1.2rem;}
+.red span{color:#F86252;}
+.red p{color:#F86252;font-size:1.5rem;}
+
+
 
 
 .p_sign{position:relative;height:90vh;}
