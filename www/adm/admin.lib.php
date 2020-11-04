@@ -1017,10 +1017,19 @@ function view_sn_history(){
         $target = "고객";
       }
 
-      $cont_txt = $row['content'];
+      if($row['type']=="P"){
+        $type = "푸시";
+      }else if($row['type']=="S"){
+        $type = "문자";
+      }
 
-      if($row['size'] > 0){
+
+
+      $cont_txt = $row['content'];
+      if($cont_txt){
         $cont_txt .= "<br><br>";
+      }
+      if($row['size'] > 0){
         $cont_txt .= "<a href='./img/forest_adm/".$row['img']."'><img class='his_img' src='./img/forest_adm/".$row['img']."' /></a>";
       }
       $d_box = explode(" ",$row['send_date']);
@@ -1028,7 +1037,7 @@ function view_sn_history(){
       echo "<div class='view_history'>";
       echo "<table>";
       echo "<tr><td colspan='2' class='his_date'>".$d_box[0]."</td></tr>";
-      echo "<tr><td class='head_td'>회원 구분</td><td class='cont_td'>{$target}</td></tr>";
+      echo "<tr><td class='head_td'>회원 구분</td><td class='cont_td'>{$target}({$type})</td></tr>";
       echo "<tr><td class='head_td'>받는 사람</td><td class='cont_td'>".$row['t_idx']."</td></tr>";
       echo "<tr><td class='head_td'>알림 내용</td><td class='cont_td'>{$cont_txt}</td></tr>";
       echo "</table>";
@@ -1412,7 +1421,7 @@ function print_agree(){
 
 
 
-function sms_send($msg,$receiver,$subject,$f_name,$f_type,$f_size,$am_type){
+function sms_send($msg,$receiver,$subject,$f_name,$f_type,$f_size){
 
   $sms_url = "https://apis.aligo.in/send/"; // 전송요청 URL
   $sms['user_id'] = "jl010302"; // SMS 아이디
@@ -1423,25 +1432,30 @@ function sms_send($msg,$receiver,$subject,$f_name,$f_type,$f_size,$am_type){
 
   $sms['msg'] = stripslashes($msg);
   $sms['receiver'] = $receiver;
-  $sms['sender'] = "1004";
+  $sms['sender'] = "010-6675-7290";
   $sms['testmode_yn'] = "Y";
   $sms['title'] = $subject;
 
-  if($am_type=="A"){
-    $path = "./img/forest_adm/";
-  }else{
-    $path = ""
+  if($f_name){
+    $path = "./img/forest_adm/".$f_name;
+    $_POST['image'] = $path;
   }
+
   // 이미지 전송 설정
-  if(!empty($image)) {
-		if ((version_compare(PHP_VERSION, '5.5') >= 0)) { // PHP 5.5버전 이상부터 적용
-			$sms['image'] = new CURLFile($image, $f_type, $f_name);
-			curl_setopt($oCurl, CURLOPT_SAFE_UPLOAD, true);
-		} else {
-			$sms['image'] = '@'.$image.';filename='.$f_name. ';type='.$f_type;
-		}
+  if(!empty($_POST['image'])) {
+  	if(file_exists($_POST['image'])) {
+  		$tmpFile = explode('/',$_POST['image']);
+  		$str_filename = $tmpFile[sizeof($tmpFile)-1];
+  		$tmp_filetype = mime_content_type($_POST['image']);
+  		if ((version_compare(PHP_VERSION, '5.5') >= 0)) { // PHP 5.5버전 이상부터 적용
+  			$sms['image'] = new CURLFile($_POST['image'], $tmp_filetype, $str_filename);
+  			curl_setopt($oCurl, CURLOPT_SAFE_UPLOAD, true);
+  		} else {
+  			$sms['image'] = '@'.$_POST['image'].';filename='.$str_filename. ';type='.$tmp_filetype;
+  		}
+  	}
   }
-  /*****/
+
   $host_info = explode("/", $sms_url);
   $port = $host_info[0] == 'https:' ? 443 : 80;
 

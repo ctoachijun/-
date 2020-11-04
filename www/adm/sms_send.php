@@ -32,18 +32,24 @@ $sms['rdate'] = $_POST['rdate'];
 $sms['rtime'] = $_POST['rtime'];
 $sms['testmode_yn'] = empty($_POST['testmode_yn']) ? '' : $_POST['testmode_yn'];
 $sms['title'] = $_POST['subject'];
-$sms['msg_type'] = $_POST['msg_type'];
+// $sms['msg_type'] = $_POST['msg_type'];
 // 만일 $_FILES 로 직접 Request POST된 파일을 사용하시는 경우 move_uploaded_file 로 저장 후 저장된 경로를 사용하셔야 합니다.
-if(!empty($_FILES['image']['tmp_name'])) {
-	$tmp_filetype = mime_content_type($_FILES['image']['tmp_name']);
+print_r($_FILES);
+echo "<br>";
+echo "<br>";
+
+if(!empty($_FILES['sn_img']['tmp_name'])) {
+	$tmp_filetype = mime_content_type($_FILES['sn_img']['tmp_name']);
 	if($tmp_filetype != 'image/png' && $tmp_filetype != 'image/jpg' && $tmp_filetype != 'image/jpeg') $_POST['image'] = '';
 	else {
-		$_savePath = "./".uniqid(); // PHP의 권한이 허용된 디렉토리를 지정
-		if(move_uploaded_file($_FILES['file']['tmp_name'], $_savePath)) {
-			$_POST['image'] = $_savePath;
-		}
+		$_savePath = "./img/".uniqid(); // PHP의 권한이 허용된 디렉토리를 지정
+		$_POST['image'] = $_savePath;
+
 	}
 }
+print_r($_POST);
+echo "<br>";
+echo "<br>";
 // 이미지 전송 설정
 if(!empty($_POST['image'])) {
 	if(file_exists($_POST['image'])) {
@@ -61,6 +67,9 @@ if(!empty($_POST['image'])) {
 /*****/
 $host_info = explode("/", $sms_url);
 $port = $host_info[0] == 'https:' ? 443 : 80;
+
+print_r($sms);
+
 
 $oCurl = curl_init();
 curl_setopt($oCurl, CURLOPT_PORT, $port);

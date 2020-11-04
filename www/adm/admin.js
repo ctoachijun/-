@@ -333,7 +333,7 @@ function pay_confirm(num,d_idx){
 
 
 function con_submit(){
-  var blank_pattern = /^\s+|\s+$/g;
+  let blank_pattern = /^\s+|\s+$/g;
 
   if(!$(".up_file").val()){
     if(!$(".sn_cont").val()){

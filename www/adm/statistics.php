@@ -12,9 +12,10 @@ include_once('./admin.head.php');
 
 $cur_url = "./statistics.php";
 
-
 // 검색된 품목을 오늘기준으로 3주전까지 주문수 추출
 $arr_data = getWeekData($i_stx);
+
+print_r($arr_data);
 
 // 각주별로 변수에 대입 - 거래량
 for($i=0; $i<count($arr_data[0]); $i++){

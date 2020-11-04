@@ -79,23 +79,20 @@ switch ($type){
       }else{
         $s_sql = "INSERT INTO f_sms_push VALUES ('','{$mem_type}','{$send_type}','{$t_sum}','{$f_name}','{$f_size}','{$t_cont}',DEFAULT)";
       }
-      // $s_re = sql_query($s_sql);
+      $s_re = sql_query($s_sql);
 
       $s_re = 1;
       if($s_re){
         // sms 및 푸쉬 전송처리
         $subject = "알림!";
-        $re = sms_send($t_cont,$tels,$subject,$f_name,$f_type,$f_size,"A");
-
-
-
-
-
-
-        // 정상적으로 전송이 되었다면 아래 코드 실행
-        // alert("정상적으로 전송되었습니다.",$return_url);
-      }else{
-        // alert("전송에 실패했습니다.",$return_url);
+        $re = sms_send($t_cont,$tels,$subject,$f_name,$f_type,$f_size);
+        
+        if($re->result_code > 0){
+          // 정상적으로 전송이 되었다면 아래 코드 실행
+          alert("정상적으로 전송되었습니다.",$return_url);
+        }else{
+          alert("전송에 실패했습니다.",$return_url);
+        }
       }
 
     }

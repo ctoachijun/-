@@ -31,7 +31,7 @@ $(document).ready(function(){
           <tr>
             <td class="head_td">전송 구분</td>
             <td class="cont_td low">
-              <label><input type="radio" name="send_type" value="P" checked />푸쉬</label>
+              <label><input type="radio" name="send_type" value="P" checked />푸시</label>
               <label><input type="radio" name="send_type" value="S" />SMS</label>
             </td>
           </tr>
