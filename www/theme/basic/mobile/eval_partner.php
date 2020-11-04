@@ -34,6 +34,7 @@ if($pscore_num == 0){
 }
 
 
+
 // 파트너 정보 추출
 $pbox = getPartnInfo($p_idx);
 $c_name = $pbox['c_name'];

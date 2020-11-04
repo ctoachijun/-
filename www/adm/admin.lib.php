@@ -1412,6 +1412,54 @@ function print_agree(){
 
 
 
+function sms_send($msg,$receiver,$subject,$f_name,$f_type,$f_size,$am_type){
+
+  $sms_url = "https://apis.aligo.in/send/"; // 전송요청 URL
+  $sms['user_id'] = "jl010302"; // SMS 아이디
+  $sms['key'] = "xugzsb9xhge82qgglc87fdzbqubt98gt";//인증키
+  /****************** 인증정보 끝 ********************/
+
+  /****************** 전송정보 설정시작 ****************/
+
+  $sms['msg'] = stripslashes($msg);
+  $sms['receiver'] = $receiver;
+  $sms['sender'] = "1004";
+  $sms['testmode_yn'] = "Y";
+  $sms['title'] = $subject;
+
+  if($am_type=="A"){
+    $path = "./img/forest_adm/";
+  }else{
+    $path = ""
+  }
+  // 이미지 전송 설정
+  if(!empty($image)) {
+		if ((version_compare(PHP_VERSION, '5.5') >= 0)) { // PHP 5.5버전 이상부터 적용
+			$sms['image'] = new CURLFile($image, $f_type, $f_name);
+			curl_setopt($oCurl, CURLOPT_SAFE_UPLOAD, true);
+		} else {
+			$sms['image'] = '@'.$image.';filename='.$f_name. ';type='.$f_type;
+		}
+  }
+  /*****/
+  $host_info = explode("/", $sms_url);
+  $port = $host_info[0] == 'https:' ? 443 : 80;
+
+  $oCurl = curl_init();
+  curl_setopt($oCurl, CURLOPT_PORT, $port);
+  curl_setopt($oCurl, CURLOPT_URL, $sms_url);
+  curl_setopt($oCurl, CURLOPT_POST, 1);
+  curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($oCurl, CURLOPT_POSTFIELDS, $sms);
+  curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, FALSE);
+  $ret = curl_exec($oCurl);
+  curl_close($oCurl);
+
+  // echo $ret;
+  $retArr = json_decode($ret);
+  return $retArr;
+
+}
 
 
 ?>

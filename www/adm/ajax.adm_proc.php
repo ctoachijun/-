@@ -53,12 +53,27 @@ switch ($w_type){
       $t_name = "f_member";
     }
 
-    $t_sql = "SELECT idx as t FROM {$t_name} WHERE live = 'Y'";
+    $t_sql = "SELECT idx as t FROM {$t_name} WHERE live = 'Y' AND alarm='Y'";
     $re = sql_num_rows(sql_query($t_sql));
+
+    // 전송 할 회원의 휴대폰번호를 수납
+    $tel_sql = "SELECT m_tel FROM {$t_name} WHERE live = 'Y' AND alarm='Y'";
+    $tel_re = sql_query($tel_sql);
+    $m_tels = array();
+    while($row = sql_fetch_array($tel_re)){
+      $box = explode("-",$row['m_tel']);
+      $cnt = count($box);
+      $txt = "";
+      for($t=0; $t<$cnt; $t++){
+        $txt .= $box[$t];
+      }
+      array_push($m_tels,$txt);
+    }
 
     if($re){
       $output['state'] = "Y";
       $output['total'] = $re;
+      $output['tels'] = $m_tels;
     }else{
       $output['state'] = "N";
     }

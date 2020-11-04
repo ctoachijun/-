@@ -232,6 +232,7 @@ function total_sum(stype){
       let total_txt = "회원 ("+json.total+")명";
       $("#send_mem").val(total_txt);
       $("input[name=t_sum]").val(json.total);
+      $("input[name=tels]").val(json.tels);
     }else{
       alert("시스템 오류입니다.");
     }
