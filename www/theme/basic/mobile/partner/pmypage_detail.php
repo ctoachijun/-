@@ -28,19 +28,19 @@ $p_idx = $p_info['idx'];
 
   <table class="text_table">
     <tr>
-      <td><p>사업자등록번호</p></td> <td class="right"><p><?=$p_info['c_num']?></p></td>
+      <td class="td_head"><p>사업자등록번호</p></td> <td class="right"><p><?=$p_info['c_num']?></p></td>
     </tr>
     <tr>
-      <td><p>기업명(상호)</p></td> <td class="right"><p><?=$p_info['c_name']?></p></td>
+      <td class="td_head"><p>기업명(상호)</p></td> <td class="right"><p><?=$p_info['c_name']?></p></td>
     </tr>
     <tr>
-      <td><p>대표자</p></td> <td class="right"><p><?=$p_info['c_boss']?></p></td>
+      <td class="td_head"><p>대표자</p></td> <td class="right"><p><?=$p_info['c_boss']?></p></td>
     </tr>
     <tr>
-      <td><p>사업장 주소</p></td> <td class="right"><p><?=$p_info['addr1']?> <?=$p_info['addr2']?></p></td>
+      <td class="td_head"><p>사업장 주소</p></td> <td class="right"><p><?=$p_info['addr1']?><br><?=$p_info['addr2']?></p></td>
     </tr>
     <tr>
-      <td><p class="non_mar">계좌번호</p></td> <td class="right"><p><?=$p_info['bank_num']?></p></td>
+      <td class="td_head"><p class="non_mar">계좌번호</p></td> <td class="right"><p><?=$p_info['bank_num']?></p></td>
     </tr>
   </table>
 </div>
@@ -56,13 +56,13 @@ $p_idx = $p_info['idx'];
 
   <table class="text_table">
     <tr>
-      <td><p>담당자 직책</p></td> <td class="right"><input type="text" name="position" value="<?=$p_info['position']?>" disabled /></td>
+      <td class="td_head"><p>담당자 직책</p></td> <td class="right"><input type="text" name="position" value="<?=$p_info['position']?>" disabled /></td>
     </tr>
     <tr>
-      <td><p>담당자 연락처</p></td> <td class="right"><input type="text" name="m_tel" value="<?=$p_info['m_tel']?>" disabled /></td>
+      <td class="td_head"><p>담당자 연락처</p></td> <td class="right"><input type="text" name="m_tel" value="<?=$p_info['m_tel']?>" disabled /></td>
     </tr>
     <tr>
-      <td><p class="non_mar">담당자 이메일</p></td> <td class="right"><input type="text" name="email" value="<?=$p_info['email']?>" disabled /></td>
+      <td class="td_head"><p class="non_mar">담당자 이메일</p></td> <td class="right"><input type="text" name="email" value="<?=$p_info['email']?>" disabled /></td>
     </tr>
   </table>
 </div>

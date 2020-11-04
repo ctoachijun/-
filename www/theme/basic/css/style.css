@@ -146,9 +146,11 @@ ul{list-style:none;padding-left:0px;}
 .sub05_box{width:93%;background-color:#fff;border:1px solid #ddd;border-radius: 5px;margin:0 auto;padding:15px;margin-bottom:10px;margin-top:10px;}
 .sub05_box input{border:0px; height:26px; width:80%; text-align:right;margin-bottom:0px;}
 .sub05_box .head_txt{width:80%;height:30px;font-size:18px;font-weight:600;margin-top:0px;text-align:left;}
-.sub05_box .text_table p{font-size: 1.4rem;margin-bottom:12px;}
+.sub05_box .text_table p{font-size: 1.4rem;}
 .sub05_box .text_table .non_mar{margin-bottom:0px;}
-.sub05_box .text_table .right{text-align:right;font-weight:700}
+.sub05_box .text_table td{border:1px solid;height:36px;}
+.sub05_box .text_table .td_head{}
+.sub05_box .text_table .right{text-align:right;font-weight:700;width:69%;}
 .sub05_box h4{display:inline-block;font-size: 1.8rem;font-weight:700;margin-right:10px;}
 .sub05_box img{width:14px;margin-top: -5px;}
 .sub05_box .head_img{margin-top:5px;float:right;}
@@ -507,19 +509,19 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub02 .cut_date{margin-top:10px;margin-bottom:5px;}
 .p_sub02 .ready{font-size:1.05rem;background-color:#F6D12A;padding:2px;border-radius:5px;margin-left:2%;}
 .p_sub02 .info{display:flex;justify-content:space-between;}
-.p_sub02 .info div a{background-color: #eee;padding:5px 10px;border-radius:5px;color: #333;font-size: 1.4rem;margin-right:0px;}
+.p_sub02 .info div a{background-color: #eee;padding:5px 10px;border-radius:5px;color: #333;font-size: 1.4rem;margin-right:3px;}
 .p_sub02 .info .brown_box{background-color:#434343;color:#fff;margin-left:4px;}
 .p_sub02 .green_box{background-color:#1BB687}
-
+.p_sub02 .main_bottom_box .b_text{margin-left:3px;}
 
 /* sub05 */
 .p_sub05 {width:93%;margin:0 auto;}
 .p_sub05 .main_bottom_box{background:none;border:none;padding:10px 0;}
 .p_sub05 .size{margin-top:0;padding:5px 10px;}
 .p_sub05 .size p{padding:3px 0; height:25px;}
-.p_sub05 .size div{height:40px; padding:5px;}
+.p_sub05 .size div{height:30px;}
 .p_sub05 .size input::placeholder{font-size:13px;color:#aaa;}
-.p_sub05 .size .gray_box{background-color:#eee;width:90px; height:25px;border:1px #eee;border-radius:0;text-align:center;}
+.p_sub05 .size .gray_box{background-color:#eee;width:77px; height:25px;border:1px #eee;border-radius:0;text-align:center;}
 .p_sub05 .photo{margin-top:10px;display:flex;flex-direction:column;justify-content:space-around;}
 .p_sub05 .file_head h4{font-size:1.5rem;font-weight:700;margin-bottom: 5px;height:20px;}
 /* .p_sub05 .photo_box div{background:#fff;border:1px solid #ddd;} */
@@ -534,7 +536,7 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub05 .check input{background:#eee;border:none;padding:5px;margin-top:5px;}
 .p_sub05 .payment .pay_head{height:24px;text-align:left;}
 .p_sub05 .payment .pay_head input{margin-left:0px;width:70%;}
-.p_sub05 .blue {height:28px;}
+.p_sub05 .blue {height:23px;}
 .p_sub05 .blue .blue_p input{width:120px;height:24px;border:0;background:#eee;text-align:right;border-radius:0;margin-right:5px; }
 .p_sub05 .blue .blue_p input::placeholder{font-size:13px;color:#aaa;}
 .p_sub05 .blue .blue_p p {color: #405FC0;font-size: 1.4rem;margin-top:3px;height:24px;}
@@ -570,25 +572,26 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub07 input[type="text"]{height:15vh;}
 
 /* p_sub12 견적확인 */
-.p_sub12{width:93%;margin:0 auto;padding:3px;}
+.p_sub12{margin:0 auto;padding:0px;}
 .p_sub12 img{width:15px;}
 .p_sub12 .text_table{margin-top:0px;}
 .p_sub12 div{border-radius:5px;}
 .p_sub12 .text_table p{display:inline-block;}
-.p_sub12 .partner{background-color:#458AB3;color:#fff;font-size:1.1rem;width:49%; height:18px;margin-top:2px;}
+.p_sub12 td{height:20px;padding-left:8px;padding-top:7px;padding-right:10px;}
+.p_sub12 .partner{background-color:#458AB3;color:#fff;font-size:1.1rem;width:49%; height:20px;margin-top:2px;}
+.p_sub12 .non{width:85%;}
 .p_sub12 .text_table img{margin-top:-2px;}
-.p_sub12 .text_table .wn{height:40px;}
+.p_sub12 .text_table .wn{height:20px;padding-top:0px;}
+.p_sub12 .text_table .wd{padding-top:0px;}
 .p_sub12 .tree{background-color:#eee;padding:3px;width:auto;color:#333;margin-right:4px;}
 .p_sub12 .work{width:60px;background:#405FC0;}
 .p_sub12 .com_date{font-size:1.3rem;float:right;}
-.p_sub12 .work_name{font-weight:normal;}
+.p_sub12 .work_name{font-weight:700;}
 .p_sub12 .green_box{background-color:#1BB687}
-.p_sub12 .farm_name{font-size:1.5rem;}
-.p_sub12 .size{margin-top:10px;}
-.p_sub12 .size .size_p{width:100px;}
-.p_sub12 .size .item_p{width:100px;}
-.p_sub12 .size .osum_p{width:80px;}
-.p_sub12 .size .price_p{width:80px;}
+.p_sub12 .farm_name{font-size:1.5rem;margin-top:5px;}
+.p_sub12 .size{margin-top:20px;}
+.p_sub12 .size .size_title{padding-top:5px;padding-right:5px;margin-bottom:8px;}
+.p_sub12 .size .size_cont{padding-top:2px;padding-right:5px;margin-bottom:8px;}
 .p_sub12 .pic_btn{width:100%;display:flex;justify-content:flex-end;text-align:center;margin-top:20px;}
 .p_sub12 .pic_btn .add_pic{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;background:#1CB587;color:#fff;width:100%;}
 .p_sub12 .date_dead div img{margin-top:-2px;}
