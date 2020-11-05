@@ -91,9 +91,9 @@ if($jt=="m"){
       if(cert_cnt==3){
         alert("인증발송 횟수 초과입니다.");
       }else{
-        if(cert_cnt==0){
-          alert("인증발송 횟수는 3회까지입니다.");
-        }
+        // if(cert_cnt==0){
+        //   alert("인증발송 횟수는 3회까지입니다.");
+        // }
         $("input[name=cert_cnt]").val((cert_cnt+1));
         let box = {"tel":tel, "w_type":"sms_cert"};
         $.ajax({
