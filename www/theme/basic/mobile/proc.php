@@ -187,6 +187,16 @@ switch($w_type){
 
     $sql = "INSERT INTO f_deposit SET
     m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, m_price={$t_price}, p_price={$sum_p}, m_push_date=DEFAULT";
+    // $re = sql_query($sql);
+
+
+    $sql = "SELECT c_name FROM f_member WHERE idx={$m_idx}";
+    $box = sql_fetch($sql);
+    $c_name = $box['c_name'];
+
+
+    // 푸시, 문자를 보낼 관리자 정보 추출
+    $sql = "SELECT * FROM f_sms_admin";
     $re = sql_query($sql);
 
     // 여기에 관리자 푸시 처리
@@ -195,7 +205,32 @@ switch($w_type){
 
 
     // 관리자 푸시 처리가 끝나면 완료페이지로
-    if($re){
+    // 관리자 문자 전송 처리
+    $send_tel = "";
+    while($rs = sql_fetch_array($re)){
+      $admin_tel = $rs['admin_tel'];
+      if($admin_tel){
+        $send_tel .= $admin_tel;
+        $send_tel .= ",";
+      }
+    }
+    $box = explode(",",$send_tel);
+    $cnt = count($box);
+
+    for($i=0; $i<$cnt; $i++){
+      $send_txt .= $box[$i];
+      if($i<$cnt-2){
+        $send_txt .= ",";
+      }
+    }
+    $msg .= "[포레스트][입금확인요청]\n";
+    $msg .= "'{$c_name}' 회원님 '{$t_price}' 원의 입금요청이 있습니다\n";
+    $msg .= "확인 후 관리자페이지에서 입금완료 처리를 해주세요.";
+
+    $rs = send_certNum($msg,$send_txt);
+
+    $rs_code = $rs->result_code;
+    if($rs_code > 0){
       alert("정상적으로 입금 확인요청이 되었습니다.","./payment_confirm.php");
     }else{
       alert("시스템상에 오류가 있습니다. 관리자에게 문의주세요.",$return_url);

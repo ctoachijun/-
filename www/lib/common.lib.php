@@ -3883,6 +3883,7 @@ function send_certNum($msg,$receiver){
   $sms['key'] = "xugzsb9xhge82qgglc87fdzbqubt98gt";//인증키
   /****************** 인증정보 끝 ********************/
 
+
   /****************** 전송정보 설정시작 ****************/
 
   $sms['msg'] = stripslashes($msg);
@@ -3906,7 +3907,9 @@ function send_certNum($msg,$receiver){
   // echo $ret;
   $retArr = json_decode($ret);
   return $retArr;
+
 }
+
 
 
 
