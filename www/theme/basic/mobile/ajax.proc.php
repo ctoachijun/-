@@ -226,6 +226,26 @@ switch($exe_type){
   break;
 
 
+  case "get_token" :
+    if($mb_type=="member"){
+      $tbl_name = "f_".$mb_type;
+      $col_name = "m_id";
+    }else if($mb_type=="partner"){
+      $tbl_name = "f_".$mb_type;
+      $col_name = "p_id";
+    }
+
+    $sql = "UPDATE {$tbl_name} SET token='{$token}' WHERE {$col_name}='{$mb_id}'";
+    $re =sql_query($sql);
+    if($re){
+      $output['state'] = "Y";
+      $output['sql'] = $sql;
+    }else{
+      $output['state'] = "N";
+    }
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
 
 }
 

@@ -14,19 +14,31 @@ if(!$_SESSION['ss_mb_id'] && !$is_member){
 
 $jud = getNewEsti($mb_id);
 
-echo "jud : $jud <br>";
+
 
 if($jud > 0){
   $bell_img = "bell_n.png";
 }else{
   $bell_img = "bell.png";
 }
-
+$insert_token = goToken($mb_id,$mb_type);
 
 ?>
 
+<script>
+
+$(document).ready(function(){
+
+let box = window.forest.postPushToken(<?=$mb_id?>);
+
+
+});
+
+</script>
+
+
 <style>
-.content{background-color:#F8F8F8; height:92vh;};
+.content{background-color:#F8F8F8; height:92vh;}
 </style>
 <div class="header2">
   <img src="<?=$img_src?>/top_logo.png" alt="포레스트 로고">

@@ -3911,6 +3911,65 @@ function send_certNum($msg,$receiver){
 }
 
 
+function send_push($keys,$title,$content){
+  //type 값 (mathching,pay)
+  //서버키 변경하시면 안되요
+  $API_ACCESS_KEY='AAAA8MuSYd0:APA91bHkK7sv155tkIg5_l9jvkvkR64GFUC-_Zi1aXJGrVNKYcaVPd_Bjj6ilPbtVMxpXzbb9BhdY9m5m6YhQF_4ZPuFVMGoQrljFdPc-eq9GiPw0nYUhe-1G0ZclavxbEUnVDdAVO_j';// 사용자
+
+  //서버에 fcm_token 이라는 값을 넣어서 디비에서 결과 조회해서 배열값으로 넣으시면 됩니다.
+  $registrationIds = array();
+  $msg = array(
+      'body'  => $content,
+      'title'     => $title
+  );
+
+  //설정 해서 알려주시면 되는내용입니다.
+  $data = array(
+      'body'  => $content,
+      'title'     => $title
+  );
+  //웹페이지에서 보신 이게 진짜 내용입니다.
+  //'notification'      => $msg,
+
+  $fields1 = array(
+      'registration_ids'  => $keys,
+      'notification'      => $msg,
+  );
+
+  $fields2 = array(
+      'registration_ids'  => $keys,
+      'data'              => $data
+  );
+
+  //=========================손대지 마시오===============================================//
+  $headers = array(
+      'Authorization: key=' . $API_ACCESS_KEY,
+      'Content-Type: application/json'
+  );
+
+  $ch = curl_init();
+  curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+  curl_setopt( $ch,CURLOPT_POST, true );
+  curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+  curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+  curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+  curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode($fields1));
+  $result = curl_exec($ch );
+  curl_close( $ch );
+
+  $ch = curl_init();
+  curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+  curl_setopt( $ch,CURLOPT_POST, true );
+  curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+  curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+  curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+  curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode($fields2));
+  $result = curl_exec($ch );
+  curl_close( $ch );
+
+  return $result;
+}
+
 
 
 
