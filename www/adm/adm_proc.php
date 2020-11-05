@@ -86,7 +86,7 @@ switch ($type){
         // sms 및 푸쉬 전송처리
         $subject = "알림!";
         $re = sms_send($t_cont,$tels,$subject,$f_name,$f_type,$f_size);
-        
+
         if($re->result_code > 0){
           // 정상적으로 전송이 되었다면 아래 코드 실행
           alert("정상적으로 전송되었습니다.",$return_url);
@@ -96,6 +96,28 @@ switch ($type){
       }
 
     }
+  break;
+
+  case "add_admin" :
+
+    for($i=1; $i<7; $i++){
+      $id_txt = "admin_id".$i;
+      $name_txt = "admin_name".$i;
+      $tel_txt = "admin_tel".$i;
+
+      $sql = "SELECT * FROM f_sms_admin WHERE idx={$i}";
+      $jud = sql_num_rows(sql_query($sql));
+
+      if($jud>0){
+        $sql = "UPDATE f_sms_admin SET admin_id = '{$$id_txt}', admin_name = '{$$name_txt}', admin_tel = '{$$tel_txt}'
+        WHERE idx = {$i}";
+      }else{
+        $sql = "INSERT INTO f_sms_admin SET idx = {$i}, admin_id = '{$$id_txt}', admin_name = '{$$name_txt}', admin_tel = '{$$tel_txt}'";
+      }
+      $re = sql_query($sql);
+    }
+    alert("등록되었습니다.",$return_url);
+
   break;
 
 }

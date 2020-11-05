@@ -148,7 +148,7 @@ ul{list-style:none;padding-left:0px;}
 .sub05_box .head_txt{width:80%;height:30px;font-size:18px;font-weight:600;margin-top:0px;text-align:left;}
 .sub05_box .text_table p{font-size: 1.4rem;}
 .sub05_box .text_table .non_mar{margin-bottom:0px;}
-.sub05_box .text_table td{border:1px solid;height:36px;}
+.sub05_box .text_table td{height:36px;}
 .sub05_box .text_table .td_head{}
 .sub05_box .text_table .right{text-align:right;font-weight:700;width:69%;}
 .sub05_box h4{display:inline-block;font-size: 1.8rem;font-weight:700;margin-right:10px;}

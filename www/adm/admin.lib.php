@@ -1476,4 +1476,13 @@ function sms_send($msg,$receiver,$subject,$f_name,$f_type,$f_size){
 }
 
 
+function getAdminInfo(){
+  $sql = "SELECT * FROM f_sms_admin";
+  $re = sql_query($sql);
+
+  return $re;
+
+}
+
+
 ?>
