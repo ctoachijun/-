@@ -11,9 +11,12 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_JS_URL.'/remodal/remodal-defau
 add_stylesheet('<link rel="stylesheet" href="'.get_social_skin_url().'/style.css">', 13);
 add_javascript('<script src="'.G5_JS_URL.'/remodal/remodal.js"></script>', 10);
 
-$email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.다른 이메일을 입력해 주세요.' : '';
+$email_msg = $is_exists_email ? $is_exists_email.'<br> 가입한 계정이 있으시면 하단의 계정연결을 이용해주세요.' : '';
 // echo get_social_skin_url();
-// echo $register_action_url;
+echo $register_action_url;
+$is_exists_email ? $disabled = "disabled" : $disabled = "";
+
+
 ?>
 
 <!-- 회원정보 입력/수정 시작 { -->
@@ -66,7 +69,7 @@ $email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.�
 
         <tr>
             <td>
-                <input type="text" name="mb_email" value="<?php echo isset($user_email)?$user_email:''; ?>" id="reg_mb_email" required class="frm_input email" size="70" maxlength="100" placeholder="이메일을 입력해주세요." >
+                <!-- <input type="text" name="mb_email" value="<?php echo isset($user_email)?$user_email:''; ?>" id="reg_mb_email" required class="frm_input email" size="70" maxlength="100" placeholder="이메일을 입력해주세요." > -->
                 <p class="email_msg"><?php echo $email_msg; ?></p>
             </td>
         </tr>
@@ -77,18 +80,17 @@ $email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.�
 
     <div class="btn_top top join_array">
       <div class="select_mp">
-        <input class="rb" type="radio" id="r_btn1" name="select_mp" value="m" checked></input><label for="r_btn1" class="r_m">고객 회원</label>
-        <input class="rb" type="radio" id="r_btn2" name="select_mp" value="p"></input><label for="r_btn2" class="r_m">농원 회원</label>
+        <input class="rb" type="radio" id="r_btn1" name="select_mp" value="m" checked <?=$disabled?>></input><label for="r_btn1" class="r_m">고객 회원</label>
+        <input class="rb" type="radio" id="r_btn2" name="select_mp" value="p" <?=$disabled?>></input><label for="r_btn2" class="r_m">농원 회원</label>
       </div>
       <div class="join_join">
-        <input type="submit" value="회원가입" id="btn_submit" class="btn_submit join_b" accesskey="s">
+        <input type="submit" value="회원가입" id="btn_submit" class="btn_submit join_b" accesskey="s" <?=$disabled?>>
       </div>
       <div class="cancel_join">
         <a href="<?php echo G5_URL ?>" class="btn_cancel">취소</a>
       </div>
     </div>
     </form>
-    <!-- 새로가입 끝 -->
 
     <!-- <div class="btn_group_trigger">
         <a class="btn_submit_trigger">회원가입</a>
