@@ -2,9 +2,16 @@
 include_once('../../../common.php');
 include G5_THEME_MOBILE_PATH."/head.php";
 
+$chk = checkCompanyInfo($mb_id,$mb_type);
+if($chk=="N"){
+  alert("거래에 필요한 기업 정보가 누락되어있습니다.","./view_mypage.php");
+}
+
 $today = date("Y-m-d");
 $mb_idx = getMbIdx($_SESSION['ss_mb_id']);
 $box = getMbInfo($mb_id);
+
+
 
 ?>
 

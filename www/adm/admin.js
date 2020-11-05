@@ -210,6 +210,7 @@ function partner_ship(type){
       let json = JSON.parse(data);
       if(json.state=="Y"){
         alert("지정했습니다.");
+        history.go(0);
       }else{
         alert("지정에 실패했습니다.");
       }

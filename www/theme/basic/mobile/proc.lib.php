@@ -321,6 +321,11 @@ function getEstiList($mb_id){
   WHERE e.m_idx = {$mb_idx} AND cancel != 'Y'";
   $re = sql_query($sql);
 
+  $cjud = sql_num_rows($re);
+  if($cjud==0){
+    $bin_cnt = 1;
+  }
+
   $in_num=1;
   $test = 0;
   while($row = sql_fetch_array($re)){
@@ -474,52 +479,68 @@ function getEstiList($mb_id){
     } // p_cnt if close
       $in_num++;
   }
+  if($bin_cnt > 0){
+    echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
+  }
 }
 
 
 function getAccoList($mb_id){
   $sql = "SELECT idx,c_partner FROM f_member WHERE m_id='{$mb_id}'";
-  $re = sql_fetch_array(sql_query($sql));
-  $cbox = explode("|",$re['c_partner']);
+  $rs = sql_query($sql);
+  $re = sql_fetch_array($rs);
+
+  $cjud = sql_num_rows($rs);
+
+
+  $cbox = trim(explode("|",$re['c_partner']));
   $m_idx = $re['idx'];
   sort($cbox);
   $cnt = count($cbox);
 
-  for($i=0; $i<$cnt; $i++){
-    if($cbox[$i]){
-      $partn = getPartnInfo($cbox[$i]);
-      $c_name = $partn['c_name'];
-      $p_idx = $partn['idx'];
-      $p_ship = $partn['partner_ship'];
+  if($cnt==0){
+    $bin_cnt = 1;
+  }else{
 
-      $npbox = getPointInfo($p_idx);
-      $d_num = $npbox[0];
-      $t_point = $npbox[1];
+    for($i=0; $i<$cnt; $i++){
+      if($cbox[$i]){
+        $partn = getPartnInfo($cbox[$i]);
+        $c_name = $partn['c_name'];
+        $p_idx = $partn['idx'];
+        $p_ship = $partn['partner_ship'];
 
-      $o_num = getOrderNum($p_idx);
+        $npbox = getPointInfo($p_idx);
+        $d_num = $npbox[0];
+        $t_point = $npbox[1];
 
-      echo "<div class='sub03_box'>";
-      echo "<table class='text_table'><tr><td>";
-      echo "<img src='/theme/basic/img/f_ico.png' alt='포레스트 로고'>";
-      if($p_ship == 3){
-        $fn_class = "official";
-        echo "<p class='partner'>포레스트 공식 파트너</p>";
-      }else{
-        $fn_class = "";
+        $o_num = getOrderNum($p_idx);
+
+        echo "<div class='sub03_box'>";
+        echo "<table class='text_table'><tr><td>";
+        echo "<img src='/theme/basic/img/f_ico.png' alt='포레스트 로고'>";
+        if($p_ship == 3){
+          $fn_class = "official";
+          echo "<p class='partner'>포레스트 공식 파트너</p>";
+        }else{
+          $fn_class = "";
+        }
+        echo "</td><td><a onclick='delPartner({$p_idx},{$m_idx},2)' class='delete_farm'>거래처 삭제</a></td></tr></table>";
+        echo "<table class='text_table'><tr><td>";
+        echo "<a href='./partner_info.php?idx={$p_idx}'><h4 class='farm_name {$fn_class}'>{$c_name}</h4></a>";
+        echo "</td><td>";
+        echo "<div class='score_box'><div><h4 class='score'>{$t_point}</h4><p>평점</p></div>";
+        echo "<div><h4>{$o_num}</h4><p>납품횟수</p></div>";
+        echo "<div><h4>{$d_num}</h4><p>후기</p></div></div>";
+        echo "</td></tr></table>";
+        echo "<hr style='width:100%;margin:0 auto;margin-top:8px;margin-bottom:8px;'>";
+        echo "<div class='ask'><a href='./estimate_plz.php?p_idx={$p_idx}'>견적 신청 &nbsp; &gt;</a></div>";
+        echo "</div>";
       }
-      echo "</td><td><a onclick='delPartner({$p_idx},{$m_idx},2)' class='delete_farm'>거래처 삭제</a></td></tr></table>";
-      echo "<table class='text_table'><tr><td>";
-      echo "<a href='./partner_info.php?idx={$p_idx}'><h4 class='farm_name {$fn_class}'>{$c_name}</h4></a>";
-      echo "</td><td>";
-      echo "<div class='score_box'><div><h4 class='score'>{$t_point}</h4><p>평점</p></div>";
-      echo "<div><h4>{$o_num}</h4><p>납품횟수</p></div>";
-      echo "<div><h4>{$d_num}</h4><p>후기</p></div></div>";
-      echo "</td></tr></table>";
-      echo "<hr style='width:100%;margin:0 auto;margin-top:8px;margin-bottom:8px;'>";
-      echo "<div class='ask'><a href='./estimate_plz.php?p_idx={$p_idx}'>견적 신청 &nbsp; &gt;</a></div>";
-      echo "</div>";
-
     }
+  }   // bin_cnt if close
+
+  if($bin_cnt > 0){
+    echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
   }
 
 }
@@ -785,9 +806,14 @@ function getEsti($mb_id,$ep_idx){
 
   $sql = "SELECT p_idx FROM f_estimate_plz WHERE idx ={$ep_idx}";
   $re = sql_fetch_array(sql_query($sql));
-  $box = explode("|",$re['p_idx']);
-  $jud = in_array($p_idx,$box);
+  $box = trim(explode("|",$re['p_idx']));
+  $cnt = count($box);
 
+  if($cnt == 0){
+        $jud = $cnt;
+  }else{
+    $jud = in_array($p_idx,$box);
+  }
   return $jud;
 
 }
@@ -818,6 +844,10 @@ function myEstiList($mb_id){
   $re = sql_query($sql);
 
   $psbox = getPartShipInfo($o_comp);
+  $cjud = sql_num_rows($re);
+  if($cjud==0){
+    $bin_cnt = 1;
+  }
 
   while($row = sql_fetch_array($re)){
       $o_comp = $row['o_idx'];
@@ -846,8 +876,6 @@ function myEstiList($mb_id){
         }
 
       }
-
-
 
       // 마감일까지 남은일자 산출
       $now = date("Y-m-d H:i:s");
@@ -892,6 +920,9 @@ function myEstiList($mb_id){
       echo "<a href='{$link_url}'><p class='estimate'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적서 확인</p></a>\n";
       echo "</div>\n";
       echo "</div>\n";
+  }
+  if($bin_cnt > 0){
+    echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
   }
 
 }
@@ -1332,9 +1363,15 @@ function getDealList($mb_id){
       echo "<div><a href='./conf_pesti.php?idx={$e_idx}' class='brown_box'>제출한 견적서</a></div>";
       echo "</div>";
       echo "</div>";
+    }else{
+      $bin_cnt = 1;
     }
 
   }
+  if($bin_cnt > 0){
+    echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
+  }
+
 }
 
 function getSelMenu($type){
@@ -1497,36 +1534,6 @@ function getEstiConfirm($e_idx){
 
 }
 
-function setWpic(){
-
-  echo "let sel_file;
-        $(document).ready(function(){
-          $('#w_pic').on('change', view_w_pic);
-
-          function view_w_pic(e){
-            let files = e.target.files;
-            let filesArr = Array.prototype.slice.call(files);
-
-            filesArr.forEach(function(f){
-              if(!f.type.match('image.*')){
-                alert('이미지파일을 선택 해 주세요.');
-                return;
-              }
-
-              sel_file = f;
-              let reader = new FileReader();
-              reader.onload = function(e){
-                $('.pic_div').css({'background': 'url('+e.target.result+')'});
-                $('.pic_div').css({'background-repeat': 'no-repeat'});
-                $('.pic_div').css({'background-size': 'contain'});
-                $('.pic_div').css({'background-position': 'center'});
-              }
-              reader.readAsDataURL(f);
-
-            });
-          }
-        }); ";
-}
 
 function getNewEpInfo($mb_id){
   $sql = "SELECT * FROM f_estimate_plz WHERE no_view != 1 ORDER BY idx DESC";
@@ -1601,12 +1608,26 @@ function getNewEpInfo($mb_id){
   echo "<div><a onclick='no_viewPartner({$m_idx},{$ep_idx})'>그만보기</a>";
   echo "<a href='./esti_plz_detail.php?idx={$ep_idx}' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적의뢰서 확인</a></div>";
   echo "</div>";
-
-
-
 }
 
+function checkCompanyInfo($mb_id,$type){
+  if($type==1){
+    $tbl_name = "f_partner";
+    $w_col = "p_id";
+  }else{
+    $tbl_name = "f_member";
+    $w_col = "m_id";
+  }
 
+  $sql = "SELECT * FROM {$tbl_name} WHERE {$w_col} = '{$mb_id}'";
+  $re = sql_fetch_array(sql_query($sql));
+
+  if(!$re['c_num'] || !$re['c_name'] || !$re['bank_name'] || !$re['bank_num'] || !$re['c_boss']){
+    $chk = "N";
+  }
+
+  return $chk;
+}
 
 
 ?>

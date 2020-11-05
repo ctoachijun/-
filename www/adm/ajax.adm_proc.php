@@ -3,6 +3,7 @@ include_once('./_common.php');
 
 switch ($w_type){
   case "edit_partner":
+    $m_tel = hyphen_hp_number($m_tel);
     // 입력된 값으로 데이터 업데이트
     $sql = "UPDATE f_partner SET
     m_name='{$m_name}', position='{$position}',c_name='{$c_name}',addr1='{$addr1}',addr2='{$addr2}',m_tel='{$m_tel}',
@@ -19,6 +20,8 @@ switch ($w_type){
   break;
 
   case "edit_member":
+    $m_tel = hyphen_hp_number($m_tel);
+
     $sql = "UPDATE f_member SET
     c_name='{$c_name}', position='{$position}',m_name='{$m_name}',addr1='{$addr1}',addr2='{$addr2}',m_tel='{$m_tel}',
     c_tel='{$c_tel}',bank_name='{$bank_name}',bank_num='{$bank_num}'

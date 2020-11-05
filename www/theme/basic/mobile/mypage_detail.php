@@ -4,6 +4,10 @@ include G5_THEME_MOBILE_PATH."/head.php";
 
 $m_info = getInfo($mb_id,$mb_type);
 $m_idx = $m_info['idx'];
+$tbox = explode("-",$m_info['m_tel']);
+$m_tel = $tbox[0].$tbox[1].$tbox[2];
+
+
 ?>
 
 <style>
@@ -58,7 +62,7 @@ $m_idx = $m_info['idx'];
           <td><p>담당자 직책</p></td> <td class="right"><input type="text" name="position" value="<?=$m_info['position']?>" disabled /></td>
         </tr>
         <tr>
-          <td><p>담당자 연락처</p></td> <td class="right"><input type="text" name="m_tel" value="<?=$m_info['m_tel']?>" disabled /></td>
+          <td><p>담당자 연락처</p></td> <td class="right"><input type="text" name="m_tel" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11" value="<?=$m_tel?>" disabled /></td>
         </tr>
         <tr>
           <td><p class="non_mar">담당자 이메일</p></td> <td class="right"><input type="text" name="email" value="<?=$m_info['email']?>" disabled /></td>

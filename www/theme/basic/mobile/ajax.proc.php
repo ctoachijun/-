@@ -28,6 +28,7 @@ switch($exe_type){
   case "myp_edit" :
     $tbl_name = "f_".$mb_type;
 
+    $m_tel = hyphen_hp_number($m_tel);
     $sql = "UPDATE {$tbl_name} SET
     m_name = '{$m_name}', position = '{$position}', m_tel = '{$m_tel}', email = '{$email}'
     WHERE idx = {$p_idx}";

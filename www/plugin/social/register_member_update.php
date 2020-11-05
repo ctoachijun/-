@@ -180,6 +180,20 @@ if($result) {
 
         //바로 로그인 처리
         set_session('ss_mb_id', $mb['mb_id']);
+        if($select_mp=="p"){
+          $mp = "partner";
+          $cn = "p_id";
+        }else if($select_mp=="m"){
+          $mp = "member";
+          $cn = "m_id";
+        }
+        set_session('ss_mb_type', $mp);
+        set_session('jt', $select_mp);
+
+        // $f_sql = "INSERT INTO f_{$mp} SET {$cn} = '".$mb['mb_id']."'";
+        // sql_query($f_sql);
+
+
 
     } else {    // 메일인증을 사용한다면
         $subject = '['.$config['cf_title'].'] 인증확인 메일입니다.';

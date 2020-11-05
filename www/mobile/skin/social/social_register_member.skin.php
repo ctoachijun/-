@@ -13,7 +13,7 @@ add_javascript('<script src="'.G5_JS_URL.'/remodal/remodal.js"></script>', 10);
 
 $email_msg = $is_exists_email ? $is_exists_email.'<br> 가입한 계정이 있으시면 하단의 계정연결을 이용해주세요.' : '';
 // echo get_social_skin_url();
-echo $register_action_url;
+// echo $register_action_url;
 $is_exists_email ? $disabled = "disabled" : $disabled = "";
 
 

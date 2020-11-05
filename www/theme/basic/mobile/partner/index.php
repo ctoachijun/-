@@ -2,8 +2,6 @@
 include "../../../../common.php";
 include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
-
-
 ?>
 <style>
 .content{background-color:#F8F8F8}
@@ -18,7 +16,7 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 <p class="w_text">받은 견적 의뢰서를 확인해보세요.</p>
 <div class="main_bottom_box p_sub02">
 
-  <? getNewEpInfo($mb_id) ?>
+  <? getNewEpInfo($mb_id,$no_deal) ?>
 
 </div>
 <a href="<?=$file_src?>partner/view_pesti.php"><p class="w_more">더 많은 견적의뢰서 확인하기 &#187;</p></a>

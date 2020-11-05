@@ -120,6 +120,83 @@ switch ($type){
 
   break;
 
+  case "add_pic" :
+
+    $file1 = $_FILES['pic1'];
+    $f1_err = $file1['error'];
+    $f1_tmp = $file1['tmp_name'];
+    $f1_name = $file1['name'];
+
+    $file2 = $_FILES['pic2'];
+    $f2_err = $file2['error'];
+    $f2_tmp = $file2['tmp_name'];
+    $f2_name = $file2['name'];
+
+    $utime1 = strtotime("Now");
+    $utime2 = strtotime("+1 seconds");
+
+    $img_src = G5_THEME_PATH."/img/forest/";
+
+
+    if($f1_name){
+      $box1 = explode('.',$f1_name);
+      $f1_whak = end($box1);
+
+      if($f1_tmp){
+        $f1_name = $utime1.".".$f1_whak;
+        if($f1_err != 4){
+          if($f1_err == 1){
+            $return_txt = "업로드에 실패했습니다.";
+          }else{
+            $re1 = move_uploaded_file($f1_tmp, $img_src.$f1_name);
+          }
+        }
+      }
+    }else{
+      $f1_name = $pic_1;
+    }
+
+    if($f2_name){
+      $box2 = explode('.',$f2_name);
+      $f2_whak = end($box2);
+
+      if($f2_tmp){
+        $f2_name = $utime2.".".$f2_whak;
+        if($f2_err != 4){
+          if($f2_err == 1){
+            $return_txt = "업로드에 실패했습니다.";
+          }else{
+            $re2 = move_uploaded_file($f2_tmp, $img_src.$f2_name);
+          }
+        }
+      }
+
+    }else{
+      $f2_name = $pic_2;
+    }
+
+    if($type==2){
+      $t_name = "f_member";
+    }else{
+      $t_name = "f_partner";
+    }
+
+    $sql = "SELECT pic1, pic2 FROM {$t_name} WHERE idx={$idx}";
+    $re = sql_fetch($sql);
+
+    $db_pic1 = $re['pic1'];
+    $db_pic2 = $re['pic2'];
+
+    $sql = "UPDATE {$t_name} SET pic1='{$f1_name}', pic2='{$f2_name}' WHERE idx={$idx}";
+    $re = sql_query($sql);
+
+    if($re){
+      alert("정상적으로 등록되었습니다","./member_edit.php?idx={$idx}&type={$page_type}");
+    }
+
+  break;
+
+
 }
 
 
