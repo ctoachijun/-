@@ -245,7 +245,8 @@ function pay_confirm(num,d_idx){
   let conf_txt = "";
   let m_depo = $("input[name=m_depo"+d_idx+"]").val();
   let p_depo = $("input[name=p_depo"+d_idx+"]").val();
-  console.log(p_depo);
+  let to_idx = $("input[name=to_idx"+d_idx+"]").val();
+
   if(num==1){
     if(m_depo==2){
       conf_txt = "결제 완료 처리를 하시겠습니까?"
@@ -291,7 +292,7 @@ function pay_confirm(num,d_idx){
     if(p_depo==2){
       conf_txt = "입금 완료 처리를 하시겠습니까?"
       if(confirm(conf_txt)){
-        let box = {"idx":d_idx, "w_type":"pay_conf_p", "jud":"Y"};
+        let box = {"idx":d_idx, "w_type":"pay_conf_p", "jud":"Y", "to_idx":to_idx};
         $.ajax({
           url: "../ajax.adm_proc.php",
           type: "post",
@@ -310,7 +311,7 @@ function pay_confirm(num,d_idx){
     }else{
       conf_txt = "완료처리를 취소 하시겠습니까?"
       if(confirm(conf_txt)){
-        let box = {"idx":d_idx, "w_type":"pay_conf_p", "jud":"N"};
+        let box = {"idx":d_idx, "w_type":"pay_conf_p", "jud":"N", "to_idx":to_idx};
         $.ajax({
           url: "../ajax.adm_proc.php",
           type: "post",

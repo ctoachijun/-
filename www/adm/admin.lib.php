@@ -692,6 +692,7 @@ function list_depo($page,$list,$l_cnt){
       $e_sql = "SELECT * FROM f_estimate_plz WHERE o_idx={$o_idx}";
       $e_rs = sql_fetch($e_sql);
       $g_name = $e_rs['w_name'];
+      $to_idx = $e_rs['to_idx'];
 
       // 요청일자부터 몇시간이 지났는지 계산
       $now = date("Y-m-d H:i:s");
@@ -712,6 +713,7 @@ function list_depo($page,$list,$l_cnt){
 
       echo "<input type='hidden' name='m_depo{$d_idx}' value={$m_depo} />";
       echo "<input type='hidden' name='p_depo{$d_idx}' value={$p_depo} />";
+      echo "<input type='hidden' name='to_idx{$d_idx}' value={$to_idx} />";
       echo "<tr>";
       echo "<td class='depo_cont_l'>".$m_depo_txt."</td>";
       echo "<td class='depo_cont_l'>".$p_depo_txt."</td>";

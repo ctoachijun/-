@@ -111,6 +111,10 @@ switch ($w_type){
     $sql = "UPDATE f_deposit SET p_deposit={$depo}, p_pay_date=DEFAULT WHERE idx={$idx}";
     $re = sql_query($sql);
 
+    $sql = "UPDATE f_tree_order SET order_sn='{$jud}' WHERE idx={$to_idx}";
+    $re = sql_query($sql);
+
+    // $output['sql'] = $jud;
     if($re){
       $output['state'] = "Y";
     }else{

@@ -27,7 +27,9 @@ for($i=0; $i<count($arr_data[1]); $i++){
     $$txt = round(($arr_data[1][$i] / 1000),3);
 }
 
+echo $i_stx;
 $tree_name = $arr_data[2];
+
 
 ?>
 
@@ -60,7 +62,9 @@ $tree_name = $arr_data[2];
       </form>
     </div>
   </div>
+<?
 
+?>
   <div class="st_cont">
     <div class="l_cont" >
       <div class="sub_title">품목별 거래량</div>
