@@ -567,11 +567,6 @@ function add_eval(e_idx,m_idx,p_idx){
       });
     }
 
-
-
-
-
-
   }
 
 }

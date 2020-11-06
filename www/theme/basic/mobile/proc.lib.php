@@ -1632,23 +1632,19 @@ function checkCompanyInfo($mb_id,$type){
 function goToken($mb_id,$mb_type){
   $host = $_SERVER['HTTP_HOST'];
   $url = "https://".$host."/get_Token.php";
-
   $box = array("mb_id"=>$mb_id,"exe_type"=>'get_token', "mb_type"=>$mb_type);
-  // $box["mb_id"] = $mb_id;
-  // $box["exe_type"] = "get_token";
-  // $box["mb_type"] = $mb_type;
-
 
   $ch = curl_init();
   curl_setopt( $ch,CURLOPT_URL, $url);
   curl_setopt( $ch,CURLOPT_POST, true );
+  curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+  curl_setopt ($ch,CURLOPT_SSL_VERIFYHOST,0);
+  curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
   curl_setopt( $ch,CURLOPT_POSTFIELDS, $box);
   $result = curl_exec($ch);
   curl_close( $ch );
 
-
-
-
+  return $result;
 }
 
 

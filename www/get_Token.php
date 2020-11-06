@@ -1,5 +1,10 @@
 <?php
 include "./common.php";
+
+// $mb_id = "drops";
+// $exe_type = "get_token";
+// $mb_type = "member";
+
 ?>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -35,10 +40,12 @@ messaging.requestPermission()
     .then(function(token){
         console.log(token);
         $("#_token").val(token);
+        $("#vtoken").html(token);
         let mb_id = $("input[name=mb_id]").val();
         let exe_type = $("input[name=exe_type]").val();
         let mb_type = $("input[name=mb_type]").val();
         let gtoken = token;
+        // alert(token);
         console.log(exe_type);
         let box = {"exe_type":exe_type,"mb_id":mb_id,"token":gtoken,"mb_type":mb_type};
 
@@ -50,6 +57,7 @@ messaging.requestPermission()
         }).done(function(data){
           let json = JSON.parse(data);
           console.log(json.sql);
+          // alert(json.sql);
           if(json.state=="Y"){
             // alert("등록했습니다.");
           }else{
@@ -63,5 +71,6 @@ messaging.requestPermission()
         console.log(arr);
     });
 
-
 </script>
+
+<span id="vtoken"></span>

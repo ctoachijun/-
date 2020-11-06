@@ -14,32 +14,23 @@ if(!$_SESSION['ss_mb_id'] && !$is_member){
 
 $jud = getNewEsti($mb_id);
 
-
-
 if($jud > 0){
   $bell_img = "bell_n.png";
 }else{
   $bell_img = "bell.png";
 }
-$insert_token = goToken($mb_id,$mb_type);
 
 ?>
-
-<script>
-
-$(document).ready(function(){
-
-let box = window.forest.postPushToken(<?=$mb_id?>);
-
-
-});
-
-</script>
 
 
 <style>
 .content{background-color:#F8F8F8; height:92vh;}
 </style>
+
+<input type="hidden" name="mb_id" value="<?=$mb_id?>" />
+<input type="hidden" name="mb_type" value="<?=$mb_type?>" />
+<input type="hidden" name="token" id="_token" />
+
 <div class="header2">
   <img src="<?=$img_src?>/top_logo.png" alt="포레스트 로고">
 </div>
@@ -79,6 +70,36 @@ let box = window.forest.postPushToken(<?=$mb_id?>);
 
 
 </div>
+
+<script>
+
+$(document).ready(function(){
+  let mb_id = $("input[name=mb_id]").val();
+  let mb_type = $("input[name=mb_type]").val();
+  let gtoken = window.forest.postPushToken(mb_id);
+  let token = gtoken;
+
+  let box = {"exe_type":"get_token","mb_id":mb_id,"token":token,"mb_type":mb_type};
+  $.ajax({
+          url: "theme/basic/mobile/ajax.proc.php",
+          type: "post",
+          contentType:'application/x-www-form-urlencoded;charset=UTF8',
+          data: box
+  }).done(function(data){
+    let json = JSON.parse(data);
+    if(json.state=="Y"){
+      // alert("등록했습니다.");
+    }else{
+      // alert("등록에 실패했습니다.");
+    }
+  });
+
+
+});
+
+</script>
+
+
 
 <?
   include_once(G5_THEME_MOBILE_PATH.'/tail.php');

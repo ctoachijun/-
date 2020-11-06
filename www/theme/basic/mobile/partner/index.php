@@ -6,6 +6,10 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 <style>
 .content{background-color:#F8F8F8}
 </style>
+<input type="hidden" name="mb_id" value="<?=$mb_id?>" />
+<input type="hidden" name="mb_type" value="<?=$mb_type?>" />
+<input type="hidden" name="token" id="_token" />
+
 <div class="header2">
   <img src="<?=$img_src?>/top_logo.png" alt="포레스트 로고">
 </div>
@@ -30,4 +34,35 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
   <? getDealList($mb_id) ?>
 </div>
 </div><!--main_bottom 끝-->
+
+<script>
+
+$(document).ready(function(){
+  let mb_id = $("input[name=mb_id]").val();
+  let mb_type = $("input[name=mb_type]").val();
+  let gtoken = window.forest.postPushToken(mb_id);
+  let token = gtoken;
+
+  let box = {"exe_type":"get_token","mb_id":mb_id,"token":token,"mb_type":mb_type};
+  $.ajax({
+          url: "theme/basic/mobile/ajax.proc.php",
+          type: "post",
+          contentType:'application/x-www-form-urlencoded;charset=UTF8',
+          data: box
+  }).done(function(data){
+    let json = JSON.parse(data);
+    if(json.state=="Y"){
+      // alert("등록했습니다.");
+    }else{
+      // alert("등록에 실패했습니다.");
+    }
+  });
+
+
+});
+
+</script>
+
+
+
 <?include "./p_tail.php"?>

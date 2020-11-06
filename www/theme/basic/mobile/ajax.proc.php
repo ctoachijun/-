@@ -235,11 +235,19 @@ switch($exe_type){
       $col_name = "p_id";
     }
 
-    $sql = "UPDATE {$tbl_name} SET token='{$token}' WHERE {$col_name}='{$mb_id}'";
-    $re =sql_query($sql);
-    if($re){
+    $sql = "SELECT token FROM {$tbl_name} WHERE {$col_name}='{$mb_id}'";
+    $box = sql_fetch($sql);
+    $o_token = $box['token'];
+
+    if($o_token != $token){
+      $sql = "UPDATE {$tbl_name} SET token='{$token}' WHERE {$col_name}='{$mb_id}'";
+      $re = sql_query($sql);
+
       $output['state'] = "Y";
       $output['sql'] = $sql;
+      $output['token'] = $token;
+
+
     }else{
       $output['state'] = "N";
     }
