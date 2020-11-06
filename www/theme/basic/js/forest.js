@@ -388,8 +388,8 @@ function noptEsti(e_idx){
 function editDPinfo(ep_idx,e_idx,opt){
   let t_name = "target"+e_idx;
   let ed_name = "ed_date"+e_idx;
-  console.log(t_name);
-  console.log(ed_name);
+  // console.log(t_name);
+  // console.log(ed_name);
   let target = $('.'+t_name).val();
   let ed_date = $('.'+ed_name).val();
   let ro = $('.'+ed_name).prop(opt);
@@ -415,7 +415,7 @@ function editDPinfo(ep_idx,e_idx,opt){
     data: data_list
   }).done(function(data){
     let json = JSON.parse(data);
-    console.log(json.sql);
+    // console.log(json.sql);
   });
 
 }
@@ -468,6 +468,8 @@ function delPartner(p_idx,m_idx,type){
       data: data_list
     }).done(function(data){
       let json = JSON.parse(data);
+      console.log(json.box1);
+      console.log(json.box2);
       console.log(json.sql);
       console.log(json.chk);
       alert(json.r_txt);
@@ -492,11 +494,14 @@ function cancel_late(type,e_idx){
   let selector = $("SELECT").val();
   let ru = $("input[name=return]").val();
   let con_txt = "";
+  let re_txt = "";
 
   if(type==1){
     con_txt = "입찰을 취소하시겠습니까?";
+    re_txt = "취소";
   }else{
     con_txt = "배송지연 등록을 하시겠습니까?";
+    re_txt = "등록";
   }
 
   let box = {"reason":reason, "selector":selector, "exe_type":"cancel_late", "type":type, "e_idx":e_idx};
@@ -510,7 +515,7 @@ function cancel_late(type,e_idx){
       let json = JSON.parse(data);
 
       if(json.state=="Y"){
-        alert("등록했습니다");
+        alert(re_txt+"했습니다");
         window.location.href=ru;
       }else{
         alert("시스템 오류입니다.");
@@ -534,6 +539,7 @@ function add_eval(e_idx,m_idx,p_idx){
   let point = $("#star_point").val();
   let comment = $("#comment").val().trim();
   let eval = $("input[name=eval]").val();
+  let ru = $("input[name=return]").val();
   let con_txt = "";
 
   if(point==0){
@@ -557,7 +563,7 @@ function add_eval(e_idx,m_idx,p_idx){
         data: box
       }).done(function(data){
         let json = JSON.parse(data);
-        console.log(json.sql);
+        // console.log(json.sql);
         if(json.state=="Y"){
           alert("등록했습니다");
           window.location.href=ru;

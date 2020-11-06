@@ -72,6 +72,7 @@ if($point > 0){
 </div>
 
 <input type="hidden" name="eval" value="<?=$eval?>" />
+<input type="hidden" name="return" value="<?=$return_url?>" />
 <div class="wrap sub12 sub13">
   <div class="address">
     <table>

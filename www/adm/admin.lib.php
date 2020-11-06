@@ -635,14 +635,13 @@ function print_admin_menu(){
 //  입금현황 리스트
 function list_depo($page,$list,$l_cnt){
   $start_num = ($page-1) * $list;
-  $col_add = "d.idx as d_idx, m.c_name as mc, p.c_name as pc, m.m_tel as mt, p.m_tel as pt";
+  $col_add = "d.e_idx as e_idx, d.idx as d_idx, m.c_name as mc, p.c_name as pc, m.m_tel as mt, p.m_tel as pt";
   $d_sql = "SELECT *,{$col_add} FROM f_deposit AS d JOIN f_member AS m ON d.m_idx=m.idx
-  JOIN f_partner AS p ON d.p_idx=p.idx WHERE 1 ORDER BY d.idx DESC LIMIT $start_num,$list";
+  JOIN f_partner AS p ON d.p_idx=p.idx WHERE d.cancel='N' ORDER BY d.idx DESC LIMIT $start_num,$list";
   $d_rs = sql_query($d_sql);
 
-
-
   while($row = sql_fetch_array($d_rs)){
+    $e_idx = $row['e_idx'];
     $d_idx = $row['d_idx'];
     $m_idx = $row['m_idx'];
     $p_idx = $row['p_idx'];
@@ -650,79 +649,84 @@ function list_depo($page,$list,$l_cnt){
     $m_depo = $row['m_deposit'];
     $p_depo = $row['p_deposit'];
 
-    // 결제금액
-    $m_price = $row['m_price'];
-    $p_price = $row['p_price'];
+    $sql = "SELECT cancel_esti FROM f_estimate WHERE idx={$e_idx}";
+    $ebox = sql_fetch($sql);
+    $cancel_esti = $ebox['cancel_esti'];
 
-    //고객 정보
-    $m_name = $row['mc'];
-    $p_name = $row['pc'];
-    $m_tel = $row['mt'];
-    $p_tel = $row['pt'];
+    if($cancel_esti=='N'){
 
+      // 결제금액
+      $m_price = $row['m_price'];
+      $p_price = $row['p_price'];
 
+      //고객 정보
+      $m_name = $row['mc'];
+      $p_name = $row['pc'];
+      $m_tel = $row['mt'];
+      $p_tel = $row['pt'];
 
-    // 고객, 파트너의 주문상태
-    if($row['m_deposit']==1){
-      $m_depo_txt = "결제 완료";
-    }else{
-      $m_depo_txt = "결제 대기";
-    }
+      // 고객, 파트너의 주문상태
+      if($row['m_deposit']==1){
+        $m_depo_txt = "결제 완료";
+      }else{
+        $m_depo_txt = "결제 대기";
+      }
 
-    if($row['p_deposit']==1){
-      $p_depo_txt = "입금 완료";
-    }else{
-      $p_depo_txt = "입금 대기";
-    }
+      if($row['p_deposit']==1){
+        $p_depo_txt = "입금 완료";
+      }else{
+        $p_depo_txt = "입금 대기";
+      }
 
-    // 주문일자 추출
-    $pc_sql = "SELECT m_push_date FROM f_deposit WHERE m_idx = {$m_idx}";
-    $pc_rs = sql_fetch($pc_sql);
-    $pc_date = $pc_rs['m_push_date'];
-    // 날짜 표시용으로 가공
-    $box = explode(" ",$pc_date);
-    $date1 = $box[0];
-    $box2 = explode(":",$box[1]);
-    $date2 = $box2[0].":".$box2[1];
+      // 주문일자 추출
+      $pc_sql = "SELECT m_push_date FROM f_deposit WHERE m_idx = {$m_idx}";
+      $pc_rs = sql_fetch($pc_sql);
+      $pc_date = $pc_rs['m_push_date'];
+      // 날짜 표시용으로 가공
+      $box = explode(" ",$pc_date);
+      $date1 = $box[0];
+      $box2 = explode(":",$box[1]);
+      $date2 = $box2[0].":".$box2[1];
 
-    // 견적의뢰 테이블에서 공사명 추출
-    $e_sql = "SELECT * FROM f_estimate_plz WHERE o_idx={$o_idx}";
-    $e_rs = sql_fetch($e_sql);
-    $g_name = $e_rs['w_name'];
+      // 견적의뢰 테이블에서 공사명 추출
+      $e_sql = "SELECT * FROM f_estimate_plz WHERE o_idx={$o_idx}";
+      $e_rs = sql_fetch($e_sql);
+      $g_name = $e_rs['w_name'];
 
-    // 요청일자부터 몇시간이 지났는지 계산
-    $now = date("Y-m-d H:i:s");
-    $re = strtotime($now) - strtotime($pc_date);
-    $c_h = ceil($re / (60*60));
+      // 요청일자부터 몇시간이 지났는지 계산
+      $now = date("Y-m-d H:i:s");
+      $re = strtotime($now) - strtotime($pc_date);
+      $c_h = ceil($re / (60*60));
 
-    $chk_d = 0;
-    if($c_h > 24){
-      while($c_h > 24){
-        $chk_d++;
-        $c_h -= 24;
+      $chk_d = 0;
+      if($c_h > 24){
+        while($c_h > 24){
+          $chk_d++;
+          $c_h -= 24;
+          $chk_h = $c_h;
+        }
+      }else{
         $chk_h = $c_h;
       }
-    }else{
-      $chk_h = $c_h;
-    }
-    $c_date_txt = "+".$chk_d."일".$chk_h."시간";
+      $c_date_txt = "+".$chk_d."일".$chk_h."시간";
 
-    echo "<input type='hidden' name='m_depo{$d_idx}' value={$m_depo} />";
-    echo "<input type='hidden' name='p_depo{$d_idx}' value={$p_depo} />";
-    echo "<tr>";
-    echo "<td class='depo_cont_l'>".$m_depo_txt."</td>";
-    echo "<td class='depo_cont_l'>".$p_depo_txt."</td>";
-    echo "<td class='depo_cont_l'>".$g_name."</td>";
-    echo "<td class='depo_cont_l'>".$p_name."</td>";
-    echo "<td class='depo_cont_l'>".$m_name."</td>";
-    echo "<td class='depo_cont_l'>".$p_tel."</td>";
-    echo "<td class='depo_cont_l'>".$m_tel."</td>";
-    echo "<td class='depo_cont_l'>".$date1." | ".$date2."</td>";
-    echo "<td class='depo_cont_l'>".$c_date_txt."</td>";
-    echo "<td class='depo_price_l'><div class='attend'><div class='mp'>".number_format($m_price)."</div><div onclick='pay_confirm(1,{$d_idx})' class='g".$row['m_deposit']."'>".$m_depo_txt."</div></div></td>";
-    echo "<td class='depo_price_l'><div class='attend'><div class='pp'>".number_format($p_price)."</div><div onclick='pay_confirm(2,{$d_idx})' class='i".$row['p_deposit']."'>".$p_depo_txt."</div></div</td>";
-    echo "<tr><td class='b_line' colspan='13'><div id='bottom_line'></div></td></tr>";
-    echo "</tr>";
+      echo "<input type='hidden' name='m_depo{$d_idx}' value={$m_depo} />";
+      echo "<input type='hidden' name='p_depo{$d_idx}' value={$p_depo} />";
+      echo "<tr>";
+      echo "<td class='depo_cont_l'>".$m_depo_txt."</td>";
+      echo "<td class='depo_cont_l'>".$p_depo_txt."</td>";
+      echo "<td class='depo_cont_l'>".$g_name."</td>";
+      echo "<td class='depo_cont_l'>".$p_name."</td>";
+      echo "<td class='depo_cont_l'>".$m_name."</td>";
+      echo "<td class='depo_cont_l'>".$p_tel."</td>";
+      echo "<td class='depo_cont_l'>".$m_tel."</td>";
+      echo "<td class='depo_cont_l'>".$date1." | ".$date2."</td>";
+      echo "<td class='depo_cont_l'>".$c_date_txt."</td>";
+      echo "<td class='depo_price_l'><div class='attend'><div class='mp'>".number_format($m_price)."</div><div onclick='pay_confirm(1,{$d_idx})' class='g".$row['m_deposit']."'>".$m_depo_txt."</div></div></td>";
+      echo "<td class='depo_price_l'><div class='attend'><div class='pp'>".number_format($p_price)."</div><div onclick='pay_confirm(2,{$d_idx})' class='i".$row['p_deposit']."'>".$p_depo_txt."</div></div</td>";
+      echo "<tr><td class='b_line' colspan='13'><div id='bottom_line'></div></td></tr>";
+      echo "</tr>";
+    }
   }
 }
 

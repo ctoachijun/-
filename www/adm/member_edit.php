@@ -182,7 +182,6 @@ let sel_file;
 $(document).ready(function(){
   $("#pic1").on("change", view_pic1);
   $("#pic2").on("change", view_pic2);
-
 });
 
 function view_pic1(e){

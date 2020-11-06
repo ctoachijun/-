@@ -406,7 +406,7 @@ ul{list-style:none;padding-left:0px;}
 .delivery_con{display:flex;width:100%;}
 .delivery_con .de_img{width:100px;height:70px;overflow:hidden;}
 .delivery_con .de_img img{width:100%;}
-.de_txt{padding:10px;}
+.de_txt{padding-left:15px;}
 .delivery_con .de_txt h4{font-size:1.4rem;margin-top:1.5vh;}
 .delivery_con .de_txt p{font-style: 1.2rem;margin-top:1vh;}
 .sub13 .address{padding:15px;}

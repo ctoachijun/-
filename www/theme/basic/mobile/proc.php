@@ -150,20 +150,24 @@ switch($w_type){
 
 
     //  견적의뢰 한건당 몇명의 파트너가 견적을 냈는지를 기록
-    $sql = "SELECT p_idx FROM f_estimate_plz WHERE idx = {$ep_idx}";
+    $sql = "SELECT p_idx,only FROM f_estimate_plz WHERE idx = {$ep_idx}";
     $box = sql_fetch_array(sql_query($sql));
-    $p_idx = $box['p_idx'];
+    $pbox = explode("|",$box['p_idx']);
+    $cnt = count($pbox);
+    $only = $box['only'];
 
-    if($p_idx){
-      $p_idx .= "|";
-      $p_idx .= $mb_idx;
-    }else{
-      $p_idx = $mb_idx;
+    if($only=='N'){
+      for($i=0; $i<=$cnt; $i++){
+        if($pbox[$i]){
+          $p_idx_txt .= $pbox[$i];
+          $p_idx_txt .= "|";
+        }
+      }
     }
+    $p_idx_txt .= $mb_idx;
 
-    $sql = "UPDATE f_estimate_plz SET p_idx = '{$p_idx}' WHERE idx = {$ep_idx}";
+    $sql = "UPDATE f_estimate_plz SET p_idx = '{$p_idx_txt}' WHERE idx = {$ep_idx}";
     sql_query($sql);
-    // echo "$sql <br>";
 
     if(!$return_msg){
       $return_msg = "정상적으로 등록이 되었습니다";
@@ -185,9 +189,28 @@ switch($w_type){
 
     $sum_p = $t_price - $tep;
 
-    $sql = "INSERT INTO f_deposit SET
-    m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, m_price={$t_price}, p_price={$sum_p}, m_push_date=DEFAULT";
+
+    // 주문정보 입력
+    $sql = "INSERT INTO f_order SET
+    p_idx={$p_idx}, e_idx={$e_idx}, to_idx={$to_idx}, o_date=DEFAULT";
     $re = sql_query($sql);
+
+
+    // 견적의뢰 테이블에 주문번호 입력
+    $sql = "SELECT idx FROM f_order ORDER BY idx DESC";
+    $obox = sql_fetch($sql);
+    $o_idx = $obox['idx'];
+
+    $sql = "UPDATE f_estimate_plz SET o_idx={$o_idx} WHERE idx={$ep_idx}";
+    sql_query($sql);
+
+
+    // 결제정보 입력
+    $sql = "INSERT INTO f_deposit SET
+    o_idx={$o_idx}, m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, m_price={$t_price}, p_price={$sum_p}, m_push_date=DEFAULT";
+    $re = sql_query($sql);
+
+
 
     $sql = "SELECT c_name FROM f_member WHERE idx={$m_idx}";
     $box = sql_fetch($sql);

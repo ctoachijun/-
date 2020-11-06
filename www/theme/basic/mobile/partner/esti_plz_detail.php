@@ -13,10 +13,15 @@ $e_date = getDdate($idx);
 $num = getNum($idx);
 
 $jud = getEsti($mb_id,$idx);
-if($jud){
-  alert("해당 견적의뢰에 이미 견적을 제출하셨습니다",$return_url);
-}
+$epbox = getEpInfo($idx);
+$only = $epbox['only'];
 
+
+if($jud){
+  // if($only=='N'){
+    alert("해당 견적의뢰에 이미 견적을 제출하셨습니다",$return_url);
+  // }
+}
 
 ?>
 

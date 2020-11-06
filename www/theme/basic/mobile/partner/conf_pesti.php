@@ -27,7 +27,32 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
 <script>
 
-<? setWpic() ?>
+let sel_file;
+$(document).ready(function(){
+  $("#w_pic").on("change", view_pic1);
+});
+
+function view_pic1(e){
+  let files = e.target.files;
+  let filesArr = Array.prototype.slice.call(files);
+
+  filesArr.forEach(function(f){
+    if(!f.type.match("image.*")){
+      alert("이미지파일을 선택 해 주세요.");
+      return;
+    }
+
+    sel_file = f;
+    let reader = new FileReader();
+    reader.onload = function(e){
+      $(".pic_div").css({"background": "url("+e.target.result+")"});
+      $(".pic_div").css({"background-repeat": "no-repeat"});
+      $(".pic_div").css({"background-size": "contain"});
+    }
+    reader.readAsDataURL(f);
+
+  });
+}
 
 </script>
 

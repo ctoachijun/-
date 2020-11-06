@@ -112,16 +112,19 @@ switch($exe_type){
     $jud = in_array($p_idx,$box);
     $chk = 0;
 
-
     // 거래처 등록
     if($type==1){
       if($jud){
         $return_txt = "이미 거래처로 등록이 되어있습니다";
         $chk = 1;
       }else{
-        $c_partner .= "|";
-        $c_partner .= $p_idx;
-        $return_txt = "등록 했습니다";
+        if(!$c_partner){
+          $c_partner = $p_idx;
+        }else{
+          $c_partner .= "|";
+          $c_partner .= $p_idx;
+        }
+          $return_txt = "등록 했습니다";
       }
 
 
@@ -131,18 +134,22 @@ switch($exe_type){
         $return_txt = "거래처로 등록되어있지 않습니다.";
         $chk = 1;
       }else{
-
+        $output['box1'] = $box[0];
+        $output['box2'] = $box[1];
         for($i=0; $i<$cnt; $i++){
-          if($i == $cnt-1){
-            $c_partner_txt .= $box[$i];
-          }else{
-            if($box[$i]!=$p_idx){
+          if($box[$i] && $box[$i]!=$p_idx){
+            if($i == $cnt-1){
               $c_partner_txt .= $box[$i];
-              $c_partner_txt .= "|";
-              $return_txt = "삭제 했습니다";
+            }else{
+              if($box[$i]!=$p_idx){
+                $c_partner_txt .= $box[$i];
+                $c_partner_txt .= "|";
+              }
             }
           }
         }
+
+        $return_txt = "삭제 했습니다";
         $c_partner = $c_partner_txt;
 
       }    // if $jud close
@@ -177,13 +184,33 @@ switch($exe_type){
       $reason = $re[$col_name];
     }
 
+    // 주문번호 추출
+    $sql = "SELECT idx FROM f_order WHERE e_idx = {$e_idx}";
+    $obox = sql_fetch($sql);
+    $o_idx = $obox['idx'];
+
+    // 견적의뢰 번호 추출
+    $sql = "SELECT idx FROM f_estimate_plz WHERE o_idx={$o_idx}";
+    $epbox = sql_fetch($sql);
+    $ep_idx = $epbox['idx'];
+
     // 직접입력의 경우는 reason 그대로.
+    // 입찰취소의 경우 주문테이블에서도 삭제
     if($type==1){
       $sql = "UPDATE f_estimate SET cancel_esti='Y', cancel_esti_txt='{$reason}' WHERE idx={$e_idx}";
+      $dsql = "DELETE FROM f_order WHERE e_idx={$e_idx}";
+      $usql = "UPDATE f_deposit SET cancel='Y' WHERE o_idx={$o_idx}";
+      $usql2 = "UPDATE f_estimate_plz SET o_idx=0 WHERE idx={$ep_idx}";
+      sql_query($dsql);
+      sql_query($usql);
+      sql_query($usql2);
     }else{
       $sql = "UPDATE f_estimate SET late_deli='Y', late_deli_txt='{$reason}' WHERE idx={$e_idx}";
     }
     $re = sql_query($sql);
+
+
+
 
     if($re){
       $output['state'] = "Y";
@@ -212,13 +239,14 @@ switch($exe_type){
       WHERE o_idx={$o_idx}";
     }else{
       $sql = "INSERT INTO f_partner_ship SET
-      m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, o_idx={$o_idx},
+      m_idx={$m_idx}, p_idx={$p_idx}, o_idx={$o_idx},
       {$p_colname}='{$point}', comment='{$comment}', w_date=DEFAULT";
     }
     $re = sql_query($sql);
+    $output['sql'] = $sql;
     if($re){
       $output['state'] = "Y";
-      $output['sql'] = $sql;
+
     }else{
       $output['state'] = "N";
     }
