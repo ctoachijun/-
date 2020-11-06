@@ -89,226 +89,120 @@ function getPayCompList($mb_id){
 
 function getEstiPlzList($s_type,$t_type,$mb_id,$mp){
 
-  // 고객, 파트너 구분
-  if($mp==1){
-  //   // 고객 IDX추출
-  //   $sql = "SELECT * FROM f_member WHERE m_id = '{$mb_id}'";
-  //   $re = sql_fetch_array(sql_query($sql));
-  //   $mb_idx = $re['idx'];
-  //   $c_name = $re['c_name'];
-  //
-  //   $sql = "SELECT * FROM f_estimate_plz AS e
-  //   INNER JOIN f_tree_order AS t ON e.to_idx = t.idx
-  //   WHERE e.m_idx = {$mb_idx} AND cancel != 'Y' ORDER By";
-  //   $re = sql_query($sql);
-  //   $re_cnt = sql_num_rows($re);
-  //
-  //   $cnt_pi=0;
-  //   $in_num=1;
-  //   while($row = sql_fetch_array($re)){
-  //     $ep_idx = $row['idx'];
-  //     $mypartner = $row['c_partner'];
-  //     $g_work = $row['g_work'];
-  //     $k_tree = $row['k_tree'];
-  //     $w_name = $row['w_name'];
-  //     $to_idx = $row['to_idx'];
-  //     $m_idx = $row['m_idx'];
-  //     $d_date = $row['d_date'];
-  //     $target = $row['target'];
-  //     $ep_idx = $row['ep_idx'];
-  //     $e_date = $row['e_date'];
-  //
-  //     // 수목 발주품목 추출
-  //     $to_sql = "SELECT * FROM f_tree_order WHERE idx = {$to_idx}";
-  //     $to_re = sql_fetch_array(sql_query($to_sql));
-  //     for($i=0; $i<8; $i++){
-  //       $col_name = "item".($i+1);
-  //       if($to_re[$col_name]){
-  //         $box[$i] = $to_re[$col_name];
-  //       }
-  //     }
-  //     $dbox = explode(" ",$to_re['w_date']);
-  //     $w_date = $dbox[0];
-  //     if($g_work==1){
-  //       $g_work_txt = "관급공사(A급 조경수)";
-  //       $g_work_class = "";
-  //     }else if($g_work==2){
-  //       $g_work_txt = "사급공사(B급 조경수)";
-  //       $g_work_class = "green_box";
-  //     }
-  //
-  //
-  //     if($k_tree==1){
-  //       $k_tree_txt = "교목";
-  //     }else if($k_tree==2){
-  //       $k_tree_txt = "관목";
-  //     }
-  //
-  //
-  //     // 마감일까지 남은일자 산출
-  //     $now = date("Y-m-d H:i:s");
-  //     $c_d = ceil( (strtotime($d_date) - strtotime($now)) / 86400 );
-  //     $ed_box = explode("-",$e_date);
-  //     $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
-  //
-  //     $t_name = "target".$ep_idx;
-  //     $ed_name = "ed_date".$ep_idx;
-  //
-  //     echo "<div class='main_bottom_box'>";
-  //     echo "<input type='hidden' name='e_date' class='e_date' value='{$e_date}' />";
-  //     echo "<table class='text_table'>";
-  //     echo "<tr><td>";
-  //     echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
-  //     echo "</td>";
-  //     echo "<td class='right'>";
-  //     echo "<p class='partner tree'>{$k_tree_txt}</p><p class='partner work {$g_work_class}'>{$g_work_txt}</p>";
-  //     echo "</td></tr>";
-  //     echo "<tr><td><h4 class='farm_name'>{$c_name}</h4></td>";
-  //     echo "<td><p class='com_date'>등록 : {$w_date}</p></td></tr>";
-  //     echo "<tr><td class='height_td'><p class='work_name'>{$w_name}</p></td>";
-  //     echo "<td><p class='cut_date'>마감까지 {$c_d}일 남음</p></td>";
-  //     echo "</tr></table>";
-  //     echo "<hr style='width:100%;margin:0 auto;margin-top:2px;margin-bottom:6px;'>";
-  //     echo "<ul>";
-  //     for($a=0; $a<count($box); $a++){
-  //       echo "<li>".$box[$a]."</li>";
-  //     }
-  //     echo "</ul>";
-  //     echo "<div class='edit_input'>";
-  //     echo "<div>";
-  //     echo "<img src='/theme/basic/img/date.png' alt='납품 날짜'>";
-  //     echo "</div>";
-  //     echo "<div>";
-  //     echo "<p>납품 날짜 : <input type='text' name='ed_date' class='{$ed_name}' value='{$ed_txt}' readonly /></p>";
-  //     echo "</div>";
-  //     echo "</div>";
-  //     echo "<div class='edit_input'>";
-  //     echo "<div>";
-  //     echo "<img src='/theme/basic/img/location.png' alt='납품 장소'>";
-  //     echo "</div>";
-  //     echo "<div>";
-  //     echo "<p>납품 장소 : <input type='text' name='target' class='{$t_name}' value='{$target}' readonly /></p>";
-  //     echo "</div>";
-  //     echo "</div>";
-  //     echo "<p class='btn_date'><span onclick='editDPinfo({$ep_idx},{$re_cnt})' class='change'>납품 날짜 및 장소 변경</span></p>";
-  //     echo "<hr style='width:100%;margin:0 auto;margin-top:12px;margin-bottom:12px;'>";
-  //     echo "<div class='info'>";
-  //     echo "<div><a class='estimate' href='/theme/basic/mobile/esti_comp.php?ep_idx={$ep_idx}' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적서 확인</a>";
-  //     echo "<a class='cancel' onclick='noListExe(2,{$ep_idx})'>거래 취소</a></div>";
-  //     echo "</div>";
-  //     echo "</div>";
-  //     $cnt_pi++;
-  //     $in_num++;
-  // }
+  // 파트너 IDX추출
+  $sql = "SELECT idx FROM f_partner WHERE p_id = '{$mb_id}'";
+  $re = sql_fetch_array(sql_query($sql));
+  $mb_idx = $re['idx'];
 
-  }else if($mp==2){
-    // 파트너 IDX추출
-    $sql = "SELECT idx FROM f_partner WHERE p_id = '{$mb_id}'";
-    $re = sql_fetch_array(sql_query($sql));
-    $mb_idx = $re['idx'];
-
-    if($s_type=="dd"){
-      $order_txt = "ORDER BY e.d_date";
-    }else{
-      $order_txt = "ORDER BY t.w_date DESC";
-    }
+  if($s_type=="dd"){
+    $order_txt = "ORDER BY e.d_date";
+  }else{
+    $order_txt = "ORDER BY t.w_date DESC";
+  }
 
 
-    if($t_type){
-      $ktree_txt = "&& e.k_tree = $t_type";
-    }
+  if($t_type){
+    $ktree_txt = "&& e.k_tree = $t_type";
+  }
 
-    $sql = "SELECT *,(e.idx) FROM f_estimate_plz AS e
-    INNER JOIN f_tree_order AS t ON e.to_idx = t.idx
-    WHERE e.o_idx = 0 {$ktree_txt} {$order_txt}";
+  $sql = "SELECT *,(e.idx) FROM f_estimate_plz AS e
+  INNER JOIN f_tree_order AS t ON e.to_idx = t.idx
+  WHERE e.o_idx = 0 && e.cancel != 'Y' {$ktree_txt} {$order_txt}";
+  $re = sql_query($sql);
+  $jud_cnt = sql_num_rows($re);
+  if($jud_cnt==0){
+    $bin_cnt = 1;
+  }
 
-    $re = sql_query($sql);
-    $cnt_pi=0;
-    while($row = sql_fetch_array($re)){
-      $ep_idx = $row['idx'];
-      $g_work = $row['g_work'];
-      $k_tree = $row['k_tree'];
-      $w_name = $row['w_name'];
-      $to_idx = $row['to_idx'];
-      $m_idx = $row['m_idx'];
-      $d_date = $row['d_date'];
+  $cnt_pi=0;
+  while($row = sql_fetch_array($re)){
+    $ep_idx = $row['idx'];
+    $g_work = $row['g_work'];
+    $k_tree = $row['k_tree'];
+    $w_name = $row['w_name'];
+    $to_idx = $row['to_idx'];
+    $m_idx = $row['m_idx'];
+    $d_date = $row['d_date'];
 
-      // 그만보기 선택한 의뢰 및 견적을 낸 건은 제외처리
-      $nv_box = explode("|",$row['no_view']);
-      $nv_re = in_array($mb_idx,$nv_box);
+    // 그만보기 선택한 의뢰 및 견적을 낸 건은 제외처리
+    $nv_box = explode("|",$row['no_view']);
+    $nv_re = in_array($mb_idx,$nv_box);
 
-      if(!$nv_re){
+    if(!$nv_re){
 
-        // 업체명 추출
-        $m_sql = "SELECT c_name,c_partner FROM f_member WHERE idx = {$m_idx}";
-        $m_re = sql_fetch_array(sql_query($m_sql));
-        $c_name = $m_re['c_name'];
+      // 업체명 추출
+      $m_sql = "SELECT c_name,c_partner FROM f_member WHERE idx = {$m_idx}";
+      $m_re = sql_fetch_array(sql_query($m_sql));
+      $c_name = $m_re['c_name'];
 
-        // 내 농원을 거래처로 등록했는지 여부
-        $cpbox = explode("|",$m_re['c_partner']);
-        $mypartner = in_array($mb_idx,$cpbox);
+      // 내 농원을 거래처로 등록했는지 여부
+      $cpbox = explode("|",$m_re['c_partner']);
+      $mypartner = in_array($mb_idx,$cpbox);
 
-        // 수목 발주품목 추출
-        $to_sql = "SELECT * FROM f_tree_order WHERE idx = {$to_idx}";
-        $to_re = sql_fetch_array(sql_query($to_sql));
-        for($i=0; $i<8; $i++){
-          $col_name = "item".($i+1);
-          if($to_re[$col_name]){
-            $box[$i] = $to_re[$col_name];
-          }
+      // 수목 발주품목 추출
+      $to_sql = "SELECT * FROM f_tree_order WHERE idx = {$to_idx}";
+      $to_re = sql_fetch_array(sql_query($to_sql));
+      $box = array();
+      for($i=0; $i<8; $i++){
+        $col_name = "item".($i+1);
+        if($to_re[$col_name]){
+          $box[$i] = $to_re[$col_name];
         }
-
-        $dbox = explode(" ",$to_re['w_date']);
-        $w_date = $dbox[0];
-        if($g_work==1){
-          $g_work_txt = "관급공사";
-          $k_tree_txt = "A급 조경수";
-          $k_tree_class = "";
-        }else if($g_work==2){
-          $g_work_txt = "사급공사";
-          $k_tree_txt = "B급 조경수";
-          $k_tree_class = "green_box";
-        }
-
-        // 마감일까지 남은일자 산출
-        $now = date("Y-m-d H:i:s");
-        $c_d = ceil( (strtotime($d_date) - strtotime($now)) / 86400 );
-
-        echo "<div class='main_bottom_box'>";
-        echo "<table class='text_table'>";
-        echo "<tr><td>";
-        echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
-        if($mypartner){
-          echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
-        }
-        echo "</td>";
-        echo "<td class='right'>";
-        echo "<p class='partner tree'>{$g_work_txt}</p><p class='partner work {$k_tree_class}'>{$k_tree_txt}</p>";
-        echo "</td></tr>";
-        echo "<tr><td><h4 class='farm_name'>{$c_name}</h4></td>";
-        echo "<td><p class='com_date'>등록 : {$w_date}</p></td></tr>";
-        echo "<tr><td><p class='work_name'>{$w_name}</p></td>";
-        echo "<td><p class='cut_date'>마감까지 {$c_d}일 남음</p></td>";
-        echo "</tr></table>";
-
-        echo "<ul>";
-        for($a=0; $a<count($box); $a++){
-          echo "<li>".$box[$a]."</li>";
-        }
-        echo "</ul>";
-        echo "<hr style='width:100%;margin:0 auto;margin-top:8px;margin-bottom:12px;'>";
-        echo "<div class='info'>";
-        echo "<div><a onclick='no_viewPartner({$mb_idx},{$ep_idx})'>그만보기</a>";
-        echo "<a href='./esti_plz_detail.php?idx={$ep_idx}' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적의뢰서 확인</a></div>";
-        echo "</div>";
-        echo "</div>";
       }
 
-      $cnt_pi++;
-    }   // end of while
+      $dbox = explode(" ",$to_re['w_date']);
+      $w_date = $dbox[0];
+      if($g_work==1){
+        $g_work_txt = "관급공사";
+        $k_tree_txt = "A급 조경수";
+        $k_tree_class = "";
+      }else if($g_work==2){
+        $g_work_txt = "사급공사";
+        $k_tree_txt = "B급 조경수";
+        $k_tree_class = "green_box";
+      }
 
-  } // $mp if close
+      // 마감일까지 남은일자 산출
+      $now = date("Y-m-d H:i:s");
+      $c_d = ceil( (strtotime($d_date) - strtotime($now)) / 86400 );
 
+      echo "<div class='main_bottom_box'>";
+      echo "<table class='text_table'>";
+      echo "<tr><td>";
+      echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+      if($mypartner){
+        echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
+      }
+      echo "</td>";
+      echo "<td class='right'>";
+      echo "<p class='partner tree'>{$g_work_txt}</p><p class='partner work {$k_tree_class}'>{$k_tree_txt}</p>";
+      echo "</td></tr>";
+      echo "<tr><td><h4 class='farm_name'>{$c_name}</h4></td>";
+      echo "<td><p class='com_date'>등록 : {$w_date}</p></td></tr>";
+      echo "<tr><td><p class='work_name'>{$w_name}</p></td>";
+      echo "<td><p class='cut_date'>마감까지 {$c_d}일 남음</p></td>";
+      echo "</tr></table>";
+
+      echo "<ul>";
+      for($a=0; $a<count($box); $a++){
+        echo "<li>".$box[$a]."</li>";
+      }
+      echo "</ul>";
+      echo "<hr style='width:100%;margin:0 auto;margin-top:8px;margin-bottom:12px;'>";
+      echo "<div class='info'>";
+      echo "<div><a onclick='no_viewPartner({$mb_idx},{$ep_idx})'>그만보기</a>";
+      echo "<a href='./esti_plz_detail.php?idx={$ep_idx}' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적의뢰서 확인</a></div>";
+      echo "</div>";
+      echo "</div>";
+    }else{
+      $bin_cnt = 1;
+    }
+
+    $cnt_pi++;
+  }   // end of while
+  if($bin_cnt > 0){
+    echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
+  }
 }
 
 function getEstiList($mb_id){
@@ -339,6 +233,13 @@ function getEstiList($mb_id){
     $e_date = $row['e_date'];
     $o_idx = $row['o_idx'];
     $pbox = explode("|",$row['p_idx']);
+
+    // 견적의뢰가 있어도 견적이 없으면 거래내역에 미표시 처리
+    $nsql = "SELECT * FROM f_estimate WHERE ep_idx = {$ep_idx}";
+    $nbox = sql_num_rows(sql_query($nsql));
+    if($nbox==0){
+      $bin_cnt = 1;
+    }
 
     $cnt_pi=0;
     $p_cnt = count($pbox);
@@ -1251,6 +1152,10 @@ function getNewEsti($mb_id){
 function getDealList($mb_id){
   $sql = "SELECT * FROM f_order";
   $re = sql_query($sql);
+  $row_cnt = sql_num_rows($re);
+  if($row_cnt==0){
+    $bin_cnt = 1;
+  }
 
   while($row = sql_fetch_array($re)){
     $e_idx = $row['e_idx'];
@@ -1611,7 +1516,7 @@ function getNewEpInfo($mb_id){
 }
 
 function checkCompanyInfo($mb_id,$type){
-  if($type==1){
+  if($type=="partner"){
     $tbl_name = "f_partner";
     $w_col = "p_id";
   }else{

@@ -386,22 +386,22 @@ function chk_agree(f){
           return false;
       }
   }
-  // // 사업자등록번호 사진 검사
-  // if (f.w.value=='') {
-  //     if (f.pic1.value.length < 1) {
-  //         alert('사업자등록번호 사진을 입력하십시오.');
-  //         f.pic1.focus();
-  //         return false;
-  //     }
-  // }
-  // // 통장 사진 검사
-  // if (f.w.value=='') {
-  //     if (f.pic2.value.length < 1) {
-  //         alert('통장사본 사진을 입력하십시오.');
-  //         f.pic2.focus();
-  //         return false;
-  //     }
-  // }
+  // 사업자등록번호 사진 검사
+  if (f.w.value=='') {
+      if (f.pic1.value.length < 1) {
+          alert('사업자등록번호 사진을 입력하십시오.');
+          f.pic1.focus();
+          return false;
+      }
+  }
+  // 통장 사진 검사
+  if (f.w.value=='') {
+      if (f.pic2.value.length < 1) {
+          alert('통장사본 사진을 입력하십시오.');
+          f.pic2.focus();
+          return false;
+      }
+  }
 
   if($("input:checkbox[name=agree]").is(":checked") == false){
     alert("약관 동의를 해주세요.");

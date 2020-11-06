@@ -73,7 +73,6 @@ function chk_data(){
   let memo = $("input[name=memo]").val();
   let wr_2 = $("input[name=wr_2]").val();
 
-
   if(!w_name){
     alert("공사명을 입력 해 주세요.");
     $("input[name=w_name]").focus();
@@ -104,13 +103,13 @@ function chk_data(){
     $("input[name=w_place]").focus();
     return false;
   }
-  if(!w_r1){
+  if(!wr_1){
     alert("납품날짜를 입력 해 주세요.");
     $("input[name=w_r1]").focus();
     return false;
   }
-  if(!w_r2){
-    alert("개찰 마감일을 입력 해 주세요.");
+  if(!wr_2){
+    alert("입찰 마감일을 입력 해 주세요.");
     $("input[name=w_r2]").focus();
     return false;
   }
@@ -124,6 +123,7 @@ function chk_data(){
     $("input[name='w_size[]']")[0].focus();
     return false;
   }
+
   return true;
 }
 
@@ -313,7 +313,7 @@ function alarmOnoff(mb_type,mb_idx){
     data: data_list
   }).done(function(data){
     let json = JSON.parse(data);
-    console.log(json.sql);
+    // console.log(json.sql);
   });
 }
 

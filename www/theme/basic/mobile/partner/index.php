@@ -13,7 +13,7 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 <div class="header2">
   <img src="<?=$img_src?>/top_logo.png" alt="포레스트 로고">
 </div>
-<div class="header_back">
+<div class="header_back_p">
 </div>
 
 <div class="p_main">

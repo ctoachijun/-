@@ -3,7 +3,6 @@
 include "../../../../common.php";
 include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
-
 $chk = checkCompanyInfo($mb_id,$mb_type);
 if($chk=="N"){
   alert("거래에 필요한 기업 정보가 누락되어있습니다.","./view_pmypage.php");
@@ -17,8 +16,6 @@ $jud = getEsti($mb_id,$idx);
 if($jud){
   alert("해당 견적의뢰에 이미 견적을 제출하셨습니다",$return_url);
 }
-
-
 
 
 ?>

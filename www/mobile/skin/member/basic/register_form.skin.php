@@ -13,6 +13,7 @@ if($jt=="m"){
   $t_name ="";
 }
 
+
 ?>
 
 <div class="register">
@@ -194,8 +195,8 @@ if($jt=="m"){
     }
 
     // submit 최종 폼체크
-    function fregisterform_submit(f)
-    {
+    function fregisterform_submit(f){
+
         // 회원아이디 검사
         if (f.w.value == "") {
             var msg = reg_mb_id_check();
@@ -205,7 +206,6 @@ if($jt=="m"){
                 return false;
             }
         }
-
         if (f.mb_password.value != f.mb_password_re.value) {
             alert('비밀번호가 같지 않습니다.');
             f.mb_password_re.focus();
@@ -218,6 +218,12 @@ if($jt=="m"){
                 f.mb_password_re.focus();
                 return false;
             }
+        }
+        if (f.con_hp.value=="") {
+            alert('휴대폰 인증은 필수입니다.');
+            f.con_hp.focus();
+            return false;
+
         }
 
         if(f.jt.value=="m"){
@@ -232,7 +238,7 @@ if($jt=="m"){
           // 직책 검사
           if (f.w.value=='') {
               if (f.position.value.length < 1) {
-                  alert('담당자 성명을 입력하십시오.');
+                  alert('담당자 직책을 입력하십시오.');
                   f.position.focus();
                   return false;
               }

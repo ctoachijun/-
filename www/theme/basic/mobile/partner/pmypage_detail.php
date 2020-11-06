@@ -59,7 +59,7 @@ $p_idx = $p_info['idx'];
       <td class="td_head"><p>담당자 직책</p></td> <td class="right"><input type="text" name="position" value="<?=$p_info['position']?>" disabled /></td>
     </tr>
     <tr>
-      <td class="td_head"><p>담당자 연락처</p></td> <td class="right"><input type="text" name="m_tel" value="<?=$p_info['m_tel']?>" disabled /></td>
+      <td class="td_head"><p>담당자 연락처</p></td> <td class="right"><input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="m_tel" maxlength="11" value="<?=$p_info['m_tel']?>" disabled /></td>
     </tr>
     <tr>
       <td class="td_head"><p class="non_mar">담당자 이메일</p></td> <td class="right"><input type="text" name="email" value="<?=$p_info['email']?>" disabled /></td>
