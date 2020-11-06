@@ -32,6 +32,10 @@ switch ($type){
   case "send_sn":
 
     $return_url = $_SERVER['HTTP_REFERER'];
+    $scheme = $_SERVER['REQUEST_SCHEME'];
+    $host = $_SERVER['HTTP_HOST'];
+    $hurl = $scheme."://".$host."/adm/img/forest_adm";
+
     $file = $_FILES['sn_img'];
     $f_err = $file['error'];
     $f_size = $file['size'];
@@ -40,6 +44,7 @@ switch ($type){
     $f_name = $file['name'];
     $allow_file = array("gif", "jpeg", "jpg", "png");
 
+    $utime = strtotime("Now");
 
     // 파일 확장자 검사
     if($f_name){
@@ -49,6 +54,8 @@ switch ($type){
       if(!$box_re){
         $return_txt = "이미지 파일만 올려주세요.";
       }
+      // 파일이름 중복이 없게 timestamp 추가
+      $f_name = $box[0]."_".$utime.".".$box_type;
     }
 
     // 파일 업로드 관련 처리 err 4 = 파일이름 없음(파일 안올릴때)
@@ -56,13 +63,9 @@ switch ($type){
       if($f_err == 1){
         $return_txt = "업로드에 실패했습니다.";
       }else{
-        if($f_name && file_exists("./img/forest_adm/".$f_name)){
-          $return_txt = "파일 이름 중복입니다.";
-        }else{
-          $re = move_uploaded_file($f_tmp, "./img/forest_adm/" . $f_name);
-          if(!$re){
-            $err_msg = "파일 업로드 실패입니다.";
-          }
+        $re = move_uploaded_file($f_tmp, "./img/forest_adm/" . $f_name);
+        if(!$re){
+          $err_msg = "파일 업로드 실패입니다.";
         }
       }
     }
@@ -73,29 +76,82 @@ switch ($type){
       alert($err_msg,$return_url);
     }else{
 
+      $s_sql = "INSERT INTO f_notice VALUES ('','{$mem_type}','{$t_sum}','{$f_name}','{$f_size}','{$t_cont}',DEFAULT)";
       // 알림과 공지 나눔
       if($kind == "notice"){
-        $s_sql = "INSERT INTO f_notice VALUES ('','{$mem_type}','{$t_sum}','{$f_name}','{$f_size}','{$t_cont}',DEFAULT)";
-      }else{
-        $s_sql = "INSERT INTO f_sms_push VALUES ('','{$mem_type}','{$send_type}','{$t_sum}','{$f_name}','{$f_size}','{$t_cont}',DEFAULT)";
-      }
-      $s_re = sql_query($s_sql);
 
-      $s_re = 1;
-      if($s_re){
-        // sms 및 푸쉬 전송처리
-        $subject = "알림!";
-        $re = sms_send($t_cont,$tels,$subject,$f_name,$f_type,$f_size);
-
-        if($re->result_code > 0){
-          // 정상적으로 전송이 되었다면 아래 코드 실행
-          alert("정상적으로 전송되었습니다.",$return_url);
+        if($mem_type=="P"){
+          $tbl_name = "f_partner";
         }else{
-          alert("전송에 실패했습니다.",$return_url);
+          $tbl_name = "f_member";
+        }
+        $sql = "SELECT token FROM {$tbl_name} WHERE alarm='Y'";
+        $re = sql_query($sql);
+        $keys = array();
+        while($row = sql_fetch_array($re)){
+          if(trim($row['token'])){
+            array_push($keys,$row['token']);
+          }
+        }
+        $title = "=공지사항=";
+        $content = $t_cont;
+        $img_url = $hurl."/".$f_name;
+
+        $p_re = send_push($keys,$title,$content,$img_url);
+        $s_re = sql_query($s_sql);
+        alert("정상적으로 전송되었습니다.",$return_url);
+
+
+
+
+
+      }else{
+
+        // 알림일경우 문자와 푸시로 나눠서 처리.
+        $s_sql = "INSERT INTO f_sms_push VALUES ('','{$mem_type}','{$send_type}','{$t_sum}','{$f_name}','{$f_size}','{$t_cont}',DEFAULT)";
+
+        // 문자처리
+        if($send_type=="S"){
+          $subject = "[포레스트]\n";
+          $re = sms_send($t_cont,$tels,$subject,$f_name,$f_type,$f_size);
+          // echo "t_cont : $t_cont <br>";
+          // echo "tels : $tels <br>";
+          // echo "sub : $subject <br>";
+          if($re->result_code > 0){
+            $s_re = sql_query($s_sql);
+            // 정상적으로 전송이 되었다면 아래 코드 실행
+            alert("정상적으로 전송되었습니다.",$return_url);
+          }else{
+            alert("전송에 실패했습니다.",$return_url);
+          }
+
+        }else if($send_type=="P"){
+          // 푸시처리
+          if($mem_type=="P"){
+            $tbl_name = "f_partner";
+          }else{
+            $tbl_name = "f_member";
+          }
+          $sql = "SELECT token FROM {$tbl_name} WHERE alarm='Y'";
+          $re = sql_query($sql);
+          $keys = array();
+          while($row = sql_fetch_array($re)){
+            if(trim($row['token'])){
+              array_push($keys,$row['token']);
+            }
+          }
+          $title = "=알림=";
+          $content = $t_cont;
+          $img_url = $hurl."/".$f_name;
+
+          $p_re = send_push($keys,$title,$content,$img_url);
+          $s_re = sql_query($s_sql);
+          alert("정상적으로 전송되었습니다.",$return_url);
+
         }
       }
-
     }
+
   break;
 
   case "add_admin" :

@@ -3911,7 +3911,7 @@ function send_certNum($msg,$receiver){
 }
 
 
-function send_push($keys,$title,$content){
+function send_push($keys,$title,$content,$img){
   //type 값 (mathching,pay)
   //서버키 변경하시면 안되요
   $API_ACCESS_KEY='AAAA8MuSYd0:APA91bHkK7sv155tkIg5_l9jvkvkR64GFUC-_Zi1aXJGrVNKYcaVPd_Bjj6ilPbtVMxpXzbb9BhdY9m5m6YhQF_4ZPuFVMGoQrljFdPc-eq9GiPw0nYUhe-1G0ZclavxbEUnVDdAVO_j';// 사용자
@@ -3920,7 +3920,8 @@ function send_push($keys,$title,$content){
   $registrationIds = array();
   $msg = array(
       'body'  => $content,
-      'title'     => $title
+      'title'     => $title,
+      'image' => $img
   );
 
   //설정 해서 알려주시면 되는내용입니다.

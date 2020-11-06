@@ -52,7 +52,7 @@ if($alarm=="Y"){
       <!-- <p>고객센터</p>
       <p class="right">&gt;</p> -->
     <!-- </div> -->
-
+    <a href="http://softer036.cafe24.com/bbs/logout.php">logout</a>
   </div><!--main_bottom 끝-->
 
 <?
