@@ -101,10 +101,6 @@ switch ($type){
         $s_re = sql_query($s_sql);
         alert("정상적으로 전송되었습니다.",$return_url);
 
-
-
-
-
       }else{
 
         // 알림일경우 문자와 푸시로 나눠서 처리.

@@ -187,26 +187,38 @@ switch($w_type){
 
     $sql = "INSERT INTO f_deposit SET
     m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, m_price={$t_price}, p_price={$sum_p}, m_push_date=DEFAULT";
-    // $re = sql_query($sql);
-
+    $re = sql_query($sql);
 
     $sql = "SELECT c_name FROM f_member WHERE idx={$m_idx}";
     $box = sql_fetch($sql);
     $c_name = $box['c_name'];
 
-
     // 푸시, 문자를 보낼 관리자 정보 추출
     $sql = "SELECT * FROM f_sms_admin";
     $re = sql_query($sql);
+    $ids = array();
+    $keys = array();
+    while($row = sql_fetch_array($re)){
+      if(trim($row['admin_id'])){
+        $aid = $row['admin_id'];
+        $sql = "SELECT token FROM f_member WHERE m_id='{$aid}'";
+        $tbox = sql_fetch($sql);
+        if(trim($tbox['token'])){
+          array_push($keys,$tbox['token']);
+        }
+      }
+    }
 
     // 여기에 관리자 푸시 처리
+    $title = "[입금확인 요청]";
+    $content = "'{$c_name}' 회원님 '{$t_price}' 원의 입금요청이 있습니다.\n";
+    $content .= "확인 후 관리자페이지에서 입금완료 처리를 해주세요.";
+    $p_re = send_push($keys,$title,$content,$img_url='');
 
 
-
-
-    // 관리자 푸시 처리가 끝나면 완료페이지로
     // 관리자 문자 전송 처리
-    $send_tel = "";
+    $sql = "SELECT * FROM f_sms_admin";
+    $re = sql_query($sql);
     while($rs = sql_fetch_array($re)){
       $admin_tel = $rs['admin_tel'];
       if($admin_tel){
@@ -214,6 +226,7 @@ switch($w_type){
         $send_tel .= ",";
       }
     }
+
     $box = explode(",",$send_tel);
     $cnt = count($box);
 
@@ -223,7 +236,9 @@ switch($w_type){
         $send_txt .= ",";
       }
     }
-    $msg .= "[포레스트][입금확인요청]\n";
+
+
+    $msg .= "[포레스트]\n[입금확인요청]\n";
     $msg .= "'{$c_name}' 회원님 '{$t_price}' 원의 입금요청이 있습니다\n";
     $msg .= "확인 후 관리자페이지에서 입금완료 처리를 해주세요.";
 
