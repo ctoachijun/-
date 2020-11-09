@@ -1,9 +1,10 @@
 <?php
 $sub_menu = '100000';
+
 include_once('./_common.php');
 
-// 입금현황 화면으로 바로 이동
 
+// 입금현황 화면으로 바로 이동
 goto_url("./shop_admin/sale1.php");
 
 exit;

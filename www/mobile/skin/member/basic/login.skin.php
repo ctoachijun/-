@@ -37,8 +37,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
   <div class="find">
     <a href="./password_lost.php">계정 찾기</a>
-    <a href="./register_form.php?jt=m">고객가입</a>
-    <a href="./register_form.php?jt=p">농원가입</a>
+    <a href="./register_form.php?jt=<?=$jt?>">회원가입</a>
+    <!-- <a href="./register_form.php?jt=<?=$jt?>">농원가입</a> -->
   </div>
 </div><!-- 전체 콘텐츠 끝 -->
 

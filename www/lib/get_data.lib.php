@@ -22,7 +22,7 @@ function get_content_db($co_id, $is_cache=false){
     global $g5, $g5_object;
 
     static $cache = array();
-    
+
     $type = 'content';
 
     $co_id = preg_replace('/[^a-z0-9_]/i', '', $co_id);
@@ -32,11 +32,11 @@ function get_content_db($co_id, $is_cache=false){
 
         $cache_file_name = "{$type}-{$co_id}-".g5_cache_secret_key();
         $co = g5_get_cache($cache_file_name, 10800);
-        
+
         if( $co === false ){
             $sql = " select * from {$g5['content_table']} where co_id = '$co_id' ";
             $co = sql_fetch($sql);
-            
+
             g5_set_cache($cache_file_name, $co, 10800);
         }
 
@@ -50,7 +50,7 @@ function get_board_names(){
     global $g5;
 
     static $boards = array();
-	
+
 	$boards = run_replace('get_board_names_cache', $boards);
 
     if( ! $boards ){
@@ -94,15 +94,15 @@ function get_menu_db($use_mobile=0, $is_cache=false){
     global $g5;
 
     static $cache = array();
-    
+
 	$cache = run_replace('get_menu_db_cache', $cache, $use_mobile, $is_cache);
-	
+
 	$key = md5($use_mobile);
 
     if( $is_cache && isset($cache[$key]) ){
         return $cache[$key];
     }
-	
+
 	$where = $use_mobile ? "me_mobile_use = '1'" : "me_use = '1'";
 
 	if( !($cache[$key] = run_replace('get_menu_db', array(), $use_mobile)) ){
@@ -114,7 +114,7 @@ function get_menu_db($use_mobile=0, $is_cache=false){
 		$result = sql_query($sql, false);
 
 		for ($i=0; $row=sql_fetch_array($result); $i++) {
-			
+
 			$row['ori_me_link'] = $row['me_link'];
 			$row['me_link'] = short_url_clean($row['me_link']);
 			$cache[$key][$i] = $row;
@@ -151,7 +151,7 @@ function get_content_by_field($write_table, $type='bbs', $where_field='', $where
     if( ! in_array($where_field, $check_array) ){
         return '';
     }
-    
+
     $where_value = strip_tags($where_value);
     $key = md5($write_table.'|'.$where_field.'|'.$where_value);
 
@@ -164,11 +164,11 @@ function get_content_by_field($write_table, $type='bbs', $where_field='', $where
     $cache[$key] = sql_fetch($sql);
 
     if( $type === 'content' ){
-        
+
         $g5_object->set($type, $cache[$key]['co_id'], $cache[$key], 'content');
 
     } else {
-    
+
         $wr_bo_table = preg_replace('/^'.preg_quote($g5['write_prefix']).'/i', '', $write_table);
         $g5_object->set($type, $cache[$key]['wr_id'], $cache[$key], $wr_bo_table);
 
@@ -424,13 +424,13 @@ function get_board_sort_fields($board=array(), $make_key_return=''){
     ), $board, $make_key_return);
 
     if( $make_key_return ){
-        
+
         $returns = array();
         foreach( $bo_sort_fields as $v ){
             $key = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\/\^\*\s]/", "", $v[0]);
             $returns[$key] = $v[0];
         }
-        
+
         return $returns;
     }
     return $bo_sort_fields;

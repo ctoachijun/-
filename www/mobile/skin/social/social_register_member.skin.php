@@ -15,8 +15,6 @@ $email_msg = $is_exists_email ? $is_exists_email.'<br> 가입한 계정이 있�
 // echo get_social_skin_url();
 // echo $register_action_url;
 $is_exists_email ? $disabled = "disabled" : $disabled = "";
-
-
 ?>
 
 <!-- 회원정보 입력/수정 시작 { -->
@@ -30,6 +28,7 @@ $is_exists_email ? $disabled = "disabled" : $disabled = "";
     <input type="hidden" name="url" value="<?php echo $urlencode; ?>">
     <input type="hidden" name="mb_name" value="<?php echo $user_nick; ?>" >
     <input type="hidden" name="provider" value="<?php echo $provider_name;?>" >
+    <input type="hidden" name="select_mp" value="<?php echo $_SESSION['jt']; ?>">
     <input type="hidden" name="action" value="register">
 
     <input type="hidden" name="mb_id" value="<?php echo $user_id; ?>" id="reg_mb_id">
@@ -79,10 +78,10 @@ $is_exists_email ? $disabled = "disabled" : $disabled = "";
     </div>
 
     <div class="btn_top top join_array">
-      <div class="select_mp">
+      <!-- <div class="select_mp">
         <input class="rb" type="radio" id="r_btn1" name="select_mp" value="m" checked <?=$disabled?>></input><label for="r_btn1" class="r_m">고객 회원</label>
         <input class="rb" type="radio" id="r_btn2" name="select_mp" value="p" <?=$disabled?>></input><label for="r_btn2" class="r_m">농원 회원</label>
-      </div>
+      </div> -->
       <div class="join_join">
         <input type="submit" value="회원가입" id="btn_submit" class="btn_submit join_b" accesskey="s" <?=$disabled?>>
       </div>

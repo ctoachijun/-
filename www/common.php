@@ -32,22 +32,22 @@ for ($i=0; $i<$ext_cnt; $i++) {
 
 function g5_path()
 {
-    $chroot = substr($_SERVER['SCRIPT_FILENAME'], 0, strpos($_SERVER['SCRIPT_FILENAME'], dirname(__FILE__))); 
-    $result['path'] = str_replace('\\', '/', $chroot.dirname(__FILE__)); 
-    $server_script_name = preg_replace('/\/+/', '/', str_replace('\\', '/', $_SERVER['SCRIPT_NAME'])); 
-    $server_script_filename = preg_replace('/\/+/', '/', str_replace('\\', '/', $_SERVER['SCRIPT_FILENAME'])); 
-    $tilde_remove = preg_replace('/^\/\~[^\/]+(.*)$/', '$1', $server_script_name); 
-    $document_root = str_replace($tilde_remove, '', $server_script_filename); 
+    $chroot = substr($_SERVER['SCRIPT_FILENAME'], 0, strpos($_SERVER['SCRIPT_FILENAME'], dirname(__FILE__)));
+    $result['path'] = str_replace('\\', '/', $chroot.dirname(__FILE__));
+    $server_script_name = preg_replace('/\/+/', '/', str_replace('\\', '/', $_SERVER['SCRIPT_NAME']));
+    $server_script_filename = preg_replace('/\/+/', '/', str_replace('\\', '/', $_SERVER['SCRIPT_FILENAME']));
+    $tilde_remove = preg_replace('/^\/\~[^\/]+(.*)$/', '$1', $server_script_name);
+    $document_root = str_replace($tilde_remove, '', $server_script_filename);
     $pattern = '/.*?' . preg_quote($document_root, '/') . '/i';
-    $root = preg_replace($pattern, '', $result['path']); 
-    $port = ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) ? '' : ':'.$_SERVER['SERVER_PORT']; 
-    $http = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on') ? 's' : '') . '://'; 
-    $user = str_replace(preg_replace($pattern, '', $server_script_filename), '', $server_script_name); 
-    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME']; 
-    if(isset($_SERVER['HTTP_HOST']) && preg_match('/:[0-9]+$/', $host)) 
-        $host = preg_replace('/:[0-9]+$/', '', $host); 
-    $host = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\/\^\*]/", '', $host); 
-    $result['url'] = $http.$host.$port.$user.$root; 
+    $root = preg_replace($pattern, '', $result['path']);
+    $port = ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) ? '' : ':'.$_SERVER['SERVER_PORT'];
+    $http = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on') ? 's' : '') . '://';
+    $user = str_replace(preg_replace($pattern, '', $server_script_filename), '', $server_script_name);
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+    if(isset($_SERVER['HTTP_HOST']) && preg_match('/:[0-9]+$/', $host))
+        $host = preg_replace('/:[0-9]+$/', '', $host);
+    $host = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\/\^\*]/", '', $host);
+    $result['url'] = $http.$host.$port.$user.$root;
     return $result;
 }
 
@@ -270,9 +270,9 @@ if( !function_exists('shop_check_is_pay_page') ){
 			$mobile_dir.'/'.$shop_dir.'/lg/returnurl.php',
 			$mobile_dir.'/'.$shop_dir.'/lg/xpay_approval.php',
 		);
-		
+
 		$server_script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
-		
+
 		// PG 결제사의 리턴페이지이면
 		foreach( $pg_checks_pages as $pg_page ){
 			if( preg_match('~'.preg_quote($pg_page).'$~i', $server_script_name) ){
@@ -307,9 +307,9 @@ if( $config['cf_cert_use'] || (defined('G5_YOUNGCART_VER') && G5_YOUNGCART_VER) 
 		function session_start_samesite($options = array())
 		{
             global $g5;
-    
+
 			$res = @session_start($options);
-			
+
             // IE 브라우저 또는 엣지브라우저 또는 IOS 모바일과 http환경에서는 secure; SameSite=None을 설정하지 않습니다.
             if( preg_match('/Edge/i', $_SERVER['HTTP_USER_AGENT']) || preg_match('/(iPhone|iPod|iPad).*AppleWebKit.*Safari/i', $_SERVER['HTTP_USER_AGENT']) || preg_match('~MSIE|Internet Explorer~i', $_SERVER['HTTP_USER_AGENT']) || preg_match('~Trident/7.0(; Touch)?; rv:11.0~',$_SERVER['HTTP_USER_AGENT']) || ! (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on') ){
                 return $res;
@@ -533,8 +533,8 @@ if ($bo_table) {
             }
         }
     }
-    
-    // 게시판에서 
+
+    // 게시판에서
     if (isset($board['bo_select_editor']) && $board['bo_select_editor']){
         $config['cf_editor'] = $board['bo_select_editor'];
     }

@@ -11,8 +11,8 @@ if (!$mb_id || !$mb_password)
 
 $mb = get_member($mb_id);
 
-//소셜 로그인추가 체크
 
+//소셜 로그인추가 체크
 $is_social_login = false;
 $is_social_password_check = false;
 
@@ -63,6 +63,8 @@ set_session('ss_mb_id', $mb['mb_id']);
 // FLASH XSS 공격에 대응하기 위하여 회원의 고유키를 생성해 놓는다. 관리자에서 검사함 - 110106
 set_session('ss_mb_key', md5($mb['mb_datetime'] . get_real_client_ip() . $_SERVER['HTTP_USER_AGENT']));
 
+
+
 // 포인트 체크
 if($config['cf_use_point']) {
     $sum_point = get_point_sum($mb['mb_id']);
@@ -87,6 +89,8 @@ if ($auto_login) {
     set_cookie('ck_auto', '', 0);
 }
 
+
+
 $mp_type = getTypemp($mb['mb_id']);
 if($mp_type=="partner"){
   $url .= "/theme/basic/mobile/partner";
@@ -104,6 +108,7 @@ if ($url) {
         $split= "&amp;";
     else
         $split= "?";
+
 
     // $_POST 배열변수에서 아래의 이름을 가지지 않은 것만 넘김
     $post_check_keys = array('mb_id', 'mb_password', 'x', 'y', 'url');
@@ -146,7 +151,12 @@ if(function_exists('set_cart_id')){
     sql_query($sql);
 }
 
+
 run_event('member_login_check', $mb, $link, $is_social_login);
+// echo $link;
+// echo "<br>";
+// print_r($_SESSION);
+// exit;
 
 
 goto_url($link);

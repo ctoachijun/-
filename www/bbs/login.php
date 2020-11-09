@@ -9,6 +9,8 @@ $g5['title'] = '로그인';
 include_once('./_head.sub.php');
 
 $url = strip_tags($_GET['url']);
+$_SESSION['jt'] = $_GET['jt'];
+
 
 // url 체크
 check_url_host($url);
