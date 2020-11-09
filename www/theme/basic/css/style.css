@@ -464,7 +464,8 @@ ul{list-style:none;padding-left:0px;}
 input{width:100%;margin-bottom:15px;padding:8px;font-size:1.3rem;background:#fff;border:2px solid #EBEBEB;border-radius:4px;outline:none;}
 input::placeholder{color:#ccc;}
 label{font-size:1.3rem;}
-/* label:before {content:"*";color:#F86252;margin-right:2px;} */
+.form_01 label:before {content:"*";color:#F86252;margin-right:2px;}
+.sign label:before {content:"*";color:#F86252;margin-right:2px;}
 .next{display:block;width:100%;background-color:#1CB587;padding:10px;border-radius:5px;text-align:center;color:#fff;font-size:1.5rem;font-weight:700}
 
 select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem;background:#fff;border:2px solid #EBEBEB;border-radius:4px;outline:none;}
