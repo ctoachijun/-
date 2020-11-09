@@ -11,7 +11,7 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 <input type="hidden" name="token" id="_token" />
 
 <div class="header2">
-  <img src="<?=$img_src?>/top_logo.png" alt="트리넥트 로고">
+  <img src="<?=$img_src?>/top_logo.png" alt="포레스트 로고">
 </div>
 <div class="header_back_p">
 </div>

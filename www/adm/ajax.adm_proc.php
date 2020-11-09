@@ -59,6 +59,7 @@ switch ($w_type){
     $t_sql = "SELECT idx as t FROM {$t_name} WHERE live = 'Y' AND alarm='Y'";
     $re = sql_num_rows(sql_query($t_sql));
 
+
     // 전송 할 회원의 휴대폰번호를 수납
     $tel_sql = "SELECT m_tel FROM {$t_name} WHERE live = 'Y' AND alarm='Y'";
     $tel_re = sql_query($tel_sql);
@@ -73,7 +74,7 @@ switch ($w_type){
       array_push($m_tels,$txt);
     }
 
-    if($re){
+    if($re >= 0){
       $output['state'] = "Y";
       $output['total'] = $re;
       $output['tels'] = $m_tels;
