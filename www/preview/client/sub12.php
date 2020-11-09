@@ -66,7 +66,7 @@
         <div class="work_img"><img src="/img/work_name.png" alt=""></div>
         <div class="re_tit">
           <div><p class="bold">전라북도교육청 조경보수공사</p></div>
-          <p>포레스트</p>
+          <p>트리넥트</p>
         </div>
         <div><p>2020-03-18</p></div>
       </div>

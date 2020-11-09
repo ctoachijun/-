@@ -24,7 +24,7 @@ include "./head.php"
 <div class="wrap">
   <div class="sub06">
     <form method="POST" action="./sub_proc.php" name="esti_form">
-    <h2>포레스트</h2>
+    <h2>트리넥트</h2>
     <p class="date"><?=$today?></p>
 
     <div class="work_na">

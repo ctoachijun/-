@@ -11,7 +11,7 @@
 <div class="main_top">
   <div>
     <ul class="sub04_top_my">
-      <li class="write"><h4>포레스트</h4><a href="./"><img src="/img/write.png" alt="정보 수정"></a></li>
+      <li class="write"><h4>트리넥트</h4><a href="./"><img src="/img/write.png" alt="정보 수정"></a></li>
       <li><img src="/img/admin.png" alt="admin"><p>admin</p></li>
       <li><img src="/img/call.png" alt="연락처"><p>010-1234-5678</p></li>
       <li><img src="/img/mail.png" alt="이메일"><p>admin@naver.com</p></li>

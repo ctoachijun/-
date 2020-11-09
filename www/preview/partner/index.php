@@ -8,7 +8,7 @@ include "../head.php";
 .content{background-color:#F8F8F8}
 </style>
 <div class="header2">
-  <img src="/img/top_logo.png" alt="포레스트 로고">
+  <img src="/img/top_logo.png" alt="트리넥트 로고">
 </div>
 <div class="header_back"></div>
 
@@ -19,7 +19,7 @@ include "../head.php";
   <table class="text_table">
     <tr>
       <td>
-        <img src="/img/f_ico.png" alt="포레스트 로고">
+        <img src="/img/f_ico.png" alt="트리넥트 로고">
         <p class="partner">내 농원을 거래처로 등록한 업체</p>
       </td>
       <td class="right">
@@ -68,7 +68,7 @@ include "../head.php";
     <table class="text_table">
       <tr>
         <td>
-          <img src="/img/f_ico.png" alt="포레스트 로고">
+          <img src="/img/f_ico.png" alt="트리넥트 로고">
           <p class="partner">내 농원을 거래처로 등록한 업체</p>
         </td>
         <td class="right">
@@ -125,7 +125,7 @@ include "../head.php";
     <table class="text_table">
       <tr>
         <td>
-          <img src="/img/f_ico.png" alt="포레스트 로고">
+          <img src="/img/f_ico.png" alt="트리넥트 로고">
           <p class="partner">내 농원을 거래처로 등록한 업체</p>
         </td>
         <td class="right">

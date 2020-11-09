@@ -118,7 +118,7 @@ $sql = " insert into {$g5['member_table']}
 $result = sql_query($sql, false);
 
 
-// 포레스트 테이블에 정보 입력
+// 트리넥트 테이블에 정보 입력
 if($select_mp == "m"){
   $tbl_name = "f_member";
   $insert_col = "m_id,m_pass";

@@ -61,7 +61,7 @@ if(!$mb_type){
         echo $config['cf_add_meta'].PHP_EOL;
 
     ?>
-<title>포레스트</title>
+<title>트리넥트</title>
 
 <?php
 $shop_css = '';

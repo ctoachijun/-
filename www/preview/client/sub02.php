@@ -14,8 +14,8 @@
   <table class="text_table">
     <tr>
       <td>
-        <img src="/img/f_ico.png" alt="포레스트 로고">
-        <p class="partner">포레스트 공식 파트너</p>
+        <img src="/img/f_ico.png" alt="트리넥트 로고">
+        <p class="partner">트리넥트 공식 파트너</p>
       </td>
       <td class="right">
         <p class="partner tree">관목</p>
@@ -63,8 +63,8 @@
   <table class="text_table">
     <tr>
       <td>
-        <img src="/img/f_ico.png" alt="포레스트 로고">
-        <p class="partner">포레스트 공식 파트너</p>
+        <img src="/img/f_ico.png" alt="트리넥트 로고">
+        <p class="partner">트리넥트 공식 파트너</p>
       </td>
       <td class="right">
         <p class="partner tree">관목</p>
@@ -112,8 +112,8 @@
   <table class="text_table">
     <tr>
       <td>
-        <img src="/img/f_ico.png" alt="포레스트 로고">
-        <p class="partner">포레스트 공식 파트너</p>
+        <img src="/img/f_ico.png" alt="트리넥트 로고">
+        <p class="partner">트리넥트 공식 파트너</p>
       </td>
       <td class="right">
         <p class="partner tree">관목</p>

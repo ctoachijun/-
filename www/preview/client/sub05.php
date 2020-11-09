@@ -14,7 +14,7 @@
 <h2 class="sub05_title">기업</h2>
 <div class="sub05_box">
 
-  <h4>포레스트</h4><a href="./"><img src="/img/write.png" alt="정보 수정"></a>
+  <h4>트리넥트</h4><a href="./"><img src="/img/write.png" alt="정보 수정"></a>
 
   <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;">
 
@@ -23,7 +23,7 @@
       <td><p>사업자등록번호</p></td> <td class="right"><p>12345-67-89012</p></td>
     </tr>
     <tr>
-      <td><p>기업명(상호)</p></td> <td class="right"><p>(주) 포레스트</p></td>
+      <td><p>기업명(상호)</p></td> <td class="right"><p>(주) 트리넥트</p></td>
     </tr>
     <tr>
       <td><p>대표자</p></td> <td class="right"><p>admin</p></td>

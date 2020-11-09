@@ -3,5 +3,5 @@
 <div class="content">
 
 <div class="header">
-  <img src="/img/top_logo.png" alt="포레스트 로고">
+  <img src="/img/top_logo.png" alt="트리넥트 로고">
 </div>

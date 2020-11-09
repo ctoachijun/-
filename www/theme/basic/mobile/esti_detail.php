@@ -65,9 +65,9 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
   <table class="text_table">
     <tr>
       <td>
-        <img src="<?=$img_src?>/f_ico.png" alt="포레스트 로고">
+        <img src="<?=$img_src?>/f_ico.png" alt="트리넥트 로고">
       <?if($partn['partner_ship']==3){?>
-        <p class="partner">포레스트 공식 파트너</p>
+        <p class="partner">트리넥트 공식 파트너</p>
       <?}?>
       </td>
       <td class="right">

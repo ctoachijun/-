@@ -7,7 +7,7 @@ include "../../_common.php";
 <html lang="ko" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>포레스트</title>
+    <title>트리넥트</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />

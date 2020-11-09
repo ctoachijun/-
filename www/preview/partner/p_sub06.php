@@ -14,7 +14,7 @@
   <table class="text_table">
     <tr>
       <td>
-        <img src="/img/f_ico.png" alt="포레스트 로고">
+        <img src="/img/f_ico.png" alt="트리넥트 로고">
         <p class="partner">내 농원을 거래처로 등록한 업체</p>
       </td>
       <td class="right">

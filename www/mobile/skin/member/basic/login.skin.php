@@ -13,7 +13,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 </style>
 
 <div class="login content">
-  <img src="/img/logo.png" alt="포레스트 로고">
+  <img src="/img/logo.png" alt="트리넥트 로고">
   <div class="login_box">
     <form name="flogin" action="<?php echo $login_action_url ?>" onsubmit="return flogin_submit(this);" method="post" id="flogin">
       <input type="hidden" name="url" value="<?php echo $login_url ?>">

@@ -7,7 +7,7 @@ include "./head_sub.php";
 </style>
 
 <div class="login content">
-  <img src="/img/logo.png" alt="포레스트 로고">
+  <img src="/img/logo.png" alt="트리넥트 로고">
   <div class="login_box">
     <form method="POST" action="./proc.php" name="login_data">
       <input type="hidden" name="work" value="login" />

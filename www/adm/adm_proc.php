@@ -108,7 +108,7 @@ switch ($type){
 
         // 문자처리
         if($send_type=="S"){
-          $subject = "[포레스트]\n";
+          $subject = "[트리넥트]\n";
           $re = sms_send($t_cont,$tels,$subject,$f_name,$f_type,$f_size);
           // echo "t_cont : $t_cont <br>";
           // echo "tels : $tels <br>";
