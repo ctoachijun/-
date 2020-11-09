@@ -68,6 +68,11 @@ if($box['pic2']){
             </th>
           </tr>
           <tr class="test">
+            <td class="column">사업자등록번호</td>
+            <td><input type="text" name="c_num" value='<?=$box['c_num']?>' /></td>
+          </tr>
+          <tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>
+          <tr class="test">
             <td class="column">이름</td>
             <td><input type="text" name="m_name" value='<?=$box['m_name']?>' /></td>
           </tr>
@@ -80,6 +85,11 @@ if($box['pic2']){
           <tr>
             <td class="column">업체명</td>
             <td><input type="text" name="c_name" value='<?=$box['c_name']?>' /></td>
+          </tr>
+          <tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>
+          <tr class="test">
+            <td class="column">대표명</td>
+            <td><input type="text" name="c_boss" value='<?=$box['c_boss']?>' /></td>
           </tr>
           <tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>
           <tr>
