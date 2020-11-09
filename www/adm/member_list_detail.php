@@ -28,7 +28,6 @@ $curr_title = "상세보기 및 거래내역 조회 > {$type_name}";
 include_once('./admin.head.php');
 
 
-
 // 거래 총 횟수
 $t_sql = "SELECT * FROM f_deposit WHERE {$idx_name} = {$idx}";
 $total_cnt = sql_num_rows(sql_query($t_sql));

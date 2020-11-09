@@ -862,15 +862,21 @@ function view_depo($idx,$type,$c_name){
   if($type==1){
     $idx_name = "p_idx";
     $col_name = "p_";
+    $p_name = "t_price";
   }else{
     $idx_name = "m_idx";
     $col_name = "m_";
+    $p_name = "total_p";
   }
 
+  // 거래 완료건수
+  $sql = "SELECT * FROM f_order WHERE {$idx_name}={$idx}";
+  $re = sql_query($sql);
+  $cnt = sql_num_rows($re);
 
-  $sql = "SELECT d.{$col_name}price, d.{$col_name}deposit,e.name,e.d_date FROM f_deposit as d JOIN f_estimate as e ON d.e_idx=e.idx WHERE d.{$idx_name} = {$idx}";
-  $rs = sql_query($sql);
-  $cnt = sql_num_rows($rs);
+  // $sql = "SELECT d.{$col_name}price, d.{$col_name}deposit,e.ep_idx,e.d_date FROM f_deposit as d JOIN f_estimate as e ON d.e_idx=e.idx WHERE d.{$idx_name} = {$idx}";
+  // $rs = sql_query($sql);
+  // $cnt = sql_num_rows($rs);
   // echo $sql."<br>";
 
   if($cnt==0){
@@ -878,10 +884,27 @@ function view_depo($idx,$type,$c_name){
     echo "<td colspan='6' class='no_data'>거래 내역이 없습니다.</td>";
     echo "</tr>";
   }else{
-    while($row = sql_fetch_array($rs)){
-      $box = explode(" ",$row['d_date']);
-      $d_date = $box[0];
-      $jud = $row[$col_name.'deposit'];
+    while($row = sql_fetch_array($re)){
+      $o_idx = $row['idx'];
+      $e_idx = $row['e_idx'];
+      $to_idx = $row['to_idx'];
+      $sql = "SELECT ep_idx,t_price FROM f_estimate WHERE idx={$e_idx}";
+      $ebox = sql_fetch($sql);
+      $ep_idx = $ebox['ep_idx'];
+      $t_price = $ebox['t_price'];
+
+      // 수수로 20% 계산
+      $tep  = $t_price*0.2;
+      $total_p = $t_price + $tep;
+
+      $sql = "SELECT w_name,d_date FROM f_estimate_plz WHERE idx={$ep_idx}";
+      $epbox = sql_fetch($sql);
+      $w_name = $epbox['w_name'];
+      $d_date = $epbox['d_date'];
+
+      $sql = "SELECT * FROM f_deposit WHERE o_idx={$o_idx}";
+      $dbox = sql_fetch($sql);
+      $jud = $dbox[$col_name."deposit"];
 
       if($jud==1){
         $class_name = "ok";
@@ -901,8 +924,8 @@ function view_depo($idx,$type,$c_name){
       echo "<tr>";
       echo "<td>{$cnt}</td>";
       echo "<td>".$c_name."</td>";
-      echo "<td>".$row['name']."</td>";
-      echo "<td>".number_format($row[$col_name.'price'])."</td>";
+      echo "<td>{$w_name}</td>";
+      echo "<td>".number_format($$p_name)."</td>";
       echo "<td>".$d_date."</td>";
       echo "<td class='chk_depo'><button type='button' class='detail_btn{$class_name}'>{$depo_txt}</button></td>";
       echo "<tr><td class='b_line' colspan='6'><div id='bottom_line'></div></td></tr>";

@@ -192,7 +192,7 @@ switch($w_type){
 
     // 주문정보 입력
     $sql = "INSERT INTO f_order SET
-    p_idx={$p_idx}, e_idx={$e_idx}, to_idx={$to_idx}, o_date=DEFAULT";
+    p_idx={$p_idx}, m_idx={$m_idx}, e_idx={$e_idx}, to_idx={$to_idx}, o_date=DEFAULT";
     $re = sql_query($sql);
 
 
