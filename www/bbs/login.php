@@ -10,11 +10,23 @@ include_once('./_head.sub.php');
 
 $url = strip_tags($_GET['url']);
 $_SESSION['jt'] = $_GET['jt'];
+if($_GET['jt']=='m'){
+  $url = G5_URL;
+}else if($_GET['jt'] == 'p'){
+  if($url != G5_URL."/theme/basic/mobile/partner/"){
+    $url = G5_URL."/theme/basic/mobile/partner/";
+  }
+}
+
+if($back && $back=='y'){
+  session_unset(); // 모든 세션변수를 언레지스터 시켜줌
+  session_destroy(); // 세션해제함
+  $is_member=false;
+}
 
 
 // url 체크
 check_url_host($url);
-
 
 // 이미 로그인 중이라면
 if ($is_member) {

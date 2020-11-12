@@ -17,6 +17,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
   <div class="login_box">
     <form name="flogin" action="<?php echo $login_action_url ?>" onsubmit="return flogin_submit(this);" method="post" id="flogin">
       <input type="hidden" name="url" value="<?php echo $login_url ?>">
+      <input type="hidden" name="jt" value="<?php echo $jt ?>">
       <!-- <div class="id">아이디</div> -->
       <input type="text" name="mb_id" id="login_id" placeholder="아이디" required class="frm_input" maxLength="20">
       <!-- <div class="password">비밀번호</div> -->

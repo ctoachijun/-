@@ -27,9 +27,9 @@ if ($w == "") {
     // 회원 로그인을 한 경우 회원가입 할 수 없다
     // 경고창이 뜨는것을 막기위해 아래의 코드로 대체
     // alert("이미 로그인중이므로 회원 가입 하실 수 없습니다.", "./");
-    if ($is_member) {
-        goto_url(G5_URL);
-    }
+    // if ($is_member) {
+    //     goto_url(G5_URL);
+    // }
 
     // 리퍼러 체크
     referer_check();

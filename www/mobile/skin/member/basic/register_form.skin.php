@@ -45,19 +45,16 @@ if($jt=="m"){
   <div class="form_01">
     <h3>회원정보</h3>
     <label>아이디</label>
-    <input type="text" name="mb_id" class="text_border" value="<?php echo $member['mb_id'] ?>" id="reg_mb_id" class="frm_input full_input <?php echo $readonly ?>" minlength="3" maxlength="20" <?php echo $required ?> <?php echo $readonly ?> placeholder="아이디">
+    <input type="text" name="mb_id" class="text_border" value="" id="reg_mb_id" class="frm_input full_input <?php echo $readonly ?>" minlength="3" maxlength="20" <?php echo $required ?> <?php echo $readonly ?> placeholder="아이디">
     <label>비밀번호</label>
     <input type="password" name="mb_password" class="text_border" id="reg_mb_password" class="frm_input full_input" minlength="3" maxlength="20" <?php echo $required ?> placeholder="비밀번호">
     <label>비밀번호 확인</label>
     <input type="password" name="mb_password_re" class="text_border" id="reg_mb_password_re" class="frm_input full_input" minlength="3" maxlength="20" <?php echo $required ?>  placeholder="비밀번호확인">
     <div class="tel_cert">
     <label>휴대폰 번호</label>
-    <input type="text" name="mb_hp" class="text_border telcert" value="<?php echo get_text($member['mb_hp'])?>" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="reg_mb_hp" <?php echo ($config['cf_req_hp'])?"required":""; ?> class="frm_input full_input <?php echo ($config['cf_req_hp'])?" required":""; ?>" maxlength="11" placeholder="휴대폰번호">
+    <input type="text" name="mb_hp" class="text_border telcert" value="" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="reg_mb_hp" <?php echo ($config['cf_req_hp'])?"required":""; ?> class="frm_input full_input <?php echo ($config['cf_req_hp'])?" required":""; ?>" maxlength="11" placeholder="휴대폰번호">
     <div class="cert_txt" onclick="sendCert()">인증발송</div>
     </div>
-    <?php if ($config['cf_cert_use'] && $config['cf_cert_hp']) { ?>
-    <input type="hidden" name="old_mb_hp" value="<?php echo get_text($member['mb_hp']) ?>">
-    <?php } ?>
 
     <label>인증번호</label>
     <input type="text" name="con_hp" class="text_border" maxlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="인증번호 입력">
@@ -69,7 +66,7 @@ if($jt=="m"){
 <?  } ?>
     <label><?=$t_name?> 이메일</label>
     <input type="hidden" name="old_email" value="<?php echo $member['mb_email'] ?>">
-    <input type="email" name="mb_email" class="text_border" value="<?php echo isset($member['mb_email'])?$member['mb_email']:''; ?>" id="reg_mb_email" required class="frm_input email " size="50" maxlength="100" placeholder="E-mail">
+    <input type="email" name="mb_email" class="text_border" value="" id="reg_mb_email" required class="frm_input email " size="50" maxlength="100" placeholder="E-mail">
 
     <input type="submit" id="btn_submit" class="next" accesskey="s" value="다음"/>
   </div>

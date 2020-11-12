@@ -2,6 +2,14 @@
 include "../../../../common.php";
 include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
+echo "dfjljldj";
+
+if($mb_type=="member" || !$mb_type){
+  // $url = G5_URL."/bbs/login.php?jt=p&back=y";
+  $url = G5_URL."/bbs/logout.php?jt=p";
+  alert("파트너 계정으로 로그인 해 주세요.",$url);
+}
+
 ?>
 <style>
 .content{background-color:#F8F8F8}

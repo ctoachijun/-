@@ -7,9 +7,21 @@ if(G5_COMMUNITY_USE === false) {
 }
 include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
-
 if(!$_SESSION['ss_mb_id'] && !$is_member){
   goto_url(G5_BBS_URL."/login.php");
+}
+
+if($auto_login=="on"){
+  set_cookie('ck_mb_id', $mb['mb_id'], 86400 * 31);
+  $_COOKIE['ck_mb_id'] = $mb_id;
+}
+// print_r($_COOKIE);
+// echo "<br>====================<br>";
+
+
+if($mb_type=="partner"){
+  $url = G5_URL."/bbs/logout.php?jt=m";
+  alert("고객 계정으로 로그인 해 주세요.",$url);
 }
 
 $jud = getNewEsti($mb_id);
@@ -32,7 +44,7 @@ if($jud > 0){
 <input type="hidden" name="token" id="_token" />
 
 <div class="header2">
-  <img src="<?=$img_src?>/top_logo.png" alt="트리넥트 로고">
+  <img src="<?=$img_src?>/top_logo.png" alt="포레스트 로고">
 </div>
 <div class="header_back"></div>
 

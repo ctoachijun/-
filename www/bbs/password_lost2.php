@@ -52,7 +52,7 @@ $content .= '<h1 style="padding:30px 30px 0;background:#f7f7f7;color:#555;font-s
 $content .= '회원정보 찾기 안내';
 $content .= '</h1>';
 $content .= '<span style="display:block;padding:10px 30px 30px;background:#f7f7f7;text-align:right">';
-$content .= '<a href="'.G5_URL.'" target="_blank">트리넥트</a>';
+$content .= '[트리넥트]';
 $content .= '</span>';
 $content .= '<p style="margin:20px 0 0;padding:30px 30px 30px;border-bottom:1px solid #eee;line-height:1.7em">';
 $content .= addslashes($mb['mb_name'])." 회원님은 ".G5_TIME_YMDHIS." 에 회원정보 찾기 요청을 하셨습니다.<br>";

@@ -32,13 +32,13 @@ header("Pragma: no-cache"); // HTTP/1.0
 
 $mb_id = $_SESSION['ss_mb_id'];
 $mb_type = $_SESSION['ss_mb_type'];
-if(!$mb_type){
-  if($_SESSION['jt'] == "p"){
-    $mb_type = "partner";
-  }else{
-    $mb_type = "member";
-  }
-}
+// if(!$mb_type){
+//   if($_SESSION['jt'] == "p"){
+//     $mb_type = "partner";
+//   }else{
+//     $mb_type = "member";
+//   }
+// }
 
 
 ?>

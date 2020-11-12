@@ -37,7 +37,17 @@ if ($url) {
     $link = G5_URL;
 }
 
-run_event('member_logout', $link);
+if($_GET['jt']=='m'){
+  $url = G5_URL."/bbs/login.php?jt=m&back=y";
+}else if($_GET['jt'] == 'p'){
+    $url = G5_URL."/bbs/login.php?jt=p&back=y";
+}else{
+  $url = $link;
+}
 
-goto_url($link);
+
+
+run_event('member_logout', $url);
+
+goto_url($url);
 ?>

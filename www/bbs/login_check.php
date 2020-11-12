@@ -12,6 +12,20 @@ if (!$mb_id || !$mb_password)
 $mb = get_member($mb_id);
 
 
+//  고객이 농원 로그인페이지에서 로그인을 시도하거나
+//  농원이 고객 로그인페이지에서 로그인을 시도할시 차단 처리
+$mp_type = getTypemp($mb['mb_id']);
+$nopt_acc = G5_URL."/bbs/login.php?jt={$jt}&back='y'";
+if($mp_type == "partner" && $jt == "m") alert("고객 계정으로 로그인 해 주세요",$nopt_acc);
+if($mp_type == "member" && $jt == "p") alert("농원 계정으로 로그인 해 주세요",$nopt_acc);
+
+if($mp_type=="partner"){
+  // $url .= "/theme/basic/mobile/partner";
+}
+set_session('ss_mb_type', $mp_type);
+
+
+
 //소셜 로그인추가 체크
 $is_social_login = false;
 $is_social_password_check = false;
@@ -88,14 +102,6 @@ if ($auto_login) {
     set_cookie('ck_mb_id', '', 0);
     set_cookie('ck_auto', '', 0);
 }
-
-
-
-$mp_type = getTypemp($mb['mb_id']);
-if($mp_type=="partner"){
-  $url .= "/theme/basic/mobile/partner";
-}
-set_session('ss_mb_type', $mp_type);
 
 
 if ($url) {
