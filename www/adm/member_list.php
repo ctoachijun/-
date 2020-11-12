@@ -22,14 +22,15 @@ if(!$p_total_cnt){
   $p_total_cnt=0;
 }
 
+$live = "live";
 
 if($m_stx){
-  $where = "m_name like '%{$m_stx}%' ";
+  $where = "m_name like '%{$m_stx}%'";
 }else{
-  $where = 1;
+  $where = "{$live}='Y'";
 }
 // 회원 총 수
-$m_sql = "SELECT * FROM f_member WHERE {$where}";
+$m_sql = "SELECT * FROM f_member WHERE {$where} ";
 $m_total_cnt = sql_num_rows(sql_query($m_sql));
 if(!$m_total_cnt){
   $m_total_cnt=0;
