@@ -32,13 +32,15 @@ header("Pragma: no-cache"); // HTTP/1.0
 
 $mb_id = $_SESSION['ss_mb_id'];
 $mb_type = $_SESSION['ss_mb_type'];
-// if(!$mb_type){
-//   if($_SESSION['jt'] == "p"){
-//     $mb_type = "partner";
-//   }else{
-//     $mb_type = "member";
-//   }
-// }
+
+// 회원가입시 세션에 mb_type 이 없음. 대신 jt는 있으니 mb_type 설정
+if(!$mb_type){
+  if($_SESSION['jt'] == "p"){
+    $mb_type = "partner";
+  }else{
+    $mb_type = "member";
+  }
+}
 
 
 ?>

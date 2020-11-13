@@ -88,7 +88,7 @@ if($jud > 0){
 $(document).ready(function(){
   let mb_id = $("input[name=mb_id]").val();
   let mb_type = $("input[name=mb_type]").val();
-  let gtoken = window.forest.postPushToken(mb_id);
+  let gtoken = window.treenectc.postPushToken(mb_id);
   let token = gtoken;
 
   let box = {"exe_type":"get_token","mb_id":mb_id,"token":token,"mb_type":mb_type};

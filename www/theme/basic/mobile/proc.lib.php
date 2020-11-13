@@ -61,10 +61,10 @@ function getPayCompList($mb_id){
     echo "<div class='main_bottom_box'>";
     echo "<table class='text_table'>";
     echo "<tr><td>";
-    echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+    echo "<img class='i_logo' src='/theme/basic/img/f_ico.png' alt=''트리넥트 로고''>";
     if($p_ship == 3){
       $fn_class = "official";
-      echo "<p class='partner'>포레스트 공식 파트너</p>";
+      echo "<p class='partner'>트리넥트 공식 파트너</p>";
     }else{
       $fn_class = "";
     }
@@ -179,7 +179,7 @@ function getEstiPlzList($s_type,$t_type,$mb_id,$mp){
         echo "<div class='main_bottom_box'>";
         echo "<table class='text_table'>";
         echo "<tr><td>";
-        echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+        echo "<img class='i_logo' src='/theme/basic/img/f_ico.png' alt=''트리넥트 로고''>";
         if($mypartner){
           echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
         }
@@ -325,10 +325,10 @@ function getEstiList($mb_id){
             echo "<input type='hidden' name='e_date' class='e_date' value='{$e_date}' />";
             echo "<table class='text_table'>";
             echo "<tr><td>";
-            echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+            echo "<img class='i_logo' src='/theme/basic/img/f_ico.png' alt=''트리넥트 로고''>";
             if($p_ship == 3){
               $fn_class = "official";
-              echo "<p class='partner'>포레스트 공식 파트너</p>";
+              echo "<p class='partner'>트리넥트 공식 파트너</p>";
             }else{
               $fn_class = "";
             }
@@ -427,10 +427,10 @@ function getAccoList($mb_id){
 
         echo "<div class='sub03_box'>";
         echo "<table class='text_table'><tr><td>";
-        echo "<img src='/theme/basic/img/f_ico.png' alt='포레스트 로고'>";
+        echo "<img src='/theme/basic/img/f_ico.png' alt='트리넥트 로고'>";
         if($p_ship == 3){
           $fn_class = "official";
-          echo "<p class='partner'>포레스트 공식 파트너</p>";
+          echo "<p class='partner'>트리넥트 공식 파트너</p>";
         }else{
           $fn_class = "";
         }
@@ -510,7 +510,7 @@ function getEpDetail($epidx,$mb_id){
   echo "<div class='main_bottom_box'>";
   echo "<table class='text_table'>";
   echo "<tr><td>";
-  echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+  echo "<img src='/theme/basic/img/f_ico.png' alt=''트리넥트 로고''>";
   if($mypartner){
     echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
   }
@@ -884,10 +884,10 @@ function getEstiPartner($pidx,$w_name,$ep_idx){
           echo "<div class='big_box'>";
           echo "<table class='text_table'>";
           echo "<tr><td>";
-          echo "<img src='/theme/basic/img/f_ico.png' alt='포레스트 로고'>";
+          echo "<img src='/theme/basic/img/f_ico.png' alt='트리넥트 로고'>";
           if($p_ship == 3){
             $fn_class = "official";
-            echo "<p class='partner'>포레스트 공식 파트너</p>";
+            echo "<p class='partner'>트리넥트 공식 파트너</p>";
           }else{
             $fn_class = "";
           }
@@ -1272,7 +1272,7 @@ function getDealList($mb_id){
       echo "<div class='main_bottom_box'>";
       echo "<table class='text_table'>";
       echo "<tr><td>";
-      echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+      echo "<img class='i_logo' src='/theme/basic/img/f_ico.png' alt=''트리넥트 로고''>";
       if($acco_jud){
         echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
       }
@@ -1403,7 +1403,7 @@ function getEstiConfirm($e_idx){
 
   echo "<table class='text_table'>";
   echo "<tr><td>";
-  echo "<img src='/theme/basic/img/f_ico.png' alt='포레스트 로고'>";
+  echo "<img class='i_logo' src='/theme/basic/img/f_ico.png' alt='트리넥트 로고'>";
   if($acco_jud){
     echo "<p class='non partner'>내 농원을 거래처로 등록한 업체</p>";
   }
@@ -1555,7 +1555,7 @@ function getNewEpInfo($mb_id){
 
       echo "<table class='text_table'>";
       echo "<tr><td>";
-      echo "<img src='/theme/basic/img/f_ico.png' alt=''포레스트 로고''>";
+      echo "<img class='i_logo' src='/theme/basic/img/f_ico.png' alt=''트리넥트 로고''>";
       if($jud){
         echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
       }

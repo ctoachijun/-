@@ -31,7 +31,7 @@ if($jud){
 </style>
 
 <div class="header">
-  <h2>견적의뢰서</h2>
+  <h2>견적 의뢰서</h2>
 </div>
 
 <div class="wrap p_sub02 p_sub05">

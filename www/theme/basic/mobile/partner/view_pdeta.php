@@ -8,7 +8,7 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 </style>
 
 <div class="header">
-  <h2>거래내역</h2>
+  <h2>거래 내역</h2>
 </div>
 
 <div class="wrap p_sub02">

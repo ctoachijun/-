@@ -2,8 +2,6 @@
 include "../../../../common.php";
 include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
-echo "dfjljldj";
-
 if($mb_type=="member" || !$mb_type){
   // $url = G5_URL."/bbs/login.php?jt=p&back=y";
   $url = G5_URL."/bbs/logout.php?jt=p";
@@ -12,7 +10,7 @@ if($mb_type=="member" || !$mb_type){
 
 ?>
 <style>
-.content{background-color:#F8F8F8}
+.content{background-color:#F8F8F8;height:92vh;}
 </style>
 <input type="hidden" name="mb_id" value="<?=$mb_id?>" />
 <input type="hidden" name="mb_type" value="<?=$mb_type?>" />
@@ -48,12 +46,12 @@ if($mb_type=="member" || !$mb_type){
 $(document).ready(function(){
   let mb_id = $("input[name=mb_id]").val();
   let mb_type = $("input[name=mb_type]").val();
-  let gtoken = window.forest.postPushToken(mb_id);
+  let gtoken = window.treenectp.postPushToken(mb_id);
   let token = gtoken;
-
   let box = {"exe_type":"get_token","mb_id":mb_id,"token":token,"mb_type":mb_type};
+
   $.ajax({
-          url: "theme/basic/mobile/ajax.proc.php",
+          url: "../ajax.proc.php",
           type: "post",
           contentType:'application/x-www-form-urlencoded;charset=UTF8',
           data: box
@@ -65,7 +63,6 @@ $(document).ready(function(){
       // alert("등록에 실패했습니다.");
     }
   });
-
 
 });
 

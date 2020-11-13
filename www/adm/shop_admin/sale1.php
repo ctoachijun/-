@@ -22,7 +22,7 @@ if(isset($_GET['page'])){
   $page = 1;
 }
 
-$d_sql = "SELECT * FROM f_deposit WHERE 1";
+$d_sql = "SELECT * FROM f_deposit WHERE cancel='N'";
 $l_cnt = sql_num_rows(sql_query($d_sql));
 $list = 30;
 

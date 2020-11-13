@@ -20,7 +20,7 @@ if($t_type == 1){
 </style>
 
 <div class="header">
-  <h2>견적의뢰서</h2>
+  <h2>견적 의뢰</h2>
 </div>
 <form method="POST" action="<?=$PHP_SELF?>" id="scol" name="search_col" />
   <input type="hidden" name="t_type" value="<?=$t_type?>" />

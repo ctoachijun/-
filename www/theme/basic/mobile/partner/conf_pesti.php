@@ -10,7 +10,7 @@ include_once(G5_THEME_MOBILE_PATH.'/head.php');
 </style>
 
 <div class="header">
-  <h2>견적확인</h2>
+  <h2>견적 확인</h2>
 </div>
 
 <div class="wrap p_sub06 p_sub12">
