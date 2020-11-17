@@ -569,8 +569,8 @@ function viewTreeInput($epidx){
     $sbox = explode("|",$box3[$a]);
     $s_h = $sbox[0];
     $s_w = $sbox[1];
-    echo "<div class='size_cont'><p>{$box1[$a]}</p> <p>H{$s_h}x W{$s_w}</p> <p>{$box2[$a]}</p>";
-    echo "<input type='text' name='{$price_txt}' class='gray_box' placeholder='입력' onchange='sum_price({$cnt_sum})'/></div>";
+    echo "<div class='size_cont'><p>{$box1[$a]}</p> <p>H{$s_h}x W{$s_w}</p> <p>".number_format($box2[$a])."</p>";
+    echo "<input type='text' name='{$price_txt}' class='gray_box' placeholder='입력' onkeyup='onlyNum(this)' onchange='sum_price({$cnt_sum}),getNumber(this)'/></div>";
     echo '<input type="hidden" name="'.$osum_txt.'" value="'.$box2[$a].'" />';
     if($a < count($box1)-1){
       echo '<hr style="width:100%;margin:0 auto;margin-top:0px;margin-bottom:4px;">';

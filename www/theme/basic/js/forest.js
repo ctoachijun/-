@@ -180,12 +180,15 @@ function sum_price(num){
   for(var i=0; i<num; i++){
     let name_txt = "price"+(i+1);
     let x_txt = "osum"+(i+1);
-    price = parseInt($("input[name="+name_txt+"]").val());
+    let pbox = "";
+    pbox = removeComma($("input[name="+name_txt+"]").val());
+      price = parseInt(pbox);
     if(!price){
       price = 0;
     }
     x_val = parseInt($("input[name="+x_txt+"]").val());
 
+    console.log(price);
     p_box = price*x_val;
     sum_price += p_box;
   }
@@ -583,12 +586,20 @@ function add_eval(e_idx,m_idx,p_idx){
 }
 
 function getNumber(obj){
-     var num01;
-     var num02;
-     num01 = obj.value;
-     // num02 = num01.replace(/\D/g,""); //숫자가 아닌것을 제거,
-                                      //즉 [0-9]를 제외한 문자 제거; /[^0-9]/g 와 같은 표현
-     num02 = num01.replace(/[^0-9]/g,'');
-     num01 = addComma(num02); //콤마 찍기
-     obj.value =  num01;
+   let num01;
+   let num02;
+   num01 = obj.value;
+   // num02 = num01.replace(/\D/g,""); //숫자가 아닌것을 제거,
+                                    //즉 [0-9]를 제외한 문자 제거; /[^0-9]/g 와 같은 표현
+   num02 = num01.replace(/[^0-9]/g,'');
+   num01 = addComma(num02); //콤마 찍기
+   obj.value =  num01;
+}
+
+function onlyNum(obj){
+  let val1;
+  let val2;
+  val1 = obj.value;
+  val1 = val1.replace(/[^0-9]/g,"");
+  obj.value = val1;  
 }
