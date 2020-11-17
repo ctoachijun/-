@@ -8,11 +8,19 @@ if($mb_type=="member" || !$mb_type){
   alert("파트너 계정으로 로그인 해 주세요.",$url);
 }
 
+// 가입 승인여부에 다른 페이지이동(서비스준비와 위치변경 금지)
 $pbox = getPartnInfo_id($mb_id);
 $approval = $pbox['approval'];
 if($approval == "N"){
   goto_url("./no_approval.php");
 }
+
+// 서비스 준비 여부에따른 페이지이동(가입승인과 위치변경 금지)
+$wait_jud = getWaitService();
+if($wait_jud=="Y"){
+  goto_url("./ready.php");
+}
+
 
 ?>
 <style>

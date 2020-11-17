@@ -27,7 +27,6 @@ for($i=0; $i<count($arr_data[1]); $i++){
     $$txt = round(($arr_data[1][$i] / 1000),3);
 }
 
-echo $i_stx;
 $tree_name = $arr_data[2];
 
 

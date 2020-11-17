@@ -1586,6 +1586,7 @@ function modify_fee_p(){
 function conf_ready(){
   $sql = "SELECT * FROM f_wait_service";
   $re = sql_fetch($sql);
+  $wait = $re['wait'];
   $max = $re['max_partner'];
   $cur = $re['cur_partner'];
 

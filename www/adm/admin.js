@@ -718,8 +718,14 @@ function approvalPartner(idx,type){
 
 function wait_service(){
   let val = $("input[name=wait]:checked").val();
+  let msg = "";
+  if(val=="Y"){
+    msg = "서비스 준비 상태로 설정하시겠습니까?";
+  }else{
+    msg = "서비스 준비 상태를 해제하시겠습니까?";
+  }
   let box = {"w_type":"wait", "wait_val":val};
-  if(confirm("서비스 대기 설정을 하시겠습니까?")){
+  if(confirm(msg)){
     $.ajax({
       url: "ajax.adm_proc.php",
       type: "post",

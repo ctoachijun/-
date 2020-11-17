@@ -244,9 +244,9 @@ switch ($w_type){
     $re = sql_query($sql);
 
     if($wait_val=="Y"){
-      $msg = "서비스 대기 상태로 전환했습니다.";
+      $msg = "서비스 준비 상태로 전환했습니다.";
     }else{
-      $msg = "서비스 대기 해제했습니다.";
+      $msg = "서비스 준비 상태를 해제했습니다.";
     }
     if($re){
       $output['state'] = "Y";
