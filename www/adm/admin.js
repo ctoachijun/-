@@ -620,6 +620,148 @@ function exe_agree(){
 
 }
 
+function fee_apply(){
+  let fv = $("input[name=fee]").val();
+  if(!fv){
+    alert("요율을 입력 해 주세요.");
+    return false;
+  }
+
+
+  let box = {"w_type":"fee_apply","fee":fv};
+  $.ajax({
+    url: "ajax.adm_proc.php",
+    type: "post",
+    contentType:'application/x-www-form-urlencoded;charset=UTF8',
+    data: box
+  }).done(function(data){
+    let json = JSON.parse(data);
+    if(json.state=="Y"){
+      alert("적용 했습니다");
+      history.go(0);
+    }else{
+      alert("시스템 오류입니다.");
+    }
+  });
+}
+
+function fee_apply_p(){
+  let fv1 = $("input[name=fee1]").val();
+  let fv2 = $("input[name=fee2]").val();
+  let fv3 = $("input[name=fee3]").val();
+
+  if(!fv1){
+    alert("요율을 입력 해 주세요.");
+    return false;
+  }
+  if(!fv2){
+    alert("요율을 입력 해 주세요.");
+    return false;
+  }
+  if(!fv3){
+    alert("요율을 입력 해 주세요.");
+    return false;
+  }
+
+  let box = {"w_type":"fee_apply_p", "fee1":fv1, "fee2":fv2, "fee3":fv3};
+  $.ajax({
+    url: "ajax.adm_proc.php",
+    type: "post",
+    contentType:'application/x-www-form-urlencoded;charset=UTF8',
+    data: box
+  }).done(function(data){
+    let json = JSON.parse(data);
+    if(json.state=="Y"){
+      // console.log(json.sql);
+      alert("적용 했습니다");
+      history.go(0);
+    }else{
+      alert("시스템 오류입니다.");
+    }
+  });
+}
+
+function onlyNum(obj){
+  let val = obj.value;
+  obj.value = val.replace(/[^0-9]/g,'');
+}
+
+function approvalPartner(idx,type){
+  let msg = "";
+  if(type=="Y"){
+    msg = "승인 취소 하시겠습니까?";
+  }else{
+    msg = "가입 승인 하시겠습니까?";
+  }
+
+  let box = {"w_type":"approval_p", "idx":idx};
+  if(confirm(msg)){
+    $.ajax({
+      url: "ajax.adm_proc.php",
+      type: "post",
+      contentType:'application/x-www-form-urlencoded;charset=UTF8',
+      data: box
+    }).done(function(data){
+      let json = JSON.parse(data);
+      let msg = json.msg;
+      if(json.state=="Y"){
+        // console.log(json.sql);
+        alert(msg+" 했습니다");
+        history.go(0);
+      }else{
+        alert("시스템 오류입니다.");
+      }
+    });
+  }
+}
+
+
+function wait_service(){
+  let val = $("input[name=wait]:checked").val();
+  let box = {"w_type":"wait", "wait_val":val};
+  if(confirm("서비스 대기 설정을 하시겠습니까?")){
+    $.ajax({
+      url: "ajax.adm_proc.php",
+      type: "post",
+      contentType:'application/x-www-form-urlencoded;charset=UTF8',
+      data: box
+    }).done(function(data){
+      let json = JSON.parse(data);
+      let msg = json.msg;
+      if(json.state=="Y"){
+        // console.log(json.sql);
+        alert(msg);
+        history.go(0);
+      }else{
+        alert("시스템 오류입니다.");
+      }
+    });
+  }
+}
+
+
+function set_rtxt(){
+  let max = $("input[name=max_part]").val();
+  let cur = $("input[name=cur_part]").val();
+
+  let box = {"w_type":"set_rtxt", "max":max, "cur":cur};
+  $.ajax({
+    url: "ajax.adm_proc.php",
+    type: "post",
+    contentType:'application/x-www-form-urlencoded;charset=UTF8',
+    data: box
+  }).done(function(data){
+    let json = JSON.parse(data);
+    if(json.state=="Y"){
+      // console.log(json.sql);
+      alert("설정 했습니다.");
+      history.go(0);
+    }else{
+      alert("시스템 오류입니다.");
+    }
+  });
+}
+
 
 
 $(function() {

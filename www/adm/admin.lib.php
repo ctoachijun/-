@@ -769,6 +769,14 @@ function list_mem($s_key,$type){
       $addr1 = explode(" ",$row['addr1']);
       $date = explode(" ",$row['join_date']);
       $col_name = $row[$col_name_txt];
+      $app = $row['approval'];
+
+      if($app == "N"){
+        $no_app = "no_app";
+      }else{
+        $no_app = "";
+      }
+
       // 베스트농원 글자색 변화
       if($type=="com"){
         $ps = $row['partner_ship'];
@@ -779,7 +787,7 @@ function list_mem($s_key,$type){
 
 
       echo "<input type='hidden' name='idx' />";
-      echo "<tr>";
+      echo "<tr class='{$no_app}'>";
       echo "<td class='mem_p_cont'>".$row['idx']."</td>";
       echo "<td class='mem_p_cont'>".$col_name."</td>";
       echo "<td class='mem_p_cont'>".$row[$search_col.'tel']."</td>";
@@ -804,7 +812,7 @@ function partner_detail($idx,$type){
   }
 
   $sql = "SELECT * FROM {$t_name} WHERE idx={$idx}";
-  $rs = sql_fetch_array(sql_query($sql));
+  $rs = sql_fetch($sql);
 
   if($type==1){
     $ps_jud = $rs['partner_ship'];
@@ -821,36 +829,44 @@ function partner_detail($idx,$type){
   echo "<td class='cont'>".$rs['m_name']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
+  echo "<tr>";
   echo "<td class='column'>직급</td>";
   echo "<td class='cont'>".$rs['position']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
+  echo "<tr>";
   echo "<td class='column'>업체명</td>";
   echo "<td class='cont'>".$rs['c_name']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
+  echo "<tr>";
   echo "<td class='column'>주소</td>";
   echo "<td class='cont'>".$rs['addr1'].$rs['addr2']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
+  echo "<tr>";
   echo "<td class='column'>휴대전화번호</td>";
   echo "<td class='cont'>".$rs['m_tel']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
+  echo "<tr>";
   echo "<td class='column'>사업장전화번호</td>";
   echo "<td class='cont'>".$rs['c_tel']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
+  echo "<tr>";
   echo "<td class='column'>계좌은행</td>";
   echo "<td class='cont'>".$rs['bank_name']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
+  echo "<tr>";
   echo "<td class='column'>계좌번호</td>";
   echo "<td class='cont'>".$rs['bank_num']."</td>";
   echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
   echo "</tr>";
 
   if($type==1){
+    echo "<tr>";
     echo "<td class='column'>농원등급</td>";
     echo "<td class='cont'>{$partner_ship_txt}</td>";
     echo "<tr><td class='b_line' colspan='2'><div class='bottom_lines'></div></td></tr>";
@@ -1512,6 +1528,119 @@ function getAdminInfo(){
   return $re;
 
 }
+
+
+function modify_fee_m(){
+  $sql = "SELECT * FROM f_fee_m";
+  $re = sql_fetch_array(sql_query($sql));
+  $value = $re['tep'];
+
+  $head_txt = "고객 수수료 관리";
+
+  echo "<table class='fee_table'>";
+  echo "<tr>";
+  echo "<td colspan='2' class='title'>{$head_txt}</td>";
+  echo "</tr>";
+
+  for($i=1; $i<2; $i++){
+    echo "<tr>";
+    echo "<td>수수료 요율</td>";
+    echo "<td class='td_cont'><input type='text' name='fee' value='{$value}' /> %</td>";
+    echo "</tr>";
+  }
+  echo "<tr>";
+  echo "<td colspan='2' class='btn'><button onclick='fee_apply()' class='exe_btn'>적용</button></td>";
+  echo "</tr>";
+  echo "</table>";
+}
+
+
+function modify_fee_p(){
+  $sql = "SELECT * FROM f_fee_p";
+  $re = sql_fetch($sql);
+  $v1 = $re['tep1'];
+  $v2 = $re['tep2'];
+  $v3 = $re['tep3'];
+
+  $head_txt = "농원 수수료 관리";
+
+  echo "<table class='fee_table'>";
+  echo "<tr>";
+  echo "<td colspan='2' class='title'>{$head_txt}</td>";
+  echo "</tr>";
+
+  for($i=1; $i<4; $i++){
+    $value = "v".$i;
+    echo "<tr>";
+    echo "<td >수수료 요율</td>";
+    echo "<td class='td_cont'><input type='text' name='fee{$i}' value='{$$value}' /> %</td>";
+    echo "</tr>";
+  }
+  echo "<tr>";
+  echo "<td colspan='2' class='btn'><button onclick='fee_apply_p()' class='exe_btn'>적용</button></td>";
+  echo "</tr>";
+  echo "</table>";
+
+}
+
+function conf_ready(){
+  $sql = "SELECT * FROM f_wait_service";
+  $re = sql_fetch($sql);
+  $max = $re['max_partner'];
+  $cur = $re['cur_partner'];
+
+  if($wait=="Y"){
+    $checked_y = "checked";
+  }else{
+    $checked_n = "checked";
+  }
+
+  echo "<div class='ready_form'>";
+  echo "<table class=''>";
+  echo "<tr>";
+  echo "<td colspan='2' class='title'>서비스 준비 상태 설정</td>";
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td >준비화면 설정</td>";
+  echo "<td class='td_cont'>";
+  echo "<input type='radio' name='wait' id='rwait1' value='Y' {$checked_y}/><label for='rwait1'>설정</label>";
+  echo "<input type='radio' name='wait' id='rwait2' value='N' {$checked_n}/><label for='rwait2'>해제</label>";
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td colspan='2' class='btn'><button onclick='wait_service()' class='exe_btn'>적용</button></td>";
+  echo "</tr>";
+  echo "</table>";
+  echo "</div>";
+
+  echo "<div class='ready_txt'>";
+  echo "<table class=''>";
+  echo "<tr>";
+  echo "<td colspan='2' class='title'>서비스 목표 농원 설정</td>";
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td >텍스트 설정</td>";
+  echo "<td class='td_cont'>";
+  echo "<input type='number' name='cur_part' value='{$cur}' /> &nbsp;/&nbsp; ";
+  echo "<input type='number' name='max_part' value='{$max}' />";
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td colspan='2' class='btn'><button onclick='set_rtxt()' class='exe_btn'>적용</button></td>";
+  echo "</tr>";
+  echo "</table>";
+  echo "</div>";
+
+
+}
+
+
+
+function getPartnerInfo($idx){
+  $sql = "SELECT * FROM f_partner WHERE idx={$idx}";
+  $rs = sql_fetch($sql);
+
+  return $rs;
+}
+
 
 
 ?>

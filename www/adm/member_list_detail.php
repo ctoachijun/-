@@ -49,6 +49,17 @@ if($page_type==2){
   $head_title = $c_name;
 }
 
+$pbox = getPartnerInfo($idx);
+$approval = $pbox['approval'];
+
+if($approval == "Y"){
+  $btn_txt = "승인 취소";
+
+
+}else{
+  $btn_txt = "가입 승인";
+  $app_class = "app_c";
+}
 
 
 ?>
@@ -93,6 +104,7 @@ if($page_type==2){
         <input type="button" class="t_btn t1" value="일반농원 지정" onclick="partner_ship(1)" />
         <input type="button" class="t_btn t2" value="베스트농원 지정" onclick="partner_ship(2)"/>
         <input type="button" class="t_btn t4" value="공식파트너 농원 지정" onclick="partner_ship(3)"/>
+        <input type="button" class="t_btn t5 <?=$app_class?>" value="<?=$btn_txt?>" onclick="approvalPartner(<?=$idx?>,<? echo "'".$approval."'"?>)"/>
       </div>
       <?}?>
 

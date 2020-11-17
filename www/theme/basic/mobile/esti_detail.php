@@ -65,9 +65,9 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
   <table class="text_table">
     <tr>
       <td>
-        <img src="<?=$img_src?>/f_ico.png" alt="트리넥트 로고">
+        <img src="<?=$img_src?>/f_ico.png" alt="포레스트 로고">
       <?if($partn['partner_ship']==3){?>
-        <p class="partner">트리넥트 공식 파트너</p>
+        <p class="partner">포레스트 공식 파트너</p>
       <?}?>
       </td>
       <td class="right">
@@ -132,8 +132,11 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
 <?
     }
 
-    // 수수료 20% 산출
-    $tep = $sum_price*0.2;
+    // 설정 된 고객 수수료를 이용해 수수료 산출
+    $tsql = "SELECT * FROM f_fee";
+    $tbox = sql_fetch($tsql);
+    $fee = $tbox['tep'] / 100;
+    $tep = $sum_price*$fee;
     $total_price = $esti['t_price'] + $tep;
 
   ?>

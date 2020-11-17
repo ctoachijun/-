@@ -170,10 +170,12 @@ function sum_price(num){
   let sum_price1 = 0;
   let price = 0;
   let p_box = 0;
+  let fee = 0;
   let dp = parseInt($("input[name=d_price]").val());;
   if(!dp){
     dp = 0;
   }
+  let ps = $("input[name=ps]").val();
 
   for(var i=0; i<num; i++){
     let name_txt = "price"+(i+1);
@@ -188,9 +190,12 @@ function sum_price(num){
     sum_price += p_box;
   }
 
-  sum_price1 = sum_price;
+  fee = sum_price * ps / 100;
+  sum_price1 = sum_price - fee;
   sum_price = addComma(sum_price);
+  fee = addComma(fee);
   $(".sum_price").val(sum_price);
+  $(".tep").val(fee);
   sum_price1 += dp;
   $("input[name=t_price]").val(sum_price1);
   sum_price1 = addComma(sum_price1);
@@ -200,17 +205,19 @@ function sum_price(num){
 }
 
 function gettotal_price(){
-
   let sump = $(".sum_price").val();
   let dp = parseInt($("input[name=d_price]").val());;
+  let ps = $("input[name=ps]").val();
   let totalp = 0;
+  let fee = 0;
 
   if(!sump){
     sump = 0;
   }
 
   sump = parseInt(removeComma(sump));
-  totalp = dp + sump;
+  fee = sump * ps / 100;
+  totalp = dp + sump - fee;
   $("input[name=t_price]").val(totalp);
   totalp = addComma(totalp);
   $(".total_price").val(totalp);
@@ -572,7 +579,16 @@ function add_eval(e_idx,m_idx,p_idx){
         }
       });
     }
-
   }
+}
 
+function getNumber(obj){
+     var num01;
+     var num02;
+     num01 = obj.value;
+     // num02 = num01.replace(/\D/g,""); //숫자가 아닌것을 제거,
+                                      //즉 [0-9]를 제외한 문자 제거; /[^0-9]/g 와 같은 표현
+     num02 = num01.replace(/[^0-9]/g,'');
+     num01 = addComma(num02); //콤마 찍기
+     obj.value =  num01;
 }

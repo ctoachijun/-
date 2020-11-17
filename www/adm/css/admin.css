@@ -1207,6 +1207,7 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #member_cont .partner_list .p_cnt .p_total{}
 #member_cont .partner_list .p_cnt .p_newbi{font-size:16px;}
 #member_cont .partner_list .p_content{height:100%;border:1px solid #E9E9EB;}
+#member_cont .partner_list .p_content .no_app{background-color:#EFF5FB;}
 #member_cont .partner_list .p_content .detail_btn{width:80px; height:40px; background-color:#F57B6E; color:#fff;border:0;}
 #member_cont .partner_list .b_line{height:10px;width:100%;}
 #member_cont .partner_list .p_content .yt{color:#FFAA00;font-size:16px;}
@@ -1248,6 +1249,8 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #member_detail .p_detail .p_content .p_buttons .t2{background:#8781E1;}
 #member_detail .p_detail .p_content .p_buttons .t3{background:#9F9EC0;}
 #member_detail .p_detail .p_content .p_buttons .t4{background:#ACACB6;}
+#member_detail .p_detail .p_content .p_buttons .t5{margin-left:50px;color:#354;border:2px outset;outline:none;}
+#member_detail .p_detail .p_content .p_buttons .app_c{border:2px outset #f34;outline:none;}
 
 #member_detail .m_detail {display:flex;flex-direction:column;width:58%;height:860px;}
 #member_detail .m_head{text-align:center;height:42px;margin-top:10px;}
@@ -1264,6 +1267,7 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #member_edit{font-family:'Noto Sans KR',sans-serif;display:flex;width:100%;height:100%;justify-content:flex-start;margin-left:40px;height:860px;}
 #member_edit td{height:60px;text-align:center;}
 #member_edit input{font-size:16px;text-align:center;}
+#member_edit select{font-size:16px}
 #member_edit .test{}
 #member_edit .tr_line{background:#EEEEEE;color:#414141;height:60px;}
 #member_edit .m_edit{display:flex;flex-direction:column;width:50%;}
@@ -1454,9 +1458,41 @@ box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);}
 #add_admin .aad_content .aad_btn input{width:100px;padding:0 15px;height:30px;border:0;background:#9eacc6;color:#fff}
 
 
+#fee_modify{color:#262728;font-size:16px;display:flex; width:100%;height:100%;justify-content:flex-start;}
+#fee_modify .fee{width:30%;text-align:center;border:1px solid #ccc; border-radius:10px;padding:10px;}
+#fee_modify .fp{margin-left:5%;}
+#fee_modify td{height:60px; border-top:1px solid #ccc;padding:5px;}
+#fee_modify input{width:70%;height:33px;padding-left:5px;border:1px solid #E7E7E7;border-radius:5px;color:#858585;outline:none;}
+#fee_modify .fee .td_head{border-left:1px solid #ccc;}
+#fee_modify .fee .td_cont{border-left:1px solid #ccc;}
+#fee_modify .fee .td_btn{border-left:1px solid #ccc}
+#fee_modify .fee td:first-child{width:13%}
+#fee_modify .fee td:last-child{width:23%}
+#fee_modify .title{border-top:0px;font-size:18px;padding-bottom:5px;}
+#fee_modify .btn{text-align:right;padding-right:22px;border:0px;}
+#fee_modify .btn button{padding:0 15px;height:30px;border:0;background:#9eacc6;color:#fff}
+
+
+#ready_conf{color:#262728;font-size:16px;display:flex; width:100%;height:100%;justify-content:flex-start;}
+#ready_conf .ready_form{width:30%;text-align:center;border:1px solid #ccc; border-radius:10px;padding:10px;}
+#ready_conf .ready_txt{width:30%;text-align:center;border:1px solid #ccc; border-radius:10px;padding:10px;margin-left:30px;}
+#ready_conf td{height:60px; border-top:1px solid #ccc;padding:5px;}
+#ready_conf .ready_form .td_cont{border-left:1px solid #ccc;}
+#ready_conf .ready_txt .td_cont{border-left:1px solid #ccc;}
+#ready_conf #rwait2{margin-left:50px;}
+#ready_conf .ready_form td:first-child{width:13%}
+#ready_conf .ready_form td:last-child{width:23%}
+#ready_conf .ready_txt td:first-child{width:13%}
+#ready_conf .ready_txt td:last-child{width:33%}
+#ready_conf .ready_txt input{width:20%;text-align:center; }
+#ready_conf .ready_txt input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+#ready_conf .title{border-top:0px;font-size:18px;padding-bottom:5px;}
+#ready_conf .btn{text-align:right;padding-right:22px;border:0px;}
+#ready_conf .btn button{padding:0 15px;height:30px;border:0;background:#9eacc6;color:#fff}
+
+
+
 @media only screen and (max-device-width : 768px) and (orientation : landscape){
-
-
 
 /* Styles */
 input[type="text"]{max-width:200px}

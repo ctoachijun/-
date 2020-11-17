@@ -547,6 +547,7 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub05 .blue .blue_p input::placeholder{font-size:13px;color:#aaa;}
 .p_sub05 .blue .blue_p p {color: #405FC0;font-size: 1.4rem;margin-top:3px;height:24px;}
 .p_sub05 .payment .sum_price{width:200px;text-align:right;height:24px;margin-left:115px;border:0px;}
+.p_sub05 .payment .tep{width:200px;text-align:right;height:24px;margin-left:115px;border:0px;}
 .p_sub05 .payment p {margin-top:2px;}
 .p_sub05 .payment .gray_box{background:#eee;padding:3px 30px;color:#aaa;height:24px;}
 .p_sub05 .red {width:100%;height:26px;text-align:right;display:flex;justify-content:space-between;}
@@ -615,6 +616,34 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub12 .none{display:none;}
 .p_sub12 .view_pic .pic{display:flex;width:100%;}
 .p_sub12 .view_pic .pic img{width:90%;}
+
+/* 농원 미승인 화면 */
+.noapp{width:100%;height:100%;position:relative;}
+.noapp img {width:100%;height:100%}
+.noapp .noapp_head{order:1px solid #fff;position:absolute;width:100%; height:100px;top:22%;display:flex;align-items:center;justify-content:center;}
+.noapp .noapp_head .head_txt{color:#fff;font-size:15px;font-weight:700;}
+.noapp .noapp_sub{order:1px solid #fff;position:absolute;width:100%; height:100px;top:33%;display:flex;align-items:center;justify-content:center;text-align:center;}
+.noapp .noapp_sub .sub_txt{color:#fff;font-size:13px;font-weight:700;}
+.noapp .noapp_cont{order:1px solid #fff;position:absolute;width:100%;height:160px;top:50%;display:flex;align-items:center;justify-content:center;text-align:center;}
+.noapp .noapp_cont .cont_txt{color:#fff;font-size:20px;font-weight:700;}
+.noapp .noapp_tail{order:1px solid #fff;position:absolute;width:100%;height:80px;top:84%;display:flex;align-items:center;justify-content:center;text-align:center;}
+.noapp .noapp_tail .tail_txt{color:#fff;font-size:14px;font-weight:700;}
+
+/* 서비스 대기 화면 */
+.ready{width:100%;height:100%;position:relative;}
+.ready img {width:100%;height:100%;}
+.ready .ready_head{order:1px solid #fff;position:absolute;width:100%; height:100px;top:20%;display:flex;align-items:center;justify-content:center;}
+.ready .ready_head .head_txt{color:#fff;font-size:15px;font-weight:700;}
+.ready .ready_sub{order:1px solid #fff;position:absolute;width:100%; height:100px;top:32%;display:flex;align-items:center;justify-content:center;text-align:center;}
+.ready .ready_sub .sub_txt{color:#fff;font-size:13px;font-weight:700;}
+.ready .ready_cont{order:1px solid #fff;position:absolute;width:100%;height:160px;top:46%;display:flex;align-items:center;justify-content:center;text-align:center;}
+.ready .ready_cont .cont_txt{color:#fff;font-size:20px;font-weight:700;}
+.ready .ready_sub_cont{order:1px solid #fff;position:absolute;width:100%;height:160px;top:64%;display:flex;align-items:center;justify-content:center;text-align:center;}
+.ready .ready_sub_cont .sub_cont_txt{color:#fff;font-size:40px;font-weight:700;}
+.ready .ready_tail{order:1px solid #fff;position:absolute;width:100%;height:80px;top:84%;display:flex;align-items:center;justify-content:center;text-align:center;}
+.ready .ready_tail .tail_txt{color:#fff;font-size:14px;font-weight:700;}
+
+
 
 .check, .payment{background-color:#fff;border:1px solid #ddd;border-radius:5px;padding:10px 15px;margin-top:10px;}
 .check p{font-size:1.3rem;}

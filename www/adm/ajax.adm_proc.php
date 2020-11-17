@@ -187,6 +187,92 @@ switch ($w_type){
     echo json_encode($output,JSON_UNESCAPED_UNICODE);
   break;
 
+  case "fee_apply" :
+    $sql = "UPDATE f_fee_m SET tep='{$fee}', w_date=DEFAULT";
+    $re = sql_query($sql);
+    if($re){
+      $output['state'] = "Y";
+    }else{
+      $output['state'] = "N";
+    }
+
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+
+  break;
+
+  case "fee_apply_p" :
+    $sql = "UPDATE f_fee_p SET tep1='{$fee1}', tep2='{$fee2}', tep3='{$fee3}', w_date=DEFAULT";
+    $re = sql_query($sql);
+    if($re){
+      $output['state'] = "Y";
+      $output['sql'] = $sql;
+    }else{
+      $output['state'] = "N";
+    }
+
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+
+  break;
+
+  case "approval_p" :
+    $sql = "SELECT approval FROM f_partner WHERE idx={$idx}";
+    $re = sql_fetch($sql);
+    $jud = $re['approval'];
+
+    if($jud == "Y"){
+      $app = "N";
+      $msg = "승인 취소";
+    }else{
+      $app = "Y";
+      $msg = "승인";
+    }
+
+    $sql = "UPDATE f_partner SET approval = '{$app}' WHERE idx={$idx}";
+    $re = sql_query($sql);
+    if($re){
+      $output['state'] = "Y";
+      $output['msg'] = $msg;
+    }else{
+      $output['state'] = "N";
+    }
+
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
+  case "wait" :
+    $sql = "UPDATE f_wait_service SET wait = '{$wait_val}', w_date=DEFAULT";
+    $re = sql_query($sql);
+
+    if($wait_val=="Y"){
+      $msg = "서비스 대기 상태로 전환했습니다.";
+    }else{
+      $msg = "서비스 대기 해제했습니다.";
+    }
+    if($re){
+      $output['state'] = "Y";
+      $output['msg'] = $msg;
+    }else{
+      $output['state'] = "N";
+    }
+
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
+  case "set_rtxt" :
+    $sql = "UPDATE f_wait_service SET max_partner = {$max}, cur_partner = {$cur}";
+    $re = sql_query($sql);
+
+    if($re){
+      $output['state'] = "Y";
+    }else{
+      $output['state'] = "N";
+    }
+
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
+
+
 }
 
 

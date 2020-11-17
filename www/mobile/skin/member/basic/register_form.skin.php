@@ -57,7 +57,7 @@ if($jt=="m"){
     </div>
 
     <label>인증번호</label>
-    <input type="text" name="con_hp" class="text_border" maxlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="인증번호 입력">
+    <input type="text" name="con_hp" class="text_border" maxlength="4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" pattern="[0-9]*" placeholder="인증번호 입력">
 <?  if($jt=="m"){     ?>
     <label>담당자 성명</label>
     <input type="text" id="reg_mb_name" class="text_border" name="mb_name" value="<?php echo get_text($member['mb_name']) ?>" <?php echo $required ?> <?php echo $readonly; ?> class="frm_input full_input <?php echo $readonly ?>" placeholder="이름">
@@ -246,7 +246,8 @@ if($jt=="m"){
         if ((f.w.value == "") || (f.w.value == "u" && f.mb_email.defaultValue != f.mb_email.value)) {
             var msg = reg_mb_email_check();
             if (msg) {
-                alert(msg);
+              alert(msg);
+
                 f.reg_mb_email.select();
                 return false;
             }

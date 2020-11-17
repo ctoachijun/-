@@ -11,13 +11,13 @@ switch($w_type){
       $only_txt = ", only = 'Y', p_idx = {$only}";
     }
 
-    //  견적의뢰 테이블에 데이터 입력
+        //  견적의뢰 테이블에 데이터 입력
     $sql = "INSERT INTO f_estimate_plz SET
     m_idx = {$m_idx}, w_name = '{$w_name}', g_work = {$w_class}, k_tree = {$t_class},
     target = '{$w_place}', d_date = '{$wr_1}', memo = '{$memo}', e_date = '{$wr_2}'
     {$only_txt}";
     $re1 = sql_query($sql);
-
+    // print_r($_POST);
 
     // 방금 입력한 견적의외 고유번호 취득
     $idx_sql = "SELECT idx FROM f_estimate_plz ORDER BY idx DESC";
@@ -34,7 +34,9 @@ switch($w_type){
         if(!$total[$i]){
           $total[$i] = 0;
         }
-        $col_txt2 = $col_name2."=".$total[$i];
+        $t_osum = preg_replace("/[^0-9]*/s", "", $total[$i]);
+
+        $col_txt2 = $col_name2."=".$t_osum;
 
         if($h_size[$i] || $w_size[$i]){
           $size_val = $h_size[$i]."|".$w_size[$i];
@@ -45,6 +47,7 @@ switch($w_type){
         $col_txt3 = $col_name3."= '".$size_val."'";
 
         $col_txt .= $col_txt1.",".$col_txt2.",".$col_txt3.",";
+        $t_osum = 0;
     }
 
     $sql = "INSERT INTO f_tree_order SET {$col_txt} ep_idx = {$ep_idx}";

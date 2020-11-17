@@ -11,8 +11,6 @@ $today = date("Y-m-d");
 $mb_idx = getMbIdx($_SESSION['ss_mb_id']);
 $box = getMbInfo($mb_id);
 
-
-
 ?>
 
 
@@ -60,78 +58,20 @@ $box = getMbInfo($mb_id);
       <div class="size">
         <div class="size_title"><p>품목</p> <p>규격(단위:m)</p> <p>수량</p></div>
         <hr style="width:100%;margin:0 auto;border:1px solid #bbb;margin-top:5px;margin-bottom:10px;">
-        <div id="item1" class="item_div">
+
+    <? for($ic=1; $ic<9; $ic++){  ?>
+
+        <div id="item<?=$ic?>" class="item_div">
           <div>
             <input type="text" name="item_name[]" placeholder="입력"/>
-            <input type="text" name="h_size[]" placeholder="H값" />
-            <input type="text" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" placeholder="입력" />
+            <input type="number" pattern="\d*" step="0.1" name="h_size[]" placeholder="H값" />
+            <input type="number" pattern="\d*" step="0.1" name="w_size[]" placeholder="W값" />
+            <input type="input" name="total[]" onchange="getNumber(this)" placeholder="입력" />
+            <!-- <input type="input" name="total[]" onchange="getNumber(this)" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="입력" /> -->
           </div>
           <div class="line_top"></div>
         </div>
-        <div id="item2" class="item_div">
-          <div>
-            <input type="text" name="item_name[]" placeholder="입력"/>
-            <input type="text" name="h_size[]" placeholder="H값" />
-            <input type="text" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" placeholder="입력" />
-          </div>
-          <div class="line_top"></div>
-        </div>
-        <div id="item3" class="item_div">
-          <div>
-            <input type="text" name="item_name[]" placeholder="입력"/>
-            <input type="text" name="h_size[]" placeholder="H값" />
-            <input type="text" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" placeholder="입력" />
-          </div>
-          <div class="line_top"></div>
-        </div>
-        <div id="item4" class="item_div">
-          <div>
-            <input type="text" name="item_name[]" placeholder="입력"/>
-            <input type="text" name="h_size[]" placeholder="H값" />
-            <input type="text" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" placeholder="입력" />
-          </div>
-          <div class="line_top"></div>
-        </div>
-        <div id="item5" class="item_div">
-          <div>
-            <input type="text" name="item_name[]" placeholder="입력"/>
-            <input type="text" name="h_size[]" placeholder="H값" />
-            <input type="text" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" placeholder="입력" />
-          </div>
-          <div class="line_top"></div>
-        </div>
-        <div id="item6" class="item_div">
-          <div>
-            <input type="text" name="item_name[]" placeholder="입력"/>
-            <input type="text" name="h_size[]" placeholder="H값" />
-            <input type="text" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" placeholder="입력" />
-          </div>
-          <div class="line_top"></div>
-        </div>
-        <div id="item7" class="item_div">
-          <div>
-            <input type="text" name="item_name[]" placeholder="입력"/>
-            <input type="text" name="h_size[]" placeholder="H값" />
-            <input type="text" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" placeholder="입력" />
-          </div>
-          <div class="line_top"></div>
-        </div>
-        <div id="item8" class="item_div">
-          <div>
-            <input type="text" name="item_name[]" placeholder="입력"/>
-            <input type="text" name="h_size[]" placeholder="H값" />
-            <input type="text" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" placeholder="입력" />
-          </div>
-          <div class="line_top"></div>
-        </div>
+    <? } ?>
 
         <div class="add" onclick="plus_div()"><p>+품목 추가</p></div>
       </div>

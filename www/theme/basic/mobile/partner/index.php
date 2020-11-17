@@ -8,6 +8,12 @@ if($mb_type=="member" || !$mb_type){
   alert("파트너 계정으로 로그인 해 주세요.",$url);
 }
 
+$pbox = getPartnInfo_id($mb_id);
+$approval = $pbox['approval'];
+if($approval == "N"){
+  goto_url("./no_approval.php");
+}
+
 ?>
 <style>
 .content{background-color:#F8F8F8;height:92vh;}

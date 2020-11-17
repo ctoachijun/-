@@ -363,9 +363,6 @@ function getEstiList($mb_id){
             echo "<p>납품 장소 : <input type='text' name='target' class='{$t_name}' value='{$target}' {$disable} /></p>";
             echo "</div>";
             echo "</div>";
-            if($oe_idx != $ec_idx){
-              echo "<p class='btn_date'><span onclick='editDPinfo({$ep_idx},{$ec_idx},\"".$disable."\")' class='change'>납품 날짜 및 장소 변경</span></p>";
-            }
             echo "<hr style='width:100%;margin:0 auto;margin-top:12px;margin-bottom:12px;'>";
             echo "<div class='info'>";
             echo "<div>";
@@ -378,6 +375,10 @@ function getEstiList($mb_id){
 
             if($ec_idx > 0 && $oe_idx != $ec_idx){
               echo "<a class='cancel' onclick='noListExe(2,{$ep_idx})'>거래 취소</a>";
+            }
+
+            if($oe_idx != $ec_idx){
+              echo "<p class='btn_date'><span onclick='editDPinfo({$ep_idx},{$ec_idx},\"".$disable."\")' class='change'>납품 날짜 및 장소 변경</span></p>";
             }
 
             echo "</div>";
@@ -475,9 +476,17 @@ function getEpDetail($epidx,$mb_id){
   $d_date = $row['d_date'];
 
   // 파트너 IDX추출
-  $sql = "SELECT idx FROM f_partner WHERE p_id = '{$mb_id}'";
+  $sql = "SELECT idx,partner_ship FROM f_partner WHERE p_id = '{$mb_id}'";
   $re = sql_fetch_array(sql_query($sql));
   $p_idx = $re['idx'];
+  $ps = $re['partner_ship'];
+
+
+  // 해당 파트너 수수료 요율
+  $tsql = "SELECT * FROM f_fee_p";
+  $tbox = sql_fetch($tsql);
+  $col_txt = "tep".$ps;
+  $fee = $tbox[$col_txt];
 
   // 업체명 추출
   $m_sql = "SELECT c_name FROM f_member WHERE idx = {$m_idx}";
@@ -508,9 +517,10 @@ function getEpDetail($epidx,$mb_id){
   $c_d = ceil( (strtotime($d_date) - strtotime($now)) / 86400 );
 
   echo "<div class='main_bottom_box'>";
+  echo "<input type='hidden' name='ps' value='{$fee}' />";
   echo "<table class='text_table'>";
   echo "<tr><td>";
-  echo "<img src='/theme/basic/img/f_ico.png' alt=''트리넥트 로고''>";
+  echo "<img class='i_logo' src='/theme/basic/img/f_ico.png' alt=''트리넥트 로고''>";
   if($mypartner){
     echo "<p class='partner'>내 농원을 거래처로 등록한 업체</p>";
   }

@@ -16,6 +16,8 @@ $menu['menu500'] = array (
     // array('500000', '홈페이지관리', G5_ADMIN_URL.'/config_form.php', 'shop_stats'),
     array('500110', '홈페이지관리', G5_ADMIN_URL.'/config_form.php', 'shop_stats'),
     array('500100', '메뉴 및 약관', G5_ADMIN_URL.'/menu_agree.php', 'shop_stats'),
-    array('500120', '관리자 등록', G5_ADMIN_URL.'/add_admin.php', 'shop_stats')
+    array('500120', '관리자 등록', G5_ADMIN_URL.'/add_admin.php', 'shop_stats'),
+    array('500400', '수수료관리', G5_ADMIN_URL.'/fee_modify.php', 'shop_stats'),
+    array('500300', '서비스 준비 관리', G5_ADMIN_URL.'/ready_conf.php', 'scf_event')
 );
 ?>
