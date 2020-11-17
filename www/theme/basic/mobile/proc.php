@@ -128,20 +128,26 @@ switch($w_type){
       }
 
       if($i == ($num-1)){
-        $price_col_txt .= "{$price_txt} = '{$$price_txt}'";
+        $notcom = preg_replace("/[^0-9]*/s", "", $$price_txt);
+        $price_col_txt .= "{$price_txt} = {$notcom}";
         $pic_col_txt .= "{$pic_txt} = '{$f_name}'";
       }else{
-        $price_col_txt .= "{$price_txt} = '{$$price_txt}', ";
+        $notcom = preg_replace("/[^0-9]*/s", "", $$price_txt);
+        $price_col_txt .= "{$price_txt} = {$notcom}, ";
         $pic_col_txt .= "{$pic_txt} = '{$f_name}', ";
       }
 
     }
+
+    $d_price = preg_replace("/[^0-9]*/s", "", $d_price);
+    $tep = preg_replace("/[^0-9]*/s", "", $tep);
     $sql = "INSERT INTO f_estimate SET
     p_idx = {$mb_idx}, ep_idx = {$ep_idx}, p_name = '{$c_name}',
     {$pic_col_txt}, {$price_col_txt},
-    d_price = {$d_price}, t_price='{$t_price}',w_date=DEFAULT, etc='{$etc}'";
+    d_price = {$d_price}, t_price={$t_price},w_date=DEFAULT, etc='{$etc}'";
     sql_query($sql);
     // echo "$sql <br>";
+    // exit;
 
     $sql = "SELECT idx FROM f_estimate WHERE ep_idx = {$ep_idx} ORDER BY idx DESC";
     $box = sql_fetch_array(sql_query($sql));
@@ -180,18 +186,17 @@ switch($w_type){
   break;
 
   case "m_payment" :
-    $sql = "SELECT p_idx FROM f_estimate WHERE idx={$e_idx}";
+    $sql = "SELECT * FROM f_estimate WHERE idx={$e_idx}";
     $re = sql_fetch_array(sql_query($sql));
     $p_idx = $re['p_idx'];
+    $t_price = $re['t_price'];
+    $d_price = $re['d_price'];
 
     $sql = "SELECT * FROM f_estimate_plz WHERE idx={$ep_idx}";
     $re = sql_fetch_array(sql_query($sql));
 
     $to_idx = $re['to_idx'];
     $m_idx = $re['m_idx'];
-
-    $sum_p = $t_price - $tep;
-
 
     // 주문정보 입력
     $sql = "INSERT INTO f_order SET
@@ -208,12 +213,37 @@ switch($w_type){
     sql_query($sql);
 
 
+    // 고객 수수료율
+    $sql = "SELECT * FROM f_fee_m";
+    $box = sql_fetch($sql);
+    $mtep = $box['tep'] / 100;
+    $mfee = $t_price * $mtep;
+
+    // 농원 수수료율
+    $sql = "SELECT partner_ship FROM f_partner WHERE idx={$p_idx}";
+    $box = sql_fetch($sql);
+    $ps = $box['partner_ship'];
+    $t_txt = "tep".$ps;
+
+    $sql = "SELECT * FROM f_fee_p";
+    $box = sql_fetch($sql);
+    $ptep = $box[$t_txt] / 100;
+    $pfee = $t_price * $ptep;
+
+    //수수료를 더한 고객 결제금액
+    $m_price = $t_price + $mfee + $d_price;
+
+    // 수수료를 제한 농원 입금금액
+    $p_price = $t_price - $pfee + $d_price;
+
+
+
     // 결제정보 입력
     $sql = "INSERT INTO f_deposit SET
-    o_idx={$o_idx}, m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, m_price={$t_price}, p_price={$sum_p}, m_push_date=DEFAULT";
+    o_idx={$o_idx}, m_idx={$m_idx}, p_idx={$p_idx}, e_idx={$e_idx}, m_price={$m_price}, p_price={$p_price}, m_push_date=DEFAULT";
     $re = sql_query($sql);
-
-
+// echo $sql;
+// exit;
 
     $sql = "SELECT c_name FROM f_member WHERE idx={$m_idx}";
     $box = sql_fetch($sql);
@@ -235,9 +265,10 @@ switch($w_type){
       }
     }
 
+    $price = number_format($m_price);
     // 여기에 관리자 푸시 처리
     $title = "[입금확인 요청]";
-    $content = "'{$c_name}' 회원님 '{$t_price}' 원의 입금요청이 있습니다.\n";
+    $content = "'{$c_name}' 회원님 \n'{$price}' 원의 입금요청이 있습니다.\n";
     $content .= "확인 후 관리자페이지에서 입금완료 처리를 해주세요.";
     $p_re = send_push($keys,$title,$content,$img_url='');
 
@@ -263,16 +294,15 @@ switch($w_type){
       }
     }
 
-
     $msg .= "[트리넥트]\n[입금확인요청]\n";
-    $msg .= "'{$c_name}' 회원님 '{$t_price}' 원의 입금요청이 있습니다\n";
+    $msg .= "'{$c_name}' 회원님 \n'{$price}' 원의 입금요청이 있습니다\n";
     $msg .= "확인 후 관리자페이지에서 입금완료 처리를 해주세요.";
 
     $rs = send_certNum($msg,$send_txt);
 
     $rs_code = $rs->result_code;
     if($rs_code > 0){
-      alert("정상적으로 입금 확인요청이 되었습니다.","./payment_confirm.php");
+      alert("정상적으로 입금 확인요청이 되었습니다.","./view_esti.php");
     }else{
       alert("시스템상에 오류가 있습니다. 관리자에게 문의주세요.",$return_url);
     }

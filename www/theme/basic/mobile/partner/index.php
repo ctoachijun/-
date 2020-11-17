@@ -48,7 +48,7 @@ if($wait_jud=="Y"){
 <!-- main top 끝 -->
 
 <div>
-<div class="main_bottom p_sub02">
+<div class="main_bottom p_sub02 p_index_box">
   <h2>작업&#38;납품일지</h2>
 
   <? getDealList($mb_id) ?>

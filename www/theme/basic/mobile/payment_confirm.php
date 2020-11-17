@@ -2,6 +2,7 @@
 include_once('../../../common.php');
 include G5_THEME_MOBILE_PATH."/head.php";
 
+setRead($mb_id);
 
 ?>
 <style>

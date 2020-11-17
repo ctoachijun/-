@@ -68,14 +68,17 @@ ul{list-style:none;padding-left:0px;}
 .main_bottom_box ul li:first-child{margin-left:0;}
 .main_bottom_box div{clear:both;margin-top:2px;}
 .main_bottom_box div p{font-size: 1.2rem;}
-.main_bottom_box .cancel{width:100px;;background-color:#eee;padding:5px 10px;border-radius:5px;color:#333;font-size:1.4rem;margin-right:4%;}
-.main_bottom_box .change{width:160px;background-color:#434343;padding:5px 10px;border-radius:5px;color:#333;font-size:1.4rem;color:#fff;}
+.main_bottom_box .cancel{width:100px;;background-color:#eee;padding:5px 10px;border-radius:5px;color:#333;font-size:1.4rem;margin-right:5px;}
+.main_bottom_box .change{width:160px;background-color:#434343;padding:5px 10px;border-radius:5px;color:#333;font-size:1.4rem;color:#fff;margin-right:5px;}
 .main_bottom_box .estimate{width:110px;background-color:#434343;padding:5px 10px;border-radius:5px;color:#333;font-size:1.4rem;color:#fff}
 .main_bottom_box .estimate img{margin-right: 3px;}
 .main_bottom_box .btn_date{margin-top:10px}
 .main_bottom_box .green_box{background-color:#1BB687}
 .main_bottom_box .work{width:120px;margin-left:4px;}
-.main_bottom_box .info .cancel{margin-left:4px;}
+.main_bottom_box .info div a{font-size:12px;}
+.main_bottom_box .info div p{font-size:12px;}
+.main_bottom_box .info div p span{font-size:12px;}
+.main_bottom_box .info .cancel{margin-left:0px;}
 .main_bottom_box .edit_input{height:20px;display:flex;align-items:center;}
 .main_bottom_box .edit_input div p{margin-left:4px;padding:0px;}
 .main_bottom_box .edit_input input{border:0; width:234px; height:20px;margin-top:13px;text-align:left;}
@@ -380,7 +383,7 @@ ul{list-style:none;padding-left:0px;}
 
 /* sub12 농원상세  & 후기 */
 .address{width:100%;background-color:#fff;padding:15px;}
-.address img{width:20px;}
+.address img{width:15px;}
 .address p{display:inline-block;font-size:1.5rem;margin-bottom:1.5vh;}
 .ad_btn{display:flex;justify-content:flex-end;margin:0;}
 .ad_btn div{background-color:#eee;border-radius:5px;width:80px;padding:5px;font-size:1.2rem;text-align:center;margin-left:5px;}
@@ -513,7 +516,7 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub02 .work{background-color:#405FC0;padding:3px;width:auto;}
 .p_sub02 .work_name{font-size: 1.25rem;}
 .p_sub02 .cut_date{margin-top:10px;margin-bottom:5px;}
-.p_sub02 .ready{font-size:1.05rem;background-color:#F6D12A;padding:2px;border-radius:5px;margin-left:2%;}
+.p_sub02 .ready{font-size:1.05rem;background-color:#F6D12A;padding-top:2px; padding-bottom:2px;padding-left:4px;border-radius:5px;margin-left:2%;width:56px;}
 .p_sub02 .info{display:flex;justify-content:space-between;}
 .p_sub02 .info div a{background-color: #eee;padding:5px 10px;border-radius:5px;color: #333;font-size: 1.4rem;margin-right:3px;}
 .p_sub02 .info .brown_box{background-color:#434343;color:#fff;margin-left:4px;}

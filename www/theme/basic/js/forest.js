@@ -204,27 +204,27 @@ function sum_price(num){
   sum_price1 = addComma(sum_price1);
   $(".total_price").val(sum_price1);
 
-
 }
 
 function gettotal_price(){
   let sump = $(".sum_price").val();
-  let dp = parseInt($("input[name=d_price]").val());;
+  let pbox = $("input[name=d_price]").val();
   let ps = $("input[name=ps]").val();
   let totalp = 0;
   let fee = 0;
+  let dp = 0;
 
   if(!sump){
     sump = 0;
   }
 
+  dp = parseInt(removeComma(pbox));;
   sump = parseInt(removeComma(sump));
   fee = sump * ps / 100;
   totalp = dp + sump - fee;
-  $("input[name=t_price]").val(totalp);
+  $("input[name=t_price]").val(sump);
   totalp = addComma(totalp);
   $(".total_price").val(totalp);
-
 }
 
 
@@ -398,8 +398,8 @@ function noptEsti(e_idx){
 function editDPinfo(ep_idx,e_idx,opt){
   let t_name = "target"+e_idx;
   let ed_name = "ed_date"+e_idx;
-  // console.log(t_name);
-  // console.log(ed_name);
+  console.log(t_name);
+  console.log(ed_name);
   let target = $('.'+t_name).val();
   let ed_date = $('.'+ed_name).val();
   let ro = $('.'+ed_name).prop(opt);
@@ -600,6 +600,6 @@ function onlyNum(obj){
   let val1;
   let val2;
   val1 = obj.value;
-  val1 = val1.replace(/[^0-9]/g,"");
-  obj.value = val1;  
+  val1 = addComma(val1.replace(/[^0-9]/g,""));
+  obj.value = val1;
 }

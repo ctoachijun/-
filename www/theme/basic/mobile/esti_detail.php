@@ -91,15 +91,15 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
     <div class="size_title"><p class="item_p">품목</p> <p class="size_p">규격</p> <p class="osum_p">수량</p> <p class="price_p">단가</p></div>
     <hr style="width:100%;margin:0 auto;border:1px solid #bbb;margin-top:5px;margin-bottom:10px;">
 <?
-    $sum_price = 0;
+    // $sum_price = 0;
     for($i=0; $i<$tree_num; $i++){
       // 사이즈 추출
       $sbox = explode("|",$treeo['size'.($i+1)]);
       // 조경수 금액 산출
       $sum = $treeo['osum'.($i+1)] * $esti['price'.($i+1)];
-      $sum_price += $sum;
+      // $sum_price += $sum;
 ?>
-    <div><p class="item_p"><?=$treeo['item'.($i+1)]?></p> <p class="size_p">H<?=$sbox[0]?> x W<?=$sbox[1]?></p> <p class="osum_p"><?=$treeo['osum'.($i+1)]?></p> <p class="bold price_p"><?=$esti['price'.($i+1)]?>원</p></div>
+    <div><p class="item_p"><?=$treeo['item'.($i+1)]?></p> <p class="size_p">H<?=$sbox[0]?> x W<?=$sbox[1]?></p> <p class="osum_p"><?=number_format($treeo['osum'.($i+1)])?></p> <p class="bold price_p"><?=number_format($esti['price'.($i+1)])?>원</p></div>
 <?
     if($i<($tree_num-1)){?>
       <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;">
@@ -133,11 +133,12 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
     }
 
     // 설정 된 고객 수수료를 이용해 수수료 산출
-    $tsql = "SELECT * FROM f_fee";
-    $tbox = sql_fetch($tsql);
-    $fee = $tbox['tep'] / 100;
+    $fee = getMemFee();
+    $sum_price = $esti['t_price'];
     $tep = $sum_price*$fee;
-    $total_price = $esti['t_price'] + $tep;
+    $d_price = $esti['d_price'];
+    
+    $total_price = $sum_price + $tep + $d_price;
 
   ?>
 
@@ -175,7 +176,7 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
     <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;">
     <div><p>수수료</p> <p class="bold"><?=number_format($tep)?><span>원</span></p></div>
     <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;">
-    <div  class="blue"><p>예상 운임비</p> <p><?=number_format($esti['d_price'])?><span>원</span></p></div><br>
+    <div  class="blue"><p>예상 운임비</p> <p><?=number_format($d_price)?><span>원</span></p></div><br>
     <div class="red"><p class="bold">최종 결제 금액</p> <p class="bold"><?=number_format($total_price)?><span>원</span></p></div>
     <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;border-color:#ccc;">
   </div>

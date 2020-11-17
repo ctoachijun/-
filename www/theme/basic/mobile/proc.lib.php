@@ -225,7 +225,7 @@ function getEstiList($mb_id){
 
   $sql = "SELECT * FROM f_estimate_plz AS e
   INNER JOIN f_tree_order AS t ON e.to_idx = t.idx
-  WHERE e.m_idx = {$mb_idx} AND cancel != 'Y'";
+  WHERE e.m_idx = {$mb_idx} AND cancel != 'Y' ORDER BY e.e_date";
   $re = sql_query($sql);
 
   $cjud = sql_num_rows($re);
@@ -246,6 +246,23 @@ function getEstiList($mb_id){
     $o_idx = $row['o_idx'];
     $pbox = explode("|",$row['p_idx']);
 
+    // 주문테이블과 결제테이블에서 데이터가 없으면 미표시
+    $hsql = "SELECT * FROM f_order AS ot INNER JOIN f_deposit AS dt ON ot.e_idx = dt.e_idx WHERE ot.to_idx = {$to_idx}";
+    $re = sql_fetch($hsql);
+    $end_depo = $re['m_deposit'];
+    if($end_depo==2 || !$end_depo){
+      $yn = 0;
+      $bin_cnt = 1;
+    }else{
+      $yn = 1;
+    }
+    if($yn==0 && $bin_cnt){
+      if($cjud==1){
+        echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
+      }
+      break;
+    }
+
 
     // 견적의뢰가 있어도 견적이 없으면 거래내역에 미표시 처리
     $nsql = "SELECT * FROM f_estimate WHERE ep_idx = {$ep_idx}";
@@ -264,6 +281,7 @@ function getEstiList($mb_id){
 
           $esql = "SELECT nopt FROM f_estimate WHERE ep_idx = {$ep_idx} && p_idx={$p_idx} && cancel_esti == 'N'";
           $ere = sql_fetch_array(sql_query($esql));
+
           $nopt = $ere['nopt'];
           if($nopt != "Y"){
             // 농원명 추출
@@ -280,12 +298,13 @@ function getEstiList($mb_id){
             $esql = "SELECT * FROM f_estimate WHERE p_idx={$p_idx} AND ep_idx={$ep_idx}";
             $ere = sql_fetch_array(sql_query($esql));
             $ec_idx = $ere['idx'];
-            if(!$ec_idx) $ec_idx = 0;
-            if($oe_idx == $ec_idx){
-              $disable = "disabled";
-            }else{
-              $disable = "readonly";
-            }
+            // if(!$ec_idx) $ec_idx = 0;
+            // if($oe_idx == $ec_idx){
+            //   $disable = "disabled";
+            // }else{
+            //   $disable = "readonly";
+            // }
+            $disable = "readonly";
 
             // 수목 발주품목 추출
             $to_sql = "SELECT * FROM f_tree_order WHERE idx = {$to_idx}";
@@ -338,7 +357,7 @@ function getEstiList($mb_id){
             echo "<td class='right'>";
             echo "<p class='partner tree'>{$k_tree_txt}</p><p class='partner work {$g_work_class}'>{$g_work_txt}</p>";
             echo "</td></tr>";
-            echo "<tr><td><h4 class='farm_name {$fn_class}'>{$c_name}</h4></td>";
+            echo "<tr><td><a href='/theme/basic/mobile/partner_info.php?idx={$p_idx}'<h4 class='farm_name {$fn_class}'>{$c_name}</h4></a></td>";
             echo "<td><p class='com_date'>등록 : {$w_date}</p></td></tr>";
             echo "<tr><td><p class='work_name'>{$w_name}</p></td>";
             echo "<td><p class='cut_date'>마감까지 {$c_d}일 남음</p></td>";
@@ -372,16 +391,26 @@ function getEstiList($mb_id){
             if($ec_idx==0){
               echo "<p>받은 견적이 없습니다.</p>";
             }else{
+              echo "<a class='cancel' onclick='noListExe(2,{$ep_idx})'>거래 취소</a>";
+              echo "<p class='btn_date'><span onclick='editDPinfo({$ep_idx},{$ec_idx},\"".$disable."\")' class='change'>납품 날짜 및 장소 변경</span></p>";
               echo "<a class='estimate' href='/theme/basic/mobile/esti_detail.php?e_idx={$ec_idx}' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적서 확인</a>";
             }
 
-            if($ec_idx > 0 && $oe_idx != $ec_idx){
-              echo "<a class='cancel' onclick='noListExe(2,{$ep_idx})'>거래 취소</a>";
-            }
 
-            if($oe_idx != $ec_idx){
-              echo "<p class='btn_date'><span onclick='editDPinfo({$ep_idx},{$ec_idx},\"".$disable."\")' class='change'>납품 날짜 및 장소 변경</span></p>";
-            }
+            // if($ec_idx > 0 && $oe_idx != $ec_idx){
+            //   echo "<a class='cancel' onclick='noListExe(2,{$ep_idx})'>거래 취소</a>";
+            // }
+            //
+            // if($oe_idx != $ec_idx){
+            //   echo "<p class='btn_date'><span onclick='editDPinfo({$ep_idx},{$ec_idx},\"".$disable."\")' class='change'>납품 날짜 및 장소 변경</span></p>";
+            // }
+            // if($ec_idx==0){
+            //   echo "<p>받은 견적이 없습니다.</p>";
+            // }else{
+            //   echo "<a class='estimate' href='/theme/basic/mobile/esti_detail.php?e_idx={$ec_idx}' class='brown_box'><img src='/theme/basic/img/memo.png' alt='견적서 확인'>견적서 확인</a>";
+            // }
+
+
 
             echo "</div>";
             echo "</div>";
@@ -570,7 +599,7 @@ function viewTreeInput($epidx){
     $s_h = $sbox[0];
     $s_w = $sbox[1];
     echo "<div class='size_cont'><p>{$box1[$a]}</p> <p>H{$s_h}x W{$s_w}</p> <p>".number_format($box2[$a])."</p>";
-    echo "<input type='text' name='{$price_txt}' class='gray_box' placeholder='입력' onkeyup='onlyNum(this)' onchange='sum_price({$cnt_sum}),getNumber(this)'/></div>";
+    echo "<input type='text' name='{$price_txt}' class='gray_box' maxlength='8' placeholder='입력' onkeyup='onlyNum(this)' onchange='sum_price({$cnt_sum})'/></div>";
     echo '<input type="hidden" name="'.$osum_txt.'" value="'.$box2[$a].'" />';
     if($a < count($box1)-1){
       echo '<hr style="width:100%;margin:0 auto;margin-top:0px;margin-bottom:4px;">';
@@ -727,7 +756,7 @@ function getEsti($mb_id,$ep_idx){
   $re = getPartnInfo_id($mb_id);
   $p_idx = $re['idx'];
 
-  $sql = "SELECT p_idx FROM f_estimate_plz WHERE idx ={$ep_idx}";
+  $sql = "SELECT p_idx FROM f_estimate_plz WHERE idx ={$ep_idx} && only!='N'";
   $re = sql_fetch_array(sql_query($sql));
   $box = explode("|",$re['p_idx']);
   $cnt = count($box);
@@ -763,7 +792,7 @@ function myEstiList($mb_id){
 
   // 견적의뢰 테이블에서 해당 고객이 의뢰한 견적의뢰 고유번호 추출
   $sql = "SELECT * FROM f_estimate_plz as ep INNER JOIN f_tree_order as t ON ep.to_idx = t.idx
-  WHERE ep.m_idx = {$m_idx} and ep.no_list != 'Y' and ep.cancel != 'Y' ORDER BY ep.w_date DESC";
+  WHERE ep.m_idx = {$m_idx} and ep.no_list != 'Y' and ep.cancel != 'Y' ORDER BY ep.e_date";
 
   $re = sql_query($sql);
 
@@ -776,35 +805,54 @@ function myEstiList($mb_id){
   while($row = sql_fetch_array($re)){
       $o_comp = $row['o_idx'];
       $ep_idx = $row['ep_idx'];
+      $d_date = $row['d_date'];
       $ore = getOrderEsti($o_comp);
       $e_idx = $ore['e_idx'];
 
-      $dsql = "SELECT p_deposit FROM f_deposit WHERE o_idx={$o_comp}";
-      $dbox = sql_fetch($dsql);
-      $depo_comp = $dbox['p_deposit'];
-      $oc_name = "ing";
-      $oc_txt = "거래중";
+      // 거래완료의 기준은 납품일.
+      $today = date("Y-m-d");
 
-      if($o_comp == 0){
-        $cancel_btn = "견적의뢰 취소";
-        $list_type=2;
-        $link_url = "./esti_comp.php?ep_idx={$ep_idx}";
-      }else{
+      if($today > $d_date){
+        $oc_name = "end";
+        $oc_txt = "거래완료";
+        $psbox = getPartShipInfo($o_comp);
+        if($psbox){
+          $eval_txt = "후기수정";
+        }else{
+          $eval_txt = "후기작성";
+        }
         $cancel_btn = "내역 삭제";
         $list_type=1;
         $link_url = "./esti_detail.php?e_idx={$e_idx}";
 
-      if($depo_comp==1){
-          $oc_name = "end";
-          $oc_txt = "거래완료";
-          $psbox = getPartShipInfo($o_comp);
-          if($psbox){
-            $eval_txt = "후기수정";
-          }else{
-            $eval_txt = "후기작성";
-          }
-        }
+      }else{
+        $oc_name = "ing";
+        $oc_txt = "거래중";
+        $cancel_btn = "견적의뢰 취소";
+        $list_type=2;
+        $link_url = "./esti_comp.php?ep_idx={$ep_idx}";
       }
+
+      // if($o_comp == 0){
+      //   $cancel_btn = "견적의뢰 취소";
+      //   $list_type=2;
+      //   $link_url = "./esti_comp.php?ep_idx={$ep_idx}";
+      // }else{
+      //   $cancel_btn = "내역 삭제";
+      //   $list_type=1;
+      //   $link_url = "./esti_detail.php?e_idx={$e_idx}";
+      //
+      // if($depo_comp==1){
+      //     $oc_name = "end";
+      //     $oc_txt = "거래완료";
+      //     $psbox = getPartShipInfo($o_comp);
+      //     if($psbox){
+      //       $eval_txt = "후기수정";
+      //     }else{
+      //       $eval_txt = "후기작성";
+      //     }
+      //   }
+      // }
 
       // 마감일까지 남은일자 산출
       $now = date("Y-m-d H:i:s");
@@ -1208,7 +1256,10 @@ function getWaitService(){
 
 
 function getDealList($mb_id){
-  $sql = "SELECT * FROM f_order";
+  $box = getPartnInfo_id($mb_id);
+  $p_idx = $box['idx'];
+
+  $sql = "SELECT * FROM f_order WHERE p_idx={$p_idx}";
   $re = sql_query($sql);
   $row_cnt = sql_num_rows($re);
   $bin_cnt = 0;
@@ -1299,7 +1350,7 @@ function getDealList($mb_id){
       echo "<td class='right'>";
       echo "<p class='partner tree'>{$g_work_txt}</p><p class='partner work {$k_tree_class}'>{$k_tree_txt}</p>";
       echo "</td></tr>";
-      echo "<tr><td><h4 class='farm_name'>{$c_name}</h4></td>";
+      echo "<tr><td><a href='./partner_info.php?idx={$p_idx}'><h4 class='farm_name'>{$c_name}</h4></a></td>";
       echo "<td><p class='com_date'>등록 : {$w_date}</p></td></tr>";
       echo "<tr><td class=''><p class='work_name'>{$w_name}</p>";
       if($c_d > 0){
@@ -1526,9 +1577,15 @@ function getNewEpInfo($mb_id){
   if($only=='Y' && !$nv_re){
     echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
   }else{
-    $sql = "SELECT * FROM f_estimate_plz WHERE cancel != 'Y' && only != 'Y' ORDER BY idx DESC";
+    if($only=="Y"){
+      $only_txt = "only like 'Y'";
+    }else{
+      $only_txt = "only != 'Y'";
+    }
+    $sql = "SELECT * FROM f_estimate_plz WHERE cancel != 'Y' && {$only_txt} ORDER BY idx DESC";
     $re = sql_query($sql);
     $re_cnt = sql_num_rows($re);
+
 
     if(!$re){
       echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
@@ -1658,6 +1715,38 @@ function goToken($mb_id,$mb_type){
   curl_close( $ch );
 
   return $result;
+}
+
+function getMemFee(){
+  $tsql = "SELECT * FROM f_fee_m";
+  $tbox = sql_fetch($tsql);
+  $fee = $tbox['tep'] / 100;
+
+  return $fee;
+}
+
+function getPartFee($num){
+  $ctxt = "tep".$num;
+  $tsql = "SELECT * FROM f_fee_p";
+  $tbox = sql_fetch($tsql);
+  $fee = $tbox[$ctxt] / 100;
+
+  return $fee;
+
+}
+
+function getRead($mb_id){
+  $m_idx = getMbIdx($mb_id);
+  $sql = "SELECT * FROM f_deposit WHERE m_idx={$m_idx} && m_read='N'";
+  $re = sql_num_rows(sql_query($sql));
+  return $re;
+}
+
+function setRead($mb_id){
+  $m_idx = getMbIdx($mb_id);
+  $sql = "UPDATE f_deposit SET m_read='Y' WHERE m_idx={$m_idx}";
+  $re = sql_query($sql);
+
 }
 
 

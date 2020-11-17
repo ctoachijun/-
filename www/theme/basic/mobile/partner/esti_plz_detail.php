@@ -18,9 +18,9 @@ $only = $epbox['only'];
 
 
 if($jud){
-  // if($only=='N'){
+  if($only=='N'){
     alert("해당 견적의뢰에 이미 견적을 제출하셨습니다",$return_url);
-  // }
+  }
 }
 
 ?>
@@ -83,7 +83,7 @@ if($jud){
       <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;">
       <div  class="blue">
         <div class="blue_p"><p>예상 운임비</p></div>
-        <div class="blue_p"><input type="text" name="d_price" placeholder="입력" onchange="gettotal_price()"/><p>원</p></div>
+        <div class="blue_p"><input type="text" name="d_price" placeholder="입력" maxlength="10" onkeyup="onlyNum(this)" onchange="gettotal_price()"/><p>원</p></div>
       </div>
       <hr style="width:100%;margin:0 auto;margin-top:10px;margin-bottom:10px;">
       <div class="red"><p class="bold t_head">최종 결제 금액</p><input type="text" name="total_price" class="total_price" value="0" disabled><p>원</p></div>

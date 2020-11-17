@@ -91,11 +91,38 @@ switch ($w_type){
       $depo = 2;
     }
 
+    $sql = "SELECT * FROM f_deposit WHERE idx={$idx}";
+    $dbox = sql_fetch($sql);
+    $m_idx = $dbox['m_idx'];
+    $p_idx = $dbox['p_idx'];
+    $e_idx = $dbox['e_idx'];
+
+
+    // 전송할 고객, 농원 담당자 연락처 추출
+    $sql = "SELECT m_tel FROM f_member WHERE idx={$m_idx}";
+    $mbox = sql_fetch($sql);
+    $m_tel = $mbox['m_tel'];
+
+    $sql = "SELECT m_tel FROM f_partner WHERE idx={$p_idx}";
+    $pbox = sql_fetch($sql);
+    $p_tel = $pbox['m_tel'];
+
+    // 공사명 추출
+    $sql = "SELECT * FROM f_estimate INNER JOIN f_estimate_plz ON f_estimate.ep_idx = f_estimate_plz.idx WHERE f_estimate.idx={$e_idx}";
+    $ebox = sql_fetch($sql);
+    $w_name = $ebox['w_name'];
+
+    // 주문 고객, 농원에 문자발송
+    $msg = "[트리넥트]\n'{$w_name}'에 대한 발주가 진행되었습니다.";
+    $receiver = $m_tel.",".$p_tel;
+    $res = send_certNum($msg,$receiver);
+
     $sql = "UPDATE f_deposit SET m_deposit={$depo}, m_pay_date=DEFAULT WHERE idx={$idx}";
     $re = sql_query($sql);
 
     if($re){
       $output['state'] = "Y";
+      $output['res'] = $receiver;
     }else{
       $output['state'] = "N";
     }
@@ -108,6 +135,40 @@ switch ($w_type){
     }else if($jud=="N"){
       $depo = 2;
     }
+
+    $sql = "SELECT * FROM f_deposit WHERE idx={$idx}";
+    $dbox = sql_fetch($sql);
+    $p_idx = $dbox['p_idx'];
+    $e_idx = $dbox['e_idx'];
+
+
+    // 전송할 농원 담당자 연락처 추출
+    $sql = "SELECT m_tel,partner_ship FROM f_partner WHERE idx={$p_idx}";
+    $pbox = sql_fetch($sql);
+    $p_tel = $pbox['m_tel'];
+    $ps = $pbox['partner_ship'];
+
+    // 공사명 추출
+    $sql = "SELECT * FROM f_estimate INNER JOIN f_estimate_plz ON f_estimate.ep_idx = f_estimate_plz.idx WHERE f_estimate.idx={$e_idx}";
+    $ebox = sql_fetch($sql);
+    $w_name = $ebox['w_name'];
+    $t_price = $ebox['t_price'];
+    $d_price = $ebox['d_price'];
+    $tep_txt = "tep".$ps;
+
+    // 수수료율
+    $sql = "SELECT * FROM f_fee_p";
+    $fbox = sql_fetch($sql);
+    $tep = $fbox[$tep_txt] / 100;
+
+    // 수수료를 제하고 농원에 입금 할 금액
+    $fee = $t_price * $tep;
+    $total_price = number_format($t_price + $d_price - $fee);
+
+    // 주문 고객, 농원에 문자발송
+    $msg = "[트리넥트]\n'{$w_name}'에 대한 금액 {$total_price}원이 \n입금되었습니다.";
+    $receiver = $p_tel;
+    $res = send_certNum($msg,$receiver);
 
     $sql = "UPDATE f_deposit SET p_deposit={$depo}, p_pay_date=DEFAULT WHERE idx={$idx}";
     $re = sql_query($sql);

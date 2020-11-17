@@ -259,7 +259,6 @@ function pay_confirm(num,d_idx){
           data: box
         }).done(function(data){
           let json = JSON.parse(data);
-
           if(json.state=="Y"){
             history.go(0);
           }else{

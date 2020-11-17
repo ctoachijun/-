@@ -47,6 +47,16 @@ $acco_img = $box[3];
 $myp_img = $box[4];
 
 
+// 결제완료 처리가 되었으면 완료페이지로 이동
+$now = explode("/",$_SERVER['SCRIPT_NAME']);
+$prev = end($now);
+$chk = getRead($mb_id);
+if($chk > 0){
+  if($prev != "payment_confirm.php") goto_url(G5_THEME_URL."/mobile/payment_confirm.php");
+}
+
+
+
 ?>
 
 <div class="content">
