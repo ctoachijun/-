@@ -749,6 +749,7 @@ function list_mem($s_key,$type){
   }
   $p_sql = "SELECT * FROM {$table_name} WHERE {$where} AND live='Y' ORDER BY idx DESC ";
   $p_rs = sql_query($p_sql);
+  $mcnt = sql_num_rows($p_rs);
 
   $col_name_txt = $search_col."name";
 
@@ -786,7 +787,7 @@ function list_mem($s_key,$type){
 
       echo "<input type='hidden' name='idx' />";
       echo "<tr class='{$no_app}'>";
-      echo "<td class='mem_p_cont'>".$row['idx']."</td>";
+      echo "<td class='mem_p_cont'>".$mcnt."</td>";
       echo "<td class='mem_p_cont'>".$col_name."</td>";
       echo "<td class='mem_p_cont'>".$row[$search_col.'tel']."</td>";
       echo "<td class='mem_p_cont'>".$addr1[0]."</td>";
@@ -794,6 +795,7 @@ function list_mem($s_key,$type){
       echo "<td class='mem_p_cont'><button type='button' class='detail_btn' onclick='view_detail(".$row['idx'].",{$v_type})'>상세보기</button></td>";
       echo "<tr><td class='b_line' colspan='6'><div id='bottom_line'></div></td></tr>";
       echo "</tr>";
+      $mcnt--;
     }
 
   }
@@ -1310,6 +1312,7 @@ function getWeekData($item){
       $sql = "SELECT {$pbox} FROM f_estimate WHERE idx = {$e_idx}";
       $re = sql_fetch_array(sql_query($sql));
       $price_sum += $re[$pbox];
+
       $cnt++;
       // echo $sql;
       // echo "<br>";
@@ -1334,7 +1337,6 @@ function getWeekData($item){
       }else{
         $arr_avg_txt[0] .= $avg_price."|";
       }
-
   }
   // print_r($arr_avg_txt);
   // echo "<br>======================";
