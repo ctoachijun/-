@@ -1571,8 +1571,15 @@ function modify_fee_p(){
 
   for($i=1; $i<4; $i++){
     $value = "v".$i;
+    if($i==1){
+      $grade = "일반농원";
+    }else if($i==2){
+      $grade = "베스트농원";
+    }else{
+      $grade = "공식파트너";
+    }
     echo "<tr>";
-    echo "<td >수수료 요율</td>";
+    echo "<td >{$grade}</td>";
     echo "<td class='td_cont'><input type='text' name='fee{$i}' value='{$$value}' /> %</td>";
     echo "</tr>";
   }
