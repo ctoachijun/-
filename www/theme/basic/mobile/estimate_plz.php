@@ -24,7 +24,6 @@ $box = getMbInfo($mb_id);
 </div>
 
 
-
 <div class="wrap">
   <div class="sub06">
     <form method="POST" action="./proc.php" onsubmit="return chk_data()" name="esti_form">
@@ -66,7 +65,8 @@ $box = getMbInfo($mb_id);
             <input type="text" name="item_name[]" placeholder="입력"/>
             <input type="number" pattern="\d*" step="0.1" name="h_size[]" placeholder="H값" />
             <input type="number" pattern="\d*" step="0.1" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" onkeyup='onlyNum(this)' onchange="getNumber(this)" placeholder="입력" />
+            <input type="text" name="total[]" onkeyup="onlyNum(this)" placeholder="입력" />
+            <!-- <input type="text" name="total[]" onchange="onlyNum(this)" onKeyPress="onlyNumPress(this)" placeholder="입력" /> -->
             <!-- <input type="input" name="total[]" onchange="getNumber(this)" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="입력" /> -->
           </div>
           <div class="line_top"></div>
@@ -111,7 +111,19 @@ $box = getMbInfo($mb_id);
 $(function(){
     $("#date_wr_1").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+3d;", maxDate: "+365d;" });
     $("#date_wr_2").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+3d;", maxDate: "+365d;" });
+
+    // $("input[name='total[]']").bind("keypress", function(event){
+      // let val = event.returnvalue;
+      // console.log(val);
+      // val = val.replace(/[^0-9]/g,"");
+      // val = String(val);
+      // val = val.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      // event.returnvalue = val;
+    // });
+
+
 });
+
 </script>
 
 <?

@@ -636,6 +636,7 @@ function print_admin_menu(){
 function list_depo($page,$list,$l_cnt){
   $start_num = ($page-1) * $list;
   $col_add = "d.e_idx as e_idx, d.idx as d_idx, m.c_name as mc, p.c_name as pc, m.m_tel as mt, p.m_tel as pt";
+
   $d_sql = "SELECT *,{$col_add} FROM f_deposit AS d JOIN f_member AS m ON d.m_idx=m.idx
   JOIN f_partner AS p ON d.p_idx=p.idx WHERE d.cancel='N' ORDER BY d.idx DESC LIMIT $start_num,$list";
   $d_rs = sql_query($d_sql);
@@ -648,6 +649,7 @@ function list_depo($page,$list,$l_cnt){
     $o_idx = $row['o_idx'];
     $m_depo = $row['m_deposit'];
     $p_depo = $row['p_deposit'];
+    $pc_date = $row['m_push_date'];
 
     $sql = "SELECT cancel_esti FROM f_estimate WHERE idx={$e_idx}";
     $ebox = sql_fetch($sql);
@@ -678,10 +680,6 @@ function list_depo($page,$list,$l_cnt){
         $p_depo_txt = "입금 대기";
       }
 
-      // 주문일자 추출
-      $pc_sql = "SELECT m_push_date FROM f_deposit WHERE m_idx = {$m_idx}";
-      $pc_rs = sql_fetch($pc_sql);
-      $pc_date = $pc_rs['m_push_date'];
       // 날짜 표시용으로 가공
       $box = explode(" ",$pc_date);
       $date1 = $box[0];

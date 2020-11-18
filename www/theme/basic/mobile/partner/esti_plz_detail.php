@@ -13,15 +13,18 @@ $e_date = getDdate($idx);
 $num = getNum($idx);
 
 $jud = getEsti($mb_id,$idx);
-$epbox = getEpInfo($idx);
-$only = $epbox['only'];
+$tjud = targetEsti($idx);
+
+// echo "jud : $jud - tj : $tjud <br>";
 
 
-if($jud){
-  if($only=='N'){
+if($jud || $tjud){
+  // if($only=='N'){
     alert("해당 견적의뢰에 이미 견적을 제출하셨습니다",$return_url);
-  }
+  // }
 }
+
+
 
 ?>
 
@@ -44,7 +47,6 @@ if($jud){
     <input type="hidden" name="t_price" />
     <? getEpDetail($idx,$mb_id) ?>
     <? viewTreeInput($idx) ?>
-
 
     <div class="photo">
       <div class="file_head">
@@ -111,7 +113,14 @@ $(function(){
     $("#date_wr_1").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+3d;", maxDate: "+365d;" });
     $("#date_wr_2").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", minDate: "+3d;", maxDate: "+365d;" });
 });
+$("input[name=d_price]").bind("change keypress input", function(event){
+  let val = $("input[name='total[]']").val();
+  val = val.replace(/[^0-9]/g,"");
+  val = String(val);
+  val = val.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
+  $("input[name=d_price]").val(val);
+});
 </script>
 
 

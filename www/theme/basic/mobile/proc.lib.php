@@ -226,14 +226,16 @@ function getEstiList($mb_id){
   $sql = "SELECT * FROM f_estimate_plz AS e
   INNER JOIN f_tree_order AS t ON e.to_idx = t.idx
   WHERE e.m_idx = {$mb_idx} AND cancel != 'Y' ORDER BY e.e_date";
+  // echo $sql;
+  // echo "<br>";
   $re = sql_query($sql);
-
   $cjud = sql_num_rows($re);
   if($cjud==0){
     $bin_cnt = 1;
   }
   $in_num=1;
   $test = 0;
+
   while($row = sql_fetch_array($re)){
     $g_work = $row['g_work'];
     $k_tree = $row['k_tree'];
@@ -246,10 +248,11 @@ function getEstiList($mb_id){
     $o_idx = $row['o_idx'];
     $pbox = explode("|",$row['p_idx']);
 
+
     // 주문테이블과 결제테이블에서 데이터가 없으면 미표시
     $hsql = "SELECT * FROM f_order AS ot INNER JOIN f_deposit AS dt ON ot.e_idx = dt.e_idx WHERE ot.to_idx = {$to_idx}";
-    $re = sql_fetch($hsql);
-    $end_depo = $re['m_deposit'];
+    $hre = sql_fetch($hsql);
+    $end_depo = $hre['m_deposit'];
     if($end_depo==2 || !$end_depo){
       $yn = 0;
       $bin_cnt = 1;
@@ -258,14 +261,15 @@ function getEstiList($mb_id){
     }
     if($yn==0 && $bin_cnt){
       if($cjud==1){
-        echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
+        $bin_cnt = 1;
       }
-      break;
     }
 
 
     // 견적의뢰가 있어도 견적이 없으면 거래내역에 미표시 처리
     $nsql = "SELECT * FROM f_estimate WHERE ep_idx = {$ep_idx}";
+    // echo "<br>";
+    // echo $nsql;
     $nbox = sql_num_rows(sql_query($nsql));
     $cnt_pi=0;
     $p_cnt = count($pbox);
@@ -274,11 +278,18 @@ function getEstiList($mb_id){
       $bin_cnt = 1;
     }
 
-    if($row['p_idx']){
-      for($d=0; $d<$p_cnt; $d++){
-        $p_idx = $pbox[$d];
-        if($p_idx){
 
+    if($row['p_idx'] && $yn==1){
+      for($d=0; $d<$p_cnt; $d++){
+
+        $p_idx = $pbox[$d];
+
+        // 해당 주문의뢰건에 등록된 파트너가 실제 결제테이블에서 주문번호와 일치하는 pidx 보유자인지 검사
+        $con_sql = "SELECT * FROM f_deposit WHERE o_idx={$o_idx} && p_idx={$p_idx}";
+        $conbox = sql_num_rows(sql_query($con_sql));
+
+
+        if($p_idx && $conbox==1){
           $esql = "SELECT nopt FROM f_estimate WHERE ep_idx = {$ep_idx} && p_idx={$p_idx} && cancel_esti == 'N'";
           $ere = sql_fetch_array(sql_query($esql));
 
@@ -415,15 +426,15 @@ function getEstiList($mb_id){
             echo "</div>";
             echo "</div>";
             echo "</div>";
-
+            $test++;
           }  // nopt if close
-        }  // p_idx if close
 
+        }  // p_idx, con_box if close
       }   // p_cnt for close
-    } // p_cnt if close
+    } // p_idx if close
       $in_num++;
   }
-  if($bin_cnt > 0){
+  if($bin_cnt > 0 && $test == 0){
     echo "<div class='bin'><h4>내역이 없습니다.</h4></div>";
   }
 }
@@ -756,19 +767,33 @@ function getEsti($mb_id,$ep_idx){
   $re = getPartnInfo_id($mb_id);
   $p_idx = $re['idx'];
 
-  $sql = "SELECT p_idx FROM f_estimate_plz WHERE idx ={$ep_idx} && only!='N'";
-  $re = sql_fetch_array(sql_query($sql));
+  $sql = "SELECT p_idx FROM f_estimate_plz WHERE idx ={$ep_idx} && only='N'";
+  $re = sql_fetch($sql);
   $box = explode("|",$re['p_idx']);
   $cnt = count($box);
-
   if($cnt == 0){
         $jud = $cnt;
   }else{
     $jud = in_array($p_idx,$box);
   }
   return $jud;
+}
+
+function targetEsti($ep_idx){
+  $sql = "SELECT * FROM f_estimate_plz WHERE idx={$ep_idx}";
+  $re = sql_fetch($sql);
+  $only = $re['only'];
+
+  if($only=="Y"){
+    $sql = "SELECT * FROM f_estimate WHERE ep_idx={$ep_idx}";
+    $re = sql_num_rows(sql_query($sql));
+    return $re;
+  }else{
+    return false;
+  }
 
 }
+
 
 function getInfo($mb_id,$mb_type){
   $tbl_name = "f_".$mb_type;
@@ -1736,7 +1761,7 @@ function getPartFee($num){
 
 function getRead($mb_id){
   $m_idx = getMbIdx($mb_id);
-  $sql = "SELECT * FROM f_deposit WHERE m_idx={$m_idx} && m_read='N'";
+  $sql = "SELECT * FROM f_deposit WHERE m_idx={$m_idx} && m_deposit=1 && m_read='N'";
   $re = sql_num_rows(sql_query($sql));
   return $re;
 }

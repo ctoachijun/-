@@ -587,7 +587,7 @@ function add_eval(e_idx,m_idx,p_idx){
 
 function getNumber(obj){
    let num01;
-   let num02;
+   let num02 = "";
    num01 = obj.value;
    // num02 = num01.replace(/\D/g,""); //숫자가 아닌것을 제거,
                                     //즉 [0-9]를 제외한 문자 제거; /[^0-9]/g 와 같은 표현
@@ -598,8 +598,18 @@ function getNumber(obj){
 
 function onlyNum(obj){
   let val1;
-  let val2;
+  let val2 = "";
+  let box;
   val1 = obj.value;
   val1 = addComma(val1.replace(/[^0-9]/g,""));
   obj.value = val1;
+}
+
+function onlyNumPress(e){
+  console.log(e);
+  let val1 = e.value;
+  val1 = addComma(val1.replace(/[^0-9]/g,""));
+  e.value = val1;
+  console.log(val1);
+
 }
