@@ -5,6 +5,8 @@ if(function_exists('social_provider_logout')){
     social_provider_logout();
 }
 
+$jt = $_SESSION['jt'];
+
 // 이호경님 제안 코드
 session_unset(); // 모든 세션변수를 언레지스터 시켜줌
 session_destroy(); // 세션해제함
@@ -36,6 +38,8 @@ if ($url) {
 } else {
     $link = G5_URL;
 }
+
+$link .= "/bbs/login.php?jt={$jt}";
 
 if($_GET['jt']=='m'){
   $url = G5_URL."/bbs/login.php?jt=m&back=y";

@@ -1256,8 +1256,8 @@ function getWaitService(){
 
 
 function getDealList($mb_id){
-  $box = getPartnInfo_id($mb_id);
-  $p_idx = $box['idx'];
+  $pibox = getPartnInfo_id($mb_id);
+  $p_idx = $pibox['idx'];
 
   $sql = "SELECT * FROM f_order WHERE p_idx={$p_idx}";
   $re = sql_query($sql);
@@ -1332,7 +1332,6 @@ function getDealList($mb_id){
         $k_tree_txt = "B급 조경수";
         $k_tree_class = "green_box";
       }
-
 
       $d_txt = $dbox[0]."년".$dbox[1]."월".$dbox[2]."일";
       // 납품일까지 남은일자 산출
