@@ -50,7 +50,6 @@ if($wait_jud=="Y"){
 <div>
 <div class="main_bottom p_sub02 p_index_box">
   <h2>작업&#38;납품일지</h2>
-  <a href="<?=G5_BBS_URL?>/logout.php">out</a>
 
   <? getDealList($mb_id) ?>
 </div>

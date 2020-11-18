@@ -65,8 +65,7 @@ $box = getMbInfo($mb_id);
             <input type="text" name="item_name[]" placeholder="입력"/>
             <input type="number" pattern="\d*" step="0.1" name="h_size[]" placeholder="H값" />
             <input type="number" pattern="\d*" step="0.1" name="w_size[]" placeholder="W값" />
-            <input type="text" name="total[]" onkeyup="onlyNum(this)" placeholder="입력" />
-            <!-- <input type="text" name="total[]" onchange="onlyNum(this)" onKeyPress="onlyNumPress(this)" placeholder="입력" /> -->
+            <input type="number" name="total[]" onclick="chgType(this)" onchange="onlyNum(this)" placeholder="입력" />
             <!-- <input type="input" name="total[]" onchange="getNumber(this)" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="입력" /> -->
           </div>
           <div class="line_top"></div>

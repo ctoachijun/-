@@ -76,7 +76,6 @@ if($jud > 0){
 
 <div class="main_bottom">
   <h2>내 거래 현황</h2>
-<a href="<?=G5_BBS_URL?>/logout.php">out</a>
 
 <? getEstiList($mb_id)?>
 

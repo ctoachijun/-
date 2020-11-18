@@ -585,31 +585,27 @@ function add_eval(e_idx,m_idx,p_idx){
   }
 }
 
-function getNumber(obj){
-   let num01;
-   let num02 = "";
-   num01 = obj.value;
-   // num02 = num01.replace(/\D/g,""); //숫자가 아닌것을 제거,
-                                    //즉 [0-9]를 제외한 문자 제거; /[^0-9]/g 와 같은 표현
-   num02 = num01.replace(/[^0-9]/g,'');
-   num01 = addComma(num02); //콤마 찍기
-   obj.value =  num01;
+function chgType(obj){
+  let type = obj.type;
+  let val = obj.value;
+  val = removeComma(val);
+  obj.value = val;
+  obj.type = "number";
+
 }
 
 function onlyNum(obj){
   let val1;
-  let val2 = "";
-  let box;
   val1 = obj.value;
-  val1 = addComma(val1.replace(/[^0-9]/g,""));
+  val1 = val1.replace(/[^0-9]/g,"");
+  val1 = addComma(val1);
+  obj.type = "text";
   obj.value = val1;
 }
 
 function onlyNumPress(e){
-  console.log(e);
+  alert("press");
   let val1 = e.value;
   val1 = addComma(val1.replace(/[^0-9]/g,""));
-  e.value = val1;
-  console.log(val1);
-
+  // e.value = val1;
 }
