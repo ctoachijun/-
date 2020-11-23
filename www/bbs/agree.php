@@ -5,7 +5,6 @@ $sql = "SELECT * FROM f_agree";
 $re = sql_fetch($sql);
 
 $content = $re['content'];
-
 ?>
 
 <style>
