@@ -1478,7 +1478,7 @@ function sms_send($msg,$receiver,$subject,$f_name,$f_type,$f_size){
   $sms['msg'] = stripslashes($msg);
   $sms['receiver'] = $receiver;
   $sms['sender'] = "010-6675-7290";
-  $sms['testmode_yn'] = "Y";
+  // $sms['testmode_yn'] = "Y";
   $sms['title'] = $subject;
 
   if($f_name){

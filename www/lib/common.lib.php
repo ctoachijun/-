@@ -3889,7 +3889,7 @@ function send_certNum($msg,$receiver){
   $sms['msg'] = stripslashes($msg);
   $sms['receiver'] = $receiver;
   $sms['sender'] = "010-6675-7290";
-  $sms['testmode_yn'] = "Y";
+  // $sms['testmode_yn'] = "Y";
 
   $host_info = explode("/", $sms_url);
   $port = $host_info[0] == 'https:' ? 443 : 80;
