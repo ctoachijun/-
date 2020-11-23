@@ -123,6 +123,7 @@ if(!defined('G5_IS_ADMIN'))
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="<?=G5_THEME_JS_URL?>/forest.js"></script>
 <script src="<?=G5_THEME_JS_URL?>/jquery.number.min.js"></script>
+<script src="<?=G5_THEME_JS_URL?>/html2canvas.min.js"></script>
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
 <?php

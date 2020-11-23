@@ -282,6 +282,23 @@ switch($exe_type){
     echo json_encode($output,JSON_UNESCAPED_UNICODE);
   break;
 
+  case "saveCap" :
+    // $myimg = base64_encode($myimg);
+
+    // $data = file_get_contents("test.jpg");
+    // $data = $myimg;
+    // $array = array();
+    // foreach(str_split($data) as $char){
+    //   array_push($array, ord($char));
+    // }
+
+    // $output['nmi'] = $array;
+    // $output['mig'] = $myimg;
+
+    echo json_encode($output,JSON_UNESCAPED_UNICODE);
+  break;
+
+
 
 }
 

@@ -231,10 +231,10 @@ switch($w_type){
     $pfee = $t_price * $ptep;
 
     //수수료를 더한 고객 결제금액
-    $m_price = $t_price + $mfee + $d_price;
+    $m_price = $t_price + $mfee;
 
     // 수수료를 제한 농원 입금금액
-    $p_price = $t_price - $pfee + $d_price;
+    $p_price = $t_price - $pfee;
 
 
 

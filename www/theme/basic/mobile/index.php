@@ -8,7 +8,7 @@ if(G5_COMMUNITY_USE === false) {
 include_once(G5_THEME_MOBILE_PATH.'/head.php');
 
 if(!$_SESSION['ss_mb_id'] && !$is_member){
-  goto_url(G5_BBS_URL."/login.php");
+  goto_url(G5_BBS_URL."/login.php?jt=m");
 }
 
 if($auto_login=="on"){
@@ -76,6 +76,7 @@ if($jud > 0){
 
 <div class="main_bottom">
   <h2>내 거래 현황</h2>
+  <a href="/bbs/logout.php?jt=m">out</a>
 
 <? getEstiList($mb_id)?>
 

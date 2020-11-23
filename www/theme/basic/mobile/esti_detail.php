@@ -137,8 +137,8 @@ $ed_txt = $ed_box[0]."년".$ed_box[1]."월".$ed_box[2]."일";
     $sum_price = $esti['t_price'];
     $tep = $sum_price*$fee;
     $d_price = $esti['d_price'];
-    
-    $total_price = $sum_price + $tep + $d_price;
+
+    $total_price = $sum_price + $tep;
 
   ?>
 

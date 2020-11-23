@@ -171,10 +171,6 @@ function sum_price(num){
   let price = 0;
   let p_box = 0;
   let fee = 0;
-  let dp = parseInt($("input[name=d_price]").val());;
-  if(!dp){
-    dp = 0;
-  }
   let ps = $("input[name=ps]").val();
 
   for(var i=0; i<num; i++){
@@ -199,7 +195,6 @@ function sum_price(num){
   fee = addComma(fee);
   $(".sum_price").val(sum_price);
   $(".tep").val(fee);
-  sum_price1 += dp;
   $("input[name=t_price]").val(sum_price1);
   sum_price1 = addComma(sum_price1);
   $(".total_price").val(sum_price1);
@@ -212,16 +207,14 @@ function gettotal_price(){
   let ps = $("input[name=ps]").val();
   let totalp = 0;
   let fee = 0;
-  let dp = 0;
 
   if(!sump){
     sump = 0;
   }
 
-  dp = parseInt(removeComma(pbox));;
   sump = parseInt(removeComma(sump));
   fee = sump * ps / 100;
-  totalp = dp + sump - fee;
+  totalp = sump - fee;
   $("input[name=t_price]").val(sump);
   totalp = addComma(totalp);
   $(".total_price").val(totalp);
@@ -603,9 +596,71 @@ function onlyNum(obj){
   obj.value = val1;
 }
 
-function onlyNumPress(e){
-  alert("press");
-  let val1 = e.value;
-  val1 = addComma(val1.replace(/[^0-9]/g,""));
-  // e.value = val1;
+
+function capture(){
+//   html2canvas(document.getElementById("capture")).then(function(canvas){
+//     // drawImg(canvas.toDataURL('image/png'));
+//     // saveAs(canvas.toDataURL('image/png'),"capture.png");
+//     let myimg = canvas.toDataURL("image/png");
+//     // myimg = myimg.replace("data:image/png;base64,","");
+//     // let data_list = $("#capform").serialize();
+//
+//     let htmlcode = "<img src='"+myimg+"' />";
+//     let bytes = [];
+//     for(let i=0; i<myimg.length; i++){
+//       bytes[i] = myimg.charCodeAt(i) & 0xff;
+//     }
+//     // console.log(bytes);
+//
+//     // $("#view_img").html(htmlcode);
+//
+//     let data_list = {"exe_type":"saveCap", "myimg":myimg};
+//     // $.ajax({
+//     //   url: "../ajax.proc.php",
+//     //   type: "post",
+//     //   contentType:'application/x-www-form-urlencoded;charset=UTF8',
+//     //   data: data_list
+//     //   }).done(function(data){
+//     //     let json = JSON.parse(data);
+//     //     // console.log(json.nmi);
+//     //     // console.log(json.mig);
+//     //     // window.treenectp.saveCaptureImage(json.nmi);
+//     //     // alert("저장되었습니다");
+//     //   }).catch(function (err) {
+//     //   console.log(err);
+//     // });
+//   // console.log(canvas.toDataURL());
+//   // html2canvas(document.querySelector("#capture")).then(canvas => {
+//   //     document.body.appendChild(canvas)
+//   // });
+//   });
+}
+
+function drawImg(imgData) {
+  // console.log(imgData); //imgData의 결과값을 console 로그롤 보실 수 있습니다.
+  return new Promise(function reslove() {
+    //내가 결과 값을 그릴 canvas 부분 설정
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    //canvas의 뿌려진 부분 초기화
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var imageObj = new Image();
+    imageObj.onload = function () {
+      ctx.drawImage(imageObj, 10, 10);   //canvas img를 그리겠다.
+    };
+    imageObj.src = imgData; //그릴 image데이터를 넣어준다.
+  }, function reject() { });
+}
+
+function saveAs(uri, filename) {
+  var link = document.createElement('a');
+  if (typeof link.download === 'string') {
+    link.href = uri;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    window.open(uri);
+  }
 }

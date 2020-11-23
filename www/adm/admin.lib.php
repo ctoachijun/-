@@ -909,9 +909,9 @@ function view_depo($idx,$type,$c_name){
       $ep_idx = $ebox['ep_idx'];
       $t_price = $ebox['t_price'];
 
-      // 수수로 20% 계산
-      $tep  = $t_price*0.2;
-      $total_p = $t_price + $tep;
+      // // 수수로 20% 계산
+      // $tep  = $t_price*0.2;
+      // $total_p = $t_price + $tep;
 
       $sql = "SELECT w_name,d_date FROM f_estimate_plz WHERE idx={$ep_idx}";
       $epbox = sql_fetch($sql);

@@ -99,23 +99,46 @@ switch ($w_type){
 
 
     // 전송할 고객, 농원 담당자 연락처 추출
-    $sql = "SELECT m_tel FROM f_member WHERE idx={$m_idx}";
+    $sql = "SELECT m_tel,token FROM f_member WHERE idx={$m_idx}";
     $mbox = sql_fetch($sql);
     $m_tel = $mbox['m_tel'];
+    $m_token[0] = $mbox['token'];
 
-    $sql = "SELECT m_tel FROM f_partner WHERE idx={$p_idx}";
+    $sql = "SELECT m_tel,token FROM f_partner WHERE idx={$p_idx}";
     $pbox = sql_fetch($sql);
     $p_tel = $pbox['m_tel'];
+    $p_token[0] = $pbox['token'];
 
     // 공사명 추출
     $sql = "SELECT * FROM f_estimate INNER JOIN f_estimate_plz ON f_estimate.ep_idx = f_estimate_plz.idx WHERE f_estimate.idx={$e_idx}";
     $ebox = sql_fetch($sql);
     $w_name = $ebox['w_name'];
+    $p_name = $ebox['p_name'];
+    $target = $ebox['target'];
+    $d_date = $ebox['d_date'];
 
-    // 주문 고객, 농원에 문자발송
-    $msg = "[트리넥트]\n'{$w_name}'에 대한 발주가 진행되었습니다.";
-    $receiver = $m_tel.",".$p_tel;
-    $res = send_certNum($msg,$receiver);
+
+    // 결제완료 처리시에만 발송
+    if($jud=="Y"){
+      // 주문 고객 문자발송
+      $msg = "안녕하세요.\n온라인 조경수 유통 플랫폼 트리넥트입니다.\n{$w_name} 건의 조경수를 트리넥트 파트너 {$p_name}을 통해서 {$target}에 {$d_date} 일까지 납품합니다.\n믿고 맡겨주셔서 대단히 감사하며, 언제나 품질과 신뢰로 보답 드리겠습니다.\n\n트리넥트 문의 : 010-6675-7290";
+      $receiver = $m_tel;
+      $res = send_certNum($msg,$receiver);
+
+      // 주문 농원 문자발송
+      $msg = "안녕하세요.\n온라인 조경수 판매 플랫폼 트리넥트 입니다.\n{$w_name} 건의 조경수 납품 파트너로 선정되었습니다. 납품 일정과 제출한 견적서를 트리넥트 앱을 통해 확인하세요.\n\n트리넥트 문의 :010-6675-7290";
+      $receiver = $p_tel;
+      $res = send_certNum($msg,$receiver);
+
+
+      // 농원 푸시알림 처리
+      $msg = "{$w_name} 건의 납품 파트너로 선정되었습니다.";
+      $re1 = send_push($p_token,$title,$msg,$img);
+
+      // 고객 푸시알림 처리
+      $msg = "{$w_name} 건의 발주가 진행되었습니다.";
+      $re2 = send_push($m_token,$title,$msg,$img);
+    }
 
     $sql = "UPDATE f_deposit SET m_deposit={$depo}, m_pay_date=DEFAULT WHERE idx={$idx}";
     $re = sql_query($sql);
@@ -123,6 +146,10 @@ switch ($w_type){
     if($re){
       $output['state'] = "Y";
       $output['res'] = $receiver;
+      $output['re1'] = $re1;
+      $output['re2'] = $re2;
+      $output['mp'] = $m_token;
+      $output['pp'] = $p_token;
     }else{
       $output['state'] = "N";
     }
@@ -165,7 +192,7 @@ switch ($w_type){
     $fee = $t_price * $tep;
     $total_price = number_format($t_price + $d_price - $fee);
 
-    // 주문 고객, 농원에 문자발송
+    // 주문 농원에 문자발송
     $msg = "[트리넥트]\n'{$w_name}'에 대한 금액 {$total_price}원이 \n입금되었습니다.";
     $receiver = $p_tel;
     $res = send_certNum($msg,$receiver);

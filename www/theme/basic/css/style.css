@@ -75,7 +75,7 @@ ul{list-style:none;padding-left:0px;}
 .main_bottom_box .btn_date{margin-top:10px}
 .main_bottom_box .green_box{background-color:#1BB687}
 .main_bottom_box .work{width:120px;margin-left:4px;}
-.main_bottom_box .info div a{font-size:12px;}
+.main_bottom_box .info div a{font-size:1.7rem;}
 .main_bottom_box .info div p{font-size:12px;}
 .main_bottom_box .info div p span{font-size:12px;}
 .main_bottom_box .info .cancel{margin-left:0px;}
@@ -609,7 +609,7 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub12 .view_pic{display:flex;flex-direction:column; background-color:#fff;border:1px solid #ddd;border-radius:5px;padding:8px 8px;margin-top:10px;width:100%;}
 .p_sub12 .click_box{width:100%;display:flex;justify-content:space-between;;text-align:center;margin-top:20px;}
 .p_sub12 .click_box a{padding:10px 0;border-radius:5px;font-size:1.5rem;font-weight:700;}
-.p_sub12 .click_box .enter{padding-top:9px;border-radius:5px;}
+.p_sub12 .click_box .back{width:100%;padding-top:9px;border-radius:5px;}
 .p_sub12 .pic_div{border:1px solid #ccc;height:150px;background:#fff;position:relative;margin-top:14px;}
 .p_sub12 .pic_div label {background-color:rgba(0, 0, 0, 0.6);font-size:1rem;color:#fff;padding:5px 5px;border-radius:50px;text-align:center;position:absolute;bottom:2%;right:3%;}
 .p_sub12 .pic_div label:before{content:"";}
@@ -619,6 +619,8 @@ select{width:25%;height:38px;margin-bottom:15px;padding:9px 5px;font-size:1.3rem
 .p_sub12 .none{display:none;}
 .p_sub12 .view_pic .pic{display:flex;width:100%;}
 .p_sub12 .view_pic .pic img{width:90%;}
+.p_sub12 .capture{width:100%;border:1px solid;}
+.p_sub12 .capture #canvas{width:500px;}
 
 /* 농원 미승인 화면 */
 .noapp{width:100%;height:100%;position:relative;}
